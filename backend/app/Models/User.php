@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Admin::class);
     }
+
+    public function socialAuthentications()
+    {
+        return $this->hasMany(SocialAuthentication::class);
+    }
 }

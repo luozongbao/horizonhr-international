@@ -45,6 +45,22 @@ Route::prefix('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| Social OAuth
+| GET  /api/auth/social/{provider}           — redirect to provider
+| GET  /api/auth/social/{provider}/callback  — handle callback, return token
+| DELETE /api/auth/social/{provider}         — unlink provider (auth required)
+| Supported providers: google, facebook, linkedin, wechat
+|--------------------------------------------------------------------------
+*/
+Route::prefix('auth/social')->group(function () {
+    Route::get   ('{provider}',          [\App\Http\Controllers\Auth\SocialAuthController::class, 'redirect']);
+    Route::get   ('{provider}/callback', [\App\Http\Controllers\Auth\SocialAuthController::class, 'callback']);
+    Route::delete('{provider}',          [\App\Http\Controllers\Auth\SocialAuthController::class, 'unlink'])
+        ->middleware('auth:sanctum');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Authenticated routes (any role)
 |--------------------------------------------------------------------------
 */
