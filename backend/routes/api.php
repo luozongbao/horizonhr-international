@@ -166,6 +166,9 @@ Route::middleware('auth:sanctum')->group(function () {
         // Settings
         Route::get   ('/settings',                [\App\Http\Controllers\Admin\SettingsController::class,       'index']);
         Route::put   ('/settings',                [\App\Http\Controllers\Admin\SettingsController::class,       'update']);
+        Route::post  ('/settings/test-smtp',      [\App\Http\Controllers\Admin\SettingsController::class,       'testSmtp']);
+        Route::post  ('/settings/upload-logo',    [\App\Http\Controllers\Admin\SettingsController::class,       'uploadLogo']);
+        Route::post  ('/settings/upload-favicon', [\App\Http\Controllers\Admin\SettingsController::class,       'uploadFavicon']);
 
         // Language / i18n
         Route::get   ('/languages',               [\App\Http\Controllers\Admin\LanguageController::class,       'index']);
