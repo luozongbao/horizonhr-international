@@ -170,9 +170,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post  ('/settings/upload-logo',    [\App\Http\Controllers\Admin\SettingsController::class,       'uploadLogo']);
         Route::post  ('/settings/upload-favicon', [\App\Http\Controllers\Admin\SettingsController::class,       'uploadFavicon']);
 
-        // Language / i18n
-        Route::get   ('/languages',               [\App\Http\Controllers\Admin\LanguageController::class,       'index']);
-        Route::put   ('/languages/{locale}',      [\App\Http\Controllers\Admin\LanguageController::class,       'update']);
+        // Language Settings
+        Route::get   ('/languages',                  [\App\Http\Controllers\Admin\LanguageController::class,       'index']);
+        Route::post  ('/languages',                  [\App\Http\Controllers\Admin\LanguageController::class,       'store']);
+        Route::put   ('/languages/{code}',           [\App\Http\Controllers\Admin\LanguageController::class,       'update']);
+        Route::delete('/languages/{code}',           [\App\Http\Controllers\Admin\LanguageController::class,       'destroy']);
+
+        // Translations (export/import MUST be declared before {key} wildcard)
+        Route::get   ('/translations/export',        [\App\Http\Controllers\Admin\TranslationController::class,   'export']);
+        Route::post  ('/translations/import',        [\App\Http\Controllers\Admin\TranslationController::class,   'import']);
+        Route::get   ('/translations',               [\App\Http\Controllers\Admin\TranslationController::class,   'index']);
+        Route::post  ('/translations',               [\App\Http\Controllers\Admin\TranslationController::class,   'store']);
+        Route::get   ('/translations/{key}',         [\App\Http\Controllers\Admin\TranslationController::class,   'show']);
+        Route::put   ('/translations/{key}',         [\App\Http\Controllers\Admin\TranslationController::class,   'update']);
+        Route::delete('/translations/{key}',         [\App\Http\Controllers\Admin\TranslationController::class,   'destroy']);
     });
 });
 
@@ -194,5 +205,7 @@ Route::prefix('public')->group(function () {
     Route::get('/posts',             [\App\Http\Controllers\Public\PostController::class,    'index']);
     Route::get('/posts/{id}',        [\App\Http\Controllers\Public\PostController::class,    'show']);
     Route::post('/contact',          [\App\Http\Controllers\Public\ContactController::class, 'store']);
-    Route::get('/settings',          [\App\Http\Controllers\Public\SettingsController::class,'publicConfig']);
+    Route::get('/settings',          [\App\Http\Controllers\Public\SettingsController::class,   'publicConfig']);
+    Route::get('/languages',         [\App\Http\Controllers\Public\LanguageController::class,    'activeLanguages']);
+    Route::get('/translations',      [\App\Http\Controllers\Public\TranslationController::class, 'index']);
 });
