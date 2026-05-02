@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - HBHR</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --primary-hover: #002244;
+            --secondary: #E6F0FF;
+            --accent: #FF6B35;
+            --white: #FFFFFF;
+            --text: #1A1A2E;
+            --text-secondary: #6C757D;
+            --border: #DEE2E6;
+            --success: #28A745;
+            --error: #DC3545;
+            --warning: #FFC107;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        
+        /* Layout */
+        .dashboard { display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background: var(--primary); color: var(--white); position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar-logo { padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-logo h2 { font-size: 20px; font-weight: 700; }
+        .sidebar-logo span { color: var(--accent); }
+        .sidebar-nav { padding: 16px 0; }
+        .nav-item { display: flex; align-items: center; padding: 14px 24px; color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; gap: 12px; }
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: var(--white); }
+        .nav-item.active { border-left: 3px solid var(--accent); }
+        .nav-item svg { width: 20px; height: 20px; }
+        .nav-section { padding: 8px 24px 8px; font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
+        
+        /* Main Content */
+        .main { flex: 1; margin-left: 260px; }
+        
+        /* Header */
+        .header { background: var(--white); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .header h1 { font-size: 24px; font-weight: 600; color: var(--primary); }
+        .breadcrumb { font-size: 14px; color: var(--text-secondary); }
+        .header-right { display: flex; align-items: center; gap: 24px; }
+        .header-actions { display: flex; gap: 12px; }
+        .user-menu { display: flex; align-items: center; gap: 12px; }
+        /* Language Switcher */
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); }
+        
+        /* Content */
+        .content { padding: 32px; }
+        
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px; }
+        .stat-card { background: var(--white); border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,51,102,0.08); }
+        .stat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .stat-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .stat-icon.blue { background: #E6F0FF; color: var(--primary); }
+        .stat-icon.orange { background: #FFF3E6; color: var(--accent); }
+        .stat-icon.green { background: #E6F7ED; color: var(--success); }
+        .stat-icon.red { background: #FFE6E6; color: var(--error); }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .stat-label { font-size: 14px; color: var(--text-secondary); }
+        .stat-change { font-size: 12px; display: flex; align-items: center; gap: 4px; }
+        .stat-change.up { color: var(--success); }
+        .stat-change.down { color: var(--error); }
+        
+        /* Cards */
+        .card { background: var(--white); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,51,102,0.08); }
+        .card-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 18px; font-weight: 600; color: var(--text); }
+        .card-body { padding: 24px; }
+        
+        /* Tables */
+        .table { width: 100%; border-collapse: collapse; }
+        .table th { text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+        .table td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        .table tr:hover { background: #FAFBFC; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .badge.success { background: #E6F7ED; color: var(--success); }
+        .badge.warning { background: #FFF3E6; color: var(--accent); }
+        .badge.error { background: #FFE6E6; color: var(--error); }
+        .badge.info { background: var(--secondary); color: var(--primary); }
+        
+        /* Buttons */
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-cta { background: var(--accent); color: var(--white); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        /* Quick Actions */
+        .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .action-btn { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+        .action-btn:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(0,51,102,0.1); }
+        .action-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .action-icon.blue { background: var(--secondary); color: var(--primary); }
+        .action-icon.orange { background: #FFF3E6; color: var(--accent); }
+        .action-icon.green { background: #E6F7ED; color: var(--success); }
+        .action-label { font-weight: 500; color: var(--text); }
+        
+        /* Charts Placeholder */
+        .chart-placeholder { height: 200px; background: linear-gradient(135deg, var(--secondary) 0%, #D4E5FF 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 14px; }
+        
+        /* Recent Activity */
+        .activity-list { list-style: none; }
+        .activity-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
+        .activity-content { flex: 1; }
+        .activity-text { font-size: 14px; margin-bottom: 4px; }
+        .activity-time { font-size: 12px; color: var(--text-secondary); }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .quick-actions { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .main { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>HBHR <span>Admin</span></h2>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">Main</div>
+                <a href="#" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                    Users
+                </a>
+                <a href="#" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Resumes
+                </a>
+                <a href="#" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Interviews
+                </a>
+                <a href="#" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Seminars
+                </a>
+                <div class="nav-section">Content</div>
+                <a href="admin-news.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                    News
+                </a>
+                <div class="nav-section">System</div>
+                <a href="admin-settings.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
+                    Settings
+                </a>
+                <a href="admin-language-settings.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A8.001 8.001 0 0118 12.5a8.001 8.001 0 01-7.548 6.998A5.002 5.002 0 0014 19h4a5.002 5.002 0 004-2.5 8.001 8.001 0 01-1.904-5.5M9 3h6"/></svg>
+                    Language Settings
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main">
+            <header class="header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                    <span class="breadcrumb">Home / Dashboard</span>
+                </div>
+                <div class="header-right">
+                    <!-- Language Switcher -->
+                    <div class="lang-switcher">
+                        <button class="lang-btn" data-lang="cn">中文</button>
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="th">TH</button>
+                    </div>
+                    <button class="btn btn-outline btn-sm">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar">A</div>
+                        <span>Admin User</span>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value">1,234</div>
+                                <div class="stat-label">Total Students</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-change up">↑ 12% from last month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value">456</div>
+                                <div class="stat-label">Enterprises</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-change up">↑ 8% from last month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value">89</div>
+                                <div class="stat-label">Interviews Today</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-change up">↑ 23% from yesterday</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value">2,847</div>
+                                <div class="stat-label">Resumes</div>
+                            </div>
+                            <div class="stat-icon red">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            </div>
+                        </div>
+                        <div class="stat-change down">↓ 3% from last week</div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="card" style="margin-bottom: 32px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Actions</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="quick-actions">
+                            <button class="action-btn">
+                                <div class="action-icon blue">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                                </div>
+                                <span class="action-label">Add Student</span>
+                            </button>
+                            <button class="action-btn">
+                                <div class="action-icon orange">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                </div>
+                                <span class="action-label">Post Job</span>
+                            </button>
+                            <button class="action-btn">
+                                <div class="action-icon green">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                </div>
+                                <span class="action-label">Schedule Interview</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Two Column Layout -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+                    <!-- Recent Interviews -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Interviews</h3>
+                            <a href="#" class="btn btn-outline btn-sm">View All</a>
+                        </div>
+                        <div class="card-body" style="padding: 0;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Company</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Somchai Smith</td>
+                                        <td>Alibaba Group</td>
+                                        <td>Today, 10:00 AM</td>
+                                        <td><span class="badge success">Scheduled</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rina Wijaya</td>
+                                        <td>Huawei Tech</td>
+                                        <td>Today, 2:00 PM</td>
+                                        <td><span class="badge success">Scheduled</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Budi Santoso</td>
+                                        <td>Tencent</td>
+                                        <td>Tomorrow, 9:00 AM</td>
+                                        <td><span class="badge info">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Siti Nurhaliza</td>
+                                        <td>ByteDance</td>
+                                        <td>Tomorrow, 3:00 PM</td>
+                                        <td><span class="badge info">Pending</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Activity</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="activity-list">
+                                <li class="activity-item">
+                                    <div class="activity-icon">📄</div>
+                                    <div class="activity-content">
+                                        <div class="activity-text">New resume uploaded by Somchai Smith</div>
+                                        <div class="activity-time">5 minutes ago</div>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon">🏢</div>
+                                    <div class="activity-content">
+                                        <div class="activity-text">Enterprise Alibaba Group registered</div>
+                                        <div class="activity-time">1 hour ago</div>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon">📹</div>
+                                    <div class="activity-content">
+                                        <div class="activity-text">Interview completed with Rina Wijaya</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </li>
+                                <li class="activity-item">
+                                    <div class="activity-icon">📧</div>
+                                    <div class="activity-content">
+                                        <div class="activity-text">Newsletter sent to 1,234 subscribers</div>
+                                        <div class="activity-time">3 hours ago</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

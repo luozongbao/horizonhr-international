@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{i18n_email_interview_invitation_subject}}</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, 'Microsoft YaHei', sans-serif; background-color: #F5F7FA;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #F5F7FA;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <!-- Email Container -->
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; width: 100%; background-color: #FFFFFF; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 51, 102, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 32px; text-align: center; border-radius: 12px 12px 0 0;">
+                            <h1 style="margin: 0; font-size: 28px; color: #FFFFFF; font-weight: 700;">HBHR</h1>
+                            <p style="margin: 8px 0 0; font-size: 14px; color: rgba(255,255,255,0.8);">{{i18n_brand_tagline}}</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 32px;">
+                            <h2 style="margin: 0 0 8px; font-size: 24px; color: #003366; font-weight: 600;">
+                                {{i18n_email_interview_invitation_greeting}}
+                            </h2>
+                            <p style="margin: 0 0 24px; font-size: 14px; color: #6C757D;">
+                                {{i18n_email_interview_invitation_subtitle}}
+                            </p>
+                            
+                            <!-- Interview Card -->
+                            <div style="background: linear-gradient(135deg, #003366 0%, #004080 100%); border-radius: 16px; padding: 32px; color: #FFFFFF; margin: 24px 0; text-align: center;">
+                                <p style="margin: 0 0 8px; font-size: 14px; opacity: 0.8;">{{i18n_email_interview_position}}</p>
+                                <h3 style="margin: 0 0 24px; font-size: 26px; font-weight: 700;">{{job_title}}</h3>
+                                
+                                <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 24px;">
+                                    <div style="text-align: center;">
+                                        <p style="margin: 0 0 4px; font-size: 12px; opacity: 0.8;">📅 {{i18n_email_date}}</p>
+                                        <p style="margin: 0; font-size: 16px; font-weight: 600;">{{interview_date}}</p>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <p style="margin: 0 0 4px; font-size: 12px; opacity: 0.8;">🕐 {{i18n_email_time}}</p>
+                                        <p style="margin: 0; font-size: 16px; font-weight: 600;">{{interview_time}}</p>
+                                    </div>
+                                </div>
+                                
+                                <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 24px;">
+                                    <p style="margin: 0 0 4px; font-size: 12px; opacity: 0.8;">📍 {{i18n_email_interview_type}}</p>
+                                    <p style="margin: 0; font-size: 16px; font-weight: 600;">{{interview_type}}</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Company & Interviewer Info -->
+                            <div style="background: #F5F7FA; border-radius: 12px; padding: 24px; margin: 24px 0;">
+                                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                    <div style="width: 60px; height: 60px; background: #003366; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #FFFFFF; margin-right: 16px;">
+                                        {{company_initial}}
+                                    </div>
+                                    <div>
+                                        <h4 style="margin: 0 0 4px; font-size: 18px; color: #003366;">{{company_name}}</h4>
+                                        <p style="margin: 0; font-size: 13px; color: #6C757D;">{{company_industry}}</p>
+                                    </div>
+                                </div>
+                                
+                                <div style="border-top: 1px solid #DEE2E6; padding-top: 16px;">
+                                    <p style="margin: 0 0 4px; font-size: 13px; color: #6C757D;">{{i18n_email_interviewer}}:</p>
+                                    <p style="margin: 0; font-size: 15px; color: #1A1A2E; font-weight: 500;">{{interviewer_name}}</p>
+                                    <p style="margin: 4px 0 0; font-size: 13px; color: #6C757D;">{{interviewer_title}}</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Join Button -->
+                            <div style="text-align: center; margin: 32px 0;">
+                                <a href="{{join_url}}" style="display: inline-block; padding: 16px 48px; background: #28A745; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: 600;">
+                                    🎥 {{i18n_email_btn_join_interview}}
+                                </a>
+                            </div>
+                            
+                            <p style="margin: 0; font-size: 13px; color: #6C757D; line-height: 1.6; text-align: center;">
+                                {{i18n_email_interview_prepare_notice}}
+                            </p>
+                            
+                            <!-- Calendar Add -->
+                            <div style="margin-top: 24px; text-align: center;">
+                                <a href="{{calendar_url}}" style="display: inline-block; padding: 10px 24px; background: #E6F0FF; color: #003366; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: 500;">
+                                    📅 {{i18n_email_btn_add_calendar}}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background: #003366; padding: 24px 32px; text-align: center; border-radius: 0 0 12px 12px;">
+                            <p style="margin: 0 0 8px; font-size: 14px; color: rgba(255,255,255,0.9);">
+                                {{i18n_email_footer_company}}
+                            </p>
+                            <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6);">
+                                {{i18n_email_footer_address}} | {{i18n_email_footer_phone}}
+                            </p>
+                            <p style="margin: 16px 0 0; font-size: 12px; color: rgba(255,255,255,0.5);">
+                                {{i18n_email_footer_copyright}}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

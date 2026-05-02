@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Dashboard - HBHR</title>
+    <style>
+        :root { --primary: #003366; --primary-hover: #002244; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --error: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        .dashboard { display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background: var(--white); position: fixed; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar-logo { padding: 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .sidebar-logo h2 { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .sidebar-logo span { color: var(--accent); display: block; font-size: 12px; font-weight: 400; }
+        .company-profile { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .company-logo { width: 48px; height: 48px; border-radius: 8px; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); font-size: 18px; }
+        .company-info h3 { font-size: 14px; font-weight: 600; }
+        .company-info p { font-size: 11px; color: var(--success); display: flex; align-items: center; gap: 4px; }
+        .sidebar-nav { padding: 16px 0; }
+        .nav-item { display: flex; align-items: center; padding: 12px 24px; color: var(--text-secondary); text-decoration: none; gap: 12px; border-left: 3px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: var(--secondary); color: var(--primary); border-left-color: var(--primary); }
+        .nav-item.active { font-weight: 500; }
+        .nav-item svg { width: 20px; height: 20px; }
+        .nav-badge { margin-left: auto; background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        
+        /* Main */
+        .main { flex: 1; margin-left: 260px; }
+        .header { background: var(--white); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        .header-left h1 { font-size: 24px; font-weight: 600; color: var(--primary); }
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        .content { padding: 32px; }
+        
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: var(--white); border-radius: 8px; padding: 20px; border: 1px solid var(--border); }
+        .stat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+        .stat-icon.blue { background: var(--secondary); color: var(--primary); }
+        .stat-icon.orange { background: #FFF3E6; color: var(--accent); }
+        .stat-icon.green { background: #E6F7ED; color: var(--success); }
+        .stat-icon.purple { background: #F3E8FF; color: #7C3AED; }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--text); }
+        .stat-label { font-size: 13px; color: var(--text-secondary); }
+        .stat-change { font-size: 12px; color: var(--success); margin-top: 4px; }
+        
+        /* Card Grid */
+        .card-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        .card { background: var(--white); border-radius: 8px; border: 1px solid var(--border); }
+        .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 16px; font-weight: 600; }
+        .card-body { padding: 20px; }
+        .card-link { color: var(--accent); font-size: 13px; font-weight: 500; text-decoration: none; }
+        .card-link:hover { text-decoration: underline; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-cta { background: var(--accent); color: var(--white); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        
+        /* Job List */
+        .job-list { display: flex; flex-direction: column; gap: 12px; }
+        .job-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid var(--border); border-radius: 8px; }
+        .job-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+        .job-meta { font-size: 12px; color: var(--text-secondary); display: flex; gap: 12px; }
+        .job-stats { display: flex; gap: 16px; text-align: center; }
+        .job-stat-value { font-size: 16px; font-weight: 600; color: var(--primary); }
+        .job-stat-label { font-size: 11px; color: var(--text-secondary); }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .badge.active { background: #E6F7ED; color: var(--success); }
+        .badge.draft { background: #F8F9FA; color: var(--text-secondary); }
+        .badge.closed { background: #FFE6E6; color: var(--error); }
+        
+        /* Recent Applications */
+        .app-list { display: flex; flex-direction: column; gap: 12px; }
+        .app-item { display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; }
+        .app-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); }
+        .app-info { flex: 1; }
+        .app-name { font-size: 13px; font-weight: 500; }
+        .app-position { font-size: 11px; color: var(--text-secondary); }
+        .app-actions { display: flex; gap: 6px; }
+        .action-btn { width: 28px; height: 28px; border: 1px solid var(--border); background: transparent; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .action-btn:hover { border-color: var(--primary); color: var(--primary); }
+        
+        /* Quick Actions */
+        .quick-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .quick-action { display: flex; align-items: center; gap: 10px; padding: 14px; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); transition: all 0.3s; }
+        .quick-action:hover { border-color: var(--primary); background: var(--secondary); }
+        .quick-action-icon { width: 36px; height: 36px; background: var(--secondary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+        .quick-action span { font-size: 13px; font-weight: 500; }
+        
+        /* Activity */
+        .activity-list { display: flex; flex-direction: column; gap: 12px; }
+        .activity-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .activity-text { font-size: 13px; }
+        .activity-time { font-size: 11px; color: var(--text-secondary); }
+        
+        @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .card-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><h2>HBHR<span>Enterprise</span></h2></div>
+            <div class="company-profile">
+                <div class="company-logo">阿</div>
+                <div class="company-info">
+                    <h3>Alibaba Group</h3>
+                    <p>✓ Verified</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="enterprise-dashboard.html" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="enterprise-profile.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Company Profile
+                </a>
+                <a href="enterprise-jobs.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Job Postings<span class="nav-badge">4</span>
+                </a>
+                <a href="enterprise-talent.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                    Talent Search
+                </a>
+                <a href="enterprise-interviews.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Interviews
+                </a>
+                <a href="#" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    Help Center
+                </a>
+                <a href="#" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Logout
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="main">
+            <header class="header">
+                <div class="header-left"><h1>Dashboard</h1></div>
+                <div class="header-right">
+                    <div class="lang-switcher">
+                        <button class="lang-btn" data-lang="cn">中文</button>
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="th">TH</button>
+                    </div>
+                    <button class="btn btn-sm btn-outline">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="content">
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Active Jobs</div>
+                        <div class="stat-change">↑ 2 this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Applications</div>
+                        <div class="stat-change">↑ 23 this week</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Interviews</div>
+                        <div class="stat-change">↑ 5 scheduled</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        </div>
+                        <div class="stat-value">3,456</div>
+                        <div class="stat-label">Profile Views</div>
+                        <div class="stat-change">↑ 234 this week</div>
+                    </div>
+                </div>
+                
+                <!-- Content Grid -->
+                <div class="card-grid">
+                    <!-- Job Postings -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Active Job Postings</h3>
+                            <a href="#" class="card-link">View All →</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="job-list">
+                                <div class="job-item">
+                                    <div class="job-info">
+                                        <h4>Marketing Manager</h4>
+                                        <div class="job-meta">
+                                            <span>📍 Shanghai</span>
+                                            <span>💰 ¥15,000-25,000</span>
+                                            <span>📅 Expires: May 15, 2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-stats">
+                                        <div class="job-stat">
+                                            <div class="job-stat-value">45</div>
+                                            <div class="job-stat-label">Applications</div>
+                                        </div>
+                                        <div class="job-stat">
+                                            <div class="job-stat-value">12</div>
+                                            <div class="job-stat-label">Interviews</div>
+                                        </div>
+                                    </div>
+                                    <span class="badge active">Active</span>
+                                </div>
+                                <div class="job-item">
+                                    <div class="job-info">
+                                        <h4>Software Developer</h4>
+                                        <div class="job-meta">
+                                            <span>📍 Hangzhou</span>
+                                            <span>💰 ¥20,000-35,000</span>
+                                            <span>📅 Expires: May 20, 2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-stats">
+                                        <div class="job-stat">
+                                            <div class="job-stat-value">67</div>
+                                            <div class="job-stat-label">Applications</div>
+                                        </div>
+                                        <div class="job-stat">
+                                            <div class="job-stat-value">8</div>
+                                            <div class="job-stat-label">Interviews</div>
+                                        </div>
+                                    </div>
+                                    <span class="badge active">Active</span>
+                                </div>
+                                <div class="job-item">
+                                    <div class="job-info">
+                                        <h4>Data Analyst</h4>
+                                        <div class="job-meta">
+                                            <span>📍 Shanghai</span>
+                                            <span>💰 ¥18,000-28,000</span>
+                                            <span>📅 Expires: Apr 30, 2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-stats">
+                                        <div class="job-stat">
+                                            <div class="job-stat-value">34</div>
+                                            <div class="job-stat-label">Applications</div>
+                                        </div>
+                                        <div class="job-stat">
+                                            <div class="job-stat-value">3</div>
+                                            <div class="job-stat-label">Interviews</div>
+                                        </div>
+                                    </div>
+                                    <span class="badge active">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <!-- Recent Applications -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Recent Applications</h3>
+                                <a href="#" class="card-link">View All →</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="app-list">
+                                    <div class="app-item">
+                                        <div class="app-avatar">S</div>
+                                        <div class="app-info">
+                                            <div class="app-name">Somchai Smith</div>
+                                            <div class="app-position">Marketing Manager</div>
+                                        </div>
+                                        <div class="app-actions">
+                                            <button class="action-btn" title="View">
+                                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                            </button>
+                                            <button class="action-btn" title="Interview">
+                                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="app-item">
+                                        <div class="app-avatar">R</div>
+                                        <div class="app-info">
+                                            <div class="app-name">Rina Wijaya</div>
+                                            <div class="app-position">Software Developer</div>
+                                        </div>
+                                        <div class="app-actions">
+                                            <button class="action-btn" title="View">
+                                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                            </button>
+                                            <button class="action-btn" title="Interview">
+                                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="app-item">
+                                        <div class="app-avatar">B</div>
+                                        <div class="app-info">
+                                            <div class="app-name">Budi Santoso</div>
+                                            <div class="app-position">Data Analyst</div>
+                                        </div>
+                                        <div class="app-actions">
+                                            <button class="action-btn" title="View">
+                                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                            </button>
+                                            <button class="action-btn" title="Interview">
+                                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Quick Actions</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="quick-actions">
+                                    <a href="#" class="quick-action">
+                                        <div class="quick-action-icon">
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                        </div>
+                                        <span>Post New Job</span>
+                                    </a>
+                                    <a href="#" class="quick-action">
+                                        <div class="quick-action-icon">
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                        </div>
+                                        <span>Search Talent</span>
+                                    </a>
+                                    <a href="#" class="quick-action">
+                                        <div class="quick-action-icon">
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        </div>
+                                        <span>Schedule Interview</span>
+                                    </a>
+                                    <a href="#" class="quick-action">
+                                        <div class="quick-action-icon">
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                        </div>
+                                        <span>Edit Profile</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

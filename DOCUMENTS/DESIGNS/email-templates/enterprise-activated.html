@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{i18n_email_enterprise_activated_subject}}</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, 'Microsoft YaHei', sans-serif; background-color: #F5F7FA;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #F5F7FA;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <!-- Email Container -->
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width: 600px; width: 100%; background-color: #FFFFFF; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 51, 102, 0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #003366 0%, #004080 100%); padding: 32px; text-align: center; border-radius: 12px 12px 0 0;">
+                            <h1 style="margin: 0; font-size: 28px; color: #FFFFFF; font-weight: 700;">HBHR</h1>
+                            <p style="margin: 8px 0 0; font-size: 14px; color: rgba(255,255,255,0.8);">{{i18n_brand_tagline}}</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Success Banner -->
+                    <tr>
+                        <td style="background: #E6F7ED; padding: 24px 32px; text-align: center;">
+                            <div style="display: inline-block; width: 64px; height: 64px; background: #28A745; border-radius: 50%; text-align: center; line-height: 64px; margin-bottom: 16px;">
+                                <span style="font-size: 32px;">✓</span>
+                            </div>
+                            <p style="margin: 0; font-size: 18px; color: #28A745; font-weight: 600;">
+                                {{i18n_email_activated_success}}
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 32px;">
+                            <h2 style="margin: 0 0 24px; font-size: 24px; color: #003366; font-weight: 600;">{{i18n_email_enterprise_activated_greeting}}</h2>
+                            
+                            <p style="margin: 0 0 20px; font-size: 16px; color: #1A1A2E; line-height: 1.6;">
+                                {{i18n_email_enterprise_activated_intro}}
+                            </p>
+                            
+                            <!-- Company Card -->
+                            <div style="background: #F5F7FA; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center;">
+                                <div style="display: inline-block; width: 80px; height: 80px; background: #003366; border-radius: 12px; line-height: 80px; font-size: 36px; color: #FFFFFF; margin-bottom: 16px;">
+                                    {{enterprise_logo_initial}}
+                                </div>
+                                <h3 style="margin: 0 0 8px; font-size: 22px; color: #003366;">{{enterprise_name}}</h3>
+                                <p style="margin: 0; font-size: 14px; color: #28A745; font-weight: 500;">
+                                    ✓ {{i18n_email_verified_enterprise}}
+                                </p>
+                            </div>
+                            
+                            <!-- Features List -->
+                            <div style="margin: 32px 0;">
+                                <p style="margin: 0 0 16px; font-size: 16px; color: #1A1A2E; font-weight: 600;">
+                                    {{i18n_email_enterprise_what_you_can_do}}
+                                </p>
+                                <ul style="margin: 0; padding: 0; list-style: none;">
+                                    <li style="display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #E6F0FF;">
+                                        <span style="display: inline-block; width: 32px; height: 32px; background: #E6F0FF; border-radius: 8px; text-align: center; line-height: 32px; margin-right: 16px; font-size: 16px;">📝</span>
+                                        <span style="color: #1A1A2E;">{{i18n_email_feature_post_jobs}}</span>
+                                    </li>
+                                    <li style="display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #E6F0FF;">
+                                        <span style="display: inline-block; width: 32px; height: 32px; background: #E6F0FF; border-radius: 8px; text-align: center; line-height: 32px; margin-right: 16px; font-size: 16px;">🔍</span>
+                                        <span style="color: #1A1A2E;">{{i18n_email_feature_search_talent}}</span>
+                                    </li>
+                                    <li style="display: flex; align-items: center; padding: 12px 0;">
+                                        <span style="display: inline-block; width: 32px; height: 32px; background: #E6F0FF; border-radius: 8px; text-align: center; line-height: 32px; margin-right: 16px; font-size: 16px;">📹</span>
+                                        <span style="color: #1A1A2E;">{{i18n_email_feature_schedule_interviews}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- CTA Button -->
+                            <div style="text-align: center; margin: 32px 0;">
+                                <a href="{{dashboard_url}}" style="display: inline-block; padding: 16px 48px; background: #FF6B35; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: 600;">
+                                    {{i18n_email_btn_go_to_dashboard}}
+                                </a>
+                            </div>
+                            
+                            <p style="margin: 0; font-size: 14px; color: #6C757D; line-height: 1.6;">
+                                {{i18n_email_enterprise_welcome_closing}}
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background: #003366; padding: 24px 32px; text-align: center; border-radius: 0 0 12px 12px;">
+                            <p style="margin: 0 0 8px; font-size: 14px; color: rgba(255,255,255,0.9);">
+                                {{i18n_email_footer_company}}
+                            </p>
+                            <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6);">
+                                {{i18n_email_footer_address}} | {{i18n_email_footer_phone}}
+                            </p>
+                            <p style="margin: 16px 0 0; font-size: 12px; color: rgba(255,255,255,0.5);">
+                                {{i18n_email_footer_copyright}}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

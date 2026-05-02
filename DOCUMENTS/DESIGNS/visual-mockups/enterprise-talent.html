@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talent Search - HBHR Enterprise</title>
+    <style>
+        :root { --primary: #003366; --primary-hover: #002244; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --error: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        .dashboard { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--white); position: fixed; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar-logo { padding: 24px; border-bottom: 1px solid var(--border); }
+        .sidebar-logo h2 { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .sidebar-logo span { color: var(--accent); display: block; font-size: 12px; font-weight: 400; }
+        .company-profile { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .company-logo { width: 48px; height: 48px; border-radius: 8px; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); font-size: 18px; }
+        .company-info h3 { font-size: 14px; font-weight: 600; }
+        .company-info p { font-size: 11px; color: var(--success); }
+        .sidebar-nav { padding: 16px 0; }
+        .nav-item { display: flex; align-items: center; padding: 12px 24px; color: var(--text-secondary); text-decoration: none; gap: 12px; border-left: 3px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: var(--secondary); color: var(--primary); border-left-color: var(--primary); }
+        .nav-item.active { font-weight: 500; }
+        .nav-item svg { width: 20px; height: 20px; }
+        .nav-badge { margin-left: auto; background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        .main { flex: 1; margin-left: 260px; }
+        .header { background: var(--white); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        .header-left h1 { font-size: 24px; font-weight: 600; color: var(--primary); }
+        .content { padding: 32px; }
+        .card { background: var(--white); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .card-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 16px; font-weight: 600; }
+        .card-body { padding: 24px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        
+        /* Search Bar */
+        .search-bar { display: flex; gap: 12px; margin-bottom: 24px; }
+        .search-input-wrapper { flex: 1; position: relative; }
+        .search-input-wrapper input { width: 100%; padding: 12px 16px; padding-left: 44px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
+        .search-input-wrapper input:focus { outline: none; border-color: var(--primary); }
+        .search-input-wrapper svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+        
+        /* Filters */
+        .filters { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+        .filter-group { display: flex; align-items: center; gap: 6px; }
+        .filter-label { font-size: 13px; color: var(--text-secondary); }
+        select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; min-width: 130px; }
+        
+        /* Results Count */
+        .results-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .results-count { font-size: 14px; color: var(--text-secondary); }
+        .results-count strong { color: var(--primary); }
+        
+        /* Talent Grid */
+        .talent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .talent-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; transition: all 0.3s; }
+        .talent-card:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(0,51,102,0.1); }
+        .talent-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .talent-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); }
+        .talent-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+        .talent-meta { font-size: 12px; color: var(--text-secondary); display: flex; gap: 8px; }
+        .talent-edu { font-size: 12px; color: var(--text); margin-bottom: 8px; }
+        .talent-languages { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+        .lang-tag { padding: 2px 8px; background: var(--secondary); border-radius: 4px; font-size: 11px; color: var(--primary); }
+        .talent-intention { font-size: 12px; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+        .talent-actions { display: flex; gap: 8px; }
+        .talent-actions .btn { flex: 1; justify-content: center; font-size: 12px; padding: 6px 12px; }
+        
+        @media (max-width: 1024px) { .talent-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .talent-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><h2>HBHR<span>Enterprise</span></h2></div>
+            <div class="company-profile">
+                <div class="company-logo">阿</div>
+                <div class="company-info"><h3>Alibaba Group</h3><p>✓ Verified</p></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="enterprise-dashboard.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="enterprise-profile.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Company Profile
+                </a>
+                <a href="enterprise-jobs.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Job Postings<span class="nav-badge">4</span>
+                </a>
+                <a href="enterprise-talent.html" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                    Talent Search
+                </a>
+                <a href="enterprise-interviews.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Interviews
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="main">
+            <header class="header">
+                <div class="header-left"><h1>Talent Search</h1></div>
+            </header>
+            
+            <div class="content">
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <input type="text" placeholder="Search by name, skills, university, or major...">
+                    </div>
+                    <button class="btn btn-primary">Search</button>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <span class="filter-label">Nationality:</span>
+                        <select><option>All</option><option>Thailand</option><option>Indonesia</option><option>Vietnam</option><option>Malaysia</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Education:</span>
+                        <select><option>All</option><option>Bachelor</option><option>Master</option><option>Doctoral</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Language:</span>
+                        <select><option>All</option><option>Chinese HSK 4+</option><option>Chinese HSK 5+</option><option>English IELTS 6.0+</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Major:</span>
+                        <select><option>All</option><option>Business</option><option>Computer Science</option><option>Engineering</option><option>Finance</option></select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Availability:</span>
+                        <select><option>All</option><option>Available Now</option><option>Employed</option><option>Not Looking</option></select>
+                    </div>
+                </div>
+                
+                <!-- Results -->
+                <div class="results-info">
+                    <span class="results-count">Found <strong>523 talents</strong> matching your criteria</span>
+                    <select style="padding: 6px 10px;">
+                        <option>Sort by: Relevance</option>
+                        <option>Newest First</option>
+                        <option>Most Viewed</option>
+                    </select>
+                </div>
+                
+                <!-- Talent Grid -->
+                <div class="talent-grid">
+                    <div class="talent-card">
+                        <div class="talent-header">
+                            <div class="talent-avatar">S</div>
+                            <div class="talent-info">
+                                <h4>Somchai Smith</h4>
+                                <div class="talent-meta">
+                                    <span>🇹🇭 Thailand</span>
+                                    <span>Male</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="talent-edu">🎓 Wuhan University | Business Admin</div>
+                        <div class="talent-languages">
+                            <span class="lang-tag">🇨🇳 HSK 4</span>
+                            <span class="lang-tag">🇬🇧 IELTS 6.0</span>
+                        </div>
+                        <div class="talent-intention">💼 Marketing Manager | ¥15,000+</div>
+                        <div class="talent-actions">
+                            <button class="btn btn-primary btn-sm">View</button>
+                            <button class="btn btn-outline btn-sm">Invite</button>
+                        </div>
+                    </div>
+                    
+                    <div class="talent-card">
+                        <div class="talent-header">
+                            <div class="talent-avatar">R</div>
+                            <div class="talent-info">
+                                <h4>Rina Wijaya</h4>
+                                <div class="talent-meta">
+                                    <span>🇮🇩 Indonesia</span>
+                                    <span>Female</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="talent-edu">🎓 Peking University | Computer Science</div>
+                        <div class="talent-languages">
+                            <span class="lang-tag">🇨🇳 HSK 5</span>
+                            <span class="lang-tag">🇬🇧 IELTS 7.0</span>
+                        </div>
+                        <div class="talent-intention">💼 Software Developer | ¥20,000+</div>
+                        <div class="talent-actions">
+                            <button class="btn btn-primary btn-sm">View</button>
+                            <button class="btn btn-outline btn-sm">Invite</button>
+                        </div>
+                    </div>
+                    
+                    <div class="talent-card">
+                        <div class="talent-header">
+                            <div class="talent-avatar">B</div>
+                            <div class="talent-info">
+                                <h4>Budi Santoso</h4>
+                                <div class="talent-meta">
+                                    <span>🇻🇳 Vietnam</span>
+                                    <span>Male</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="talent-edu">🎓 Tsinghua University | Finance</div>
+                        <div class="talent-languages">
+                            <span class="lang-tag">🇨🇳 HSK 5</span>
+                            <span class="lang-tag">🇬🇧 IELTS 6.5</span>
+                        </div>
+                        <div class="talent-intention">💼 Finance Analyst | ¥18,000+</div>
+                        <div class="talent-actions">
+                            <button class="btn btn-primary btn-sm">View</button>
+                            <button class="btn btn-outline btn-sm">Invite</button>
+                        </div>
+                    </div>
+                    
+                    <div class="talent-card">
+                        <div class="talent-header">
+                            <div class="talent-avatar">N</div>
+                            <div class="talent-info">
+                                <h4>Siti Nurhaliza</h4>
+                                <div class="talent-meta">
+                                    <span>🇲🇾 Malaysia</span>
+                                    <span>Female</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="talent-edu">🎓 Fudan University | Data Science</div>
+                        <div class="talent-languages">
+                            <span class="lang-tag">🇨🇳 HSK 4</span>
+                            <span class="lang-tag">🇬🇧 IELTS 6.5</span>
+                        </div>
+                        <div class="talent-intention">💼 Data Analyst | ¥16,000+</div>
+                        <div class="talent-actions">
+                            <button class="btn btn-primary btn-sm">View</button>
+                            <button class="btn btn-outline btn-sm">Invite</button>
+                        </div>
+                    </div>
+                    
+                    <div class="talent-card">
+                        <div class="talent-header">
+                            <div class="talent-avatar">A</div>
+                            <div class="talent-info">
+                                <h4>Ahmad Razak</h4>
+                                <div class="talent-meta">
+                                    <span>🇹🇭 Thailand</span>
+                                    <span>Male</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="talent-edu">🎓 Zhejiang University | Engineering</div>
+                        <div class="talent-languages">
+                            <span class="lang-tag">🇨🇳 HSK 4</span>
+                            <span class="lang-tag">🇬🇧 IELTS 5.5</span>
+                        </div>
+                        <div class="talent-intention">💼 Project Manager | ¥15,000+</div>
+                        <div class="talent-actions">
+                            <button class="btn btn-primary btn-sm">View</button>
+                            <button class="btn btn-outline btn-sm">Invite</button>
+                        </div>
+                    </div>
+                    
+                    <div class="talent-card">
+                        <div class="talent-header">
+                            <div class="talent-avatar">L</div>
+                            <div class="talent-info">
+                                <h4>Linh Nguyen</h4>
+                                <div class="talent-meta">
+                                    <span>🇻🇳 Vietnam</span>
+                                    <span>Female</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="talent-edu">🎓 Shanghai Jiao Tong | Marketing</div>
+                        <div class="talent-languages">
+                            <span class="lang-tag">🇨🇳 HSK 5</span>
+                            <span class="lang-tag">🇬🇧 IELTS 6.0</span>
+                        </div>
+                        <div class="talent-intention">💼 Marketing Specialist | ¥14,000+</div>
+                        <div class="talent-actions">
+                            <button class="btn btn-primary btn-sm">View</button>
+                            <button class="btn btn-outline btn-sm">Invite</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

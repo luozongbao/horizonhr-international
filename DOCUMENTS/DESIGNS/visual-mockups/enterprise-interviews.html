@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interviews - HBHR Enterprise</title>
+    <style>
+        :root { --primary: #003366; --primary-hover: #002244; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --error: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        .dashboard { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--white); position: fixed; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar-logo { padding: 24px; border-bottom: 1px solid var(--border); }
+        .sidebar-logo h2 { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .sidebar-logo span { color: var(--accent); display: block; font-size: 12px; font-weight: 400; }
+        .company-profile { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .company-logo { width: 48px; height: 48px; border-radius: 8px; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); font-size: 18px; }
+        .company-info h3 { font-size: 14px; font-weight: 600; }
+        .company-info p { font-size: 11px; color: var(--success); }
+        .sidebar-nav { padding: 16px 0; }
+        .nav-item { display: flex; align-items: center; padding: 12px 24px; color: var(--text-secondary); text-decoration: none; gap: 12px; border-left: 3px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: var(--secondary); color: var(--primary); border-left-color: var(--primary); }
+        .nav-item.active { font-weight: 500; }
+        .nav-item svg { width: 20px; height: 20px; }
+        .nav-badge { margin-left: auto; background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        .main { flex: 1; margin-left: 260px; }
+        .header { background: var(--white); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        .header-left h1 { font-size: 24px; font-weight: 600; color: var(--primary); }
+        .content { padding: 32px; }
+        .card { background: var(--white); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .card-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 16px; font-weight: 600; }
+        .card-body { padding: 24px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-cta { background: var(--accent); color: var(--white); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        
+        /* Tabs */
+        .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+        .tab { padding: 12px 24px; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab:hover { color: var(--primary); }
+        .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-count { background: var(--secondary); padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 8px; }
+        
+        /* Interview Card */
+        .interview-list { display: flex; flex-direction: column; gap: 16px; }
+        .interview-card { display: flex; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 8px; transition: all 0.3s; }
+        .interview-card:hover { border-color: var(--primary); }
+        .interview-card.live { border-color: var(--error); background: #FFF5F5; }
+        .student-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); font-size: 20px; flex-shrink: 0; }
+        .interview-info { flex: 1; }
+        .interview-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .interview-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .interview-student { font-size: 13px; color: var(--text-secondary); }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .badge.live { background: var(--error); color: white; animation: pulse 2s infinite; }
+        .badge.scheduled { background: var(--secondary); color: var(--primary); }
+        .badge.completed { background: #E6F7ED; color: var(--success); }
+        .badge.cancelled { background: #FFE6E6; color: var(--error); }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .interview-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; }
+        .interview-meta span { display: flex; align-items: center; gap: 4px; }
+        .interview-actions { display: flex; gap: 8px; }
+        
+        /* Calendar Preview */
+        .calendar-preview { background: var(--secondary); border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .calendar-title { font-size: 14px; font-weight: 600; color: var(--primary); }
+        .calendar-nav { display: flex; gap: 8px; }
+        .calendar-nav button { width: 28px; height: 28px; border: 1px solid var(--border); background: white; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+        .calendar-day-header { font-size: 11px; color: var(--text-secondary); padding: 4px; }
+        .calendar-day { font-size: 12px; padding: 6px; border-radius: 4px; cursor: pointer; }
+        .calendar-day:hover { background: var(--primary); color: white; }
+        .calendar-day.today { border: 1px solid var(--primary); }
+        .calendar-day.has-event { background: var(--accent); color: white; }
+        .calendar-day.other-month { color: var(--text-secondary); opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><h2>HBHR<span>Enterprise</span></h2></div>
+            <div class="company-profile">
+                <div class="company-logo">阿</div>
+                <div class="company-info"><h3>Alibaba Group</h3><p>✓ Verified</p></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="enterprise-dashboard.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="enterprise-profile.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Company Profile
+                </a>
+                <a href="enterprise-jobs.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Job Postings<span class="nav-badge">4</span>
+                </a>
+                <a href="enterprise-talent.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                    Talent Search
+                </a>
+                <a href="enterprise-interviews.html" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Interviews
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="main">
+            <header class="header">
+                <div class="header-left"><h1>Interviews</h1></div>
+                <button class="btn btn-cta">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Schedule Interview
+                </button>
+            </header>
+            
+            <div class="content">
+                <!-- Calendar Mini View -->
+                <div class="calendar-preview">
+                    <div class="calendar-header">
+                        <span class="calendar-title">April 2026</span>
+                        <div class="calendar-nav">
+                            <button>←</button>
+                            <button>→</button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Su</div>
+                        <div class="calendar-day-header">Mo</div>
+                        <div class="calendar-day-header">Tu</div>
+                        <div class="calendar-day-header">We</div>
+                        <div class="calendar-day-header">Th</div>
+                        <div class="calendar-day-header">Fr</div>
+                        <div class="calendar-day-header">Sa</div>
+                        <div class="calendar-day other-month">29</div>
+                        <div class="calendar-day other-month">30</div>
+                        <div class="calendar-day other-month">31</div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day has-event">13</div>
+                        <div class="calendar-day has-event">14</div>
+                        <div class="calendar-day">15</div>
+                        <div class="calendar-day today">16</div>
+                        <div class="calendar-day has-event">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Interviews</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tabs -->
+                        <div class="tabs">
+                            <div class="tab active">All <span class="tab-count">8</span></div>
+                            <div class="tab">Live Now <span class="tab-count">1</span></div>
+                            <div class="tab">Scheduled <span class="tab-count">4</span></div>
+                            <div class="tab">Completed <span class="tab-count">3</span></div>
+                        </div>
+                        
+                        <!-- Interview List -->
+                        <div class="interview-list">
+                            <!-- Live Now -->
+                            <div class="interview-card live">
+                                <div class="student-avatar">S</div>
+                                <div class="interview-info">
+                                    <div class="interview-header">
+                                        <div>
+                                            <div class="interview-title">Marketing Manager Position</div>
+                                            <div class="interview-student">with Somchai Smith</div>
+                                        </div>
+                                        <span class="badge live">🔴 LIVE NOW</span>
+                                    </div>
+                                    <div class="interview-meta">
+                                        <span>📅 Today, Apr 16, 2026</span>
+                                        <span>⏰ 10:00 AM</span>
+                                        <span>⏱ 30 minutes</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn btn-cta btn-sm">🎥 Join</button>
+                                        <button class="btn btn-outline btn-sm">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Scheduled -->
+                            <div class="interview-card">
+                                <div class="student-avatar">R</div>
+                                <div class="interview-info">
+                                    <div class="interview-header">
+                                        <div>
+                                            <div class="interview-title">Software Developer Position</div>
+                                            <div class="interview-student">with Rina Wijaya</div>
+                                        </div>
+                                        <span class="badge scheduled">Scheduled</span>
+                                    </div>
+                                    <div class="interview-meta">
+                                        <span>📅 Tomorrow, Apr 17, 2026</span>
+                                        <span>⏰ 2:00 PM</span>
+                                        <span>⏱ 45 minutes</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn btn-primary btn-sm">Start Interview</button>
+                                        <button class="btn btn-outline btn-sm">Reschedule</button>
+                                        <button class="btn btn-outline btn-sm">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="interview-card">
+                                <div class="student-avatar">B</div>
+                                <div class="interview-info">
+                                    <div class="interview-header">
+                                        <div>
+                                            <div class="interview-title">Finance Analyst Position</div>
+                                            <div class="interview-student">with Budi Santoso</div>
+                                        </div>
+                                        <span class="badge scheduled">Scheduled</span>
+                                    </div>
+                                    <div class="interview-meta">
+                                        <span>📅 Apr 18, 2026</span>
+                                        <span>⏰ 9:00 AM</span>
+                                        <span>⏱ 30 minutes</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn btn-primary btn-sm">Start Interview</button>
+                                        <button class="btn btn-outline btn-sm">Reschedule</button>
+                                        <button class="btn btn-outline btn-sm">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="interview-card">
+                                <div class="student-avatar">N</div>
+                                <div class="interview-info">
+                                    <div class="interview-header">
+                                        <div>
+                                            <div class="interview-title">Data Analyst Position</div>
+                                            <div class="interview-student">with Siti Nurhaliza</div>
+                                        </div>
+                                        <span class="badge scheduled">Scheduled</span>
+                                    </div>
+                                    <div class="interview-meta">
+                                        <span>📅 Apr 20, 2026</span>
+                                        <span>⏰ 3:00 PM</span>
+                                        <span>⏱ 30 minutes</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn btn-primary btn-sm">Start Interview</button>
+                                        <button class="btn btn-outline btn-sm">Reschedule</button>
+                                        <button class="btn btn-outline btn-sm">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Completed -->
+                            <div class="interview-card">
+                                <div class="student-avatar">A</div>
+                                <div class="interview-info">
+                                    <div class="interview-header">
+                                        <div>
+                                            <div class="interview-title">HR Coordinator Position</div>
+                                            <div class="interview-student">with Ahmad Razak</div>
+                                        </div>
+                                        <span class="badge completed">Completed ✓</span>
+                                    </div>
+                                    <div class="interview-meta">
+                                        <span>📅 Apr 12, 2026</span>
+                                        <span>⏰ 11:00 AM</span>
+                                        <span>⏱ 35 minutes</span>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn btn-primary btn-sm">View Recording</button>
+                                        <button class="btn btn-outline btn-sm">View Notes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

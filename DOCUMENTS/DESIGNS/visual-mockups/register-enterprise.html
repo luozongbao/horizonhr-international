@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Registration - HBHR</title>
+    <style>
+        :root { --primary: #003366; --primary-hover: #002244; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --error: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; min-height: 100vh; }
+        .auth-container { display: flex; min-height: 100vh; }
+        .auth-left { width: 45%; background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); color: white; padding: 64px; display: flex; flex-direction: column; justify-content: center; }
+        .auth-left-logo { font-size: 32px; font-weight: 700; margin-bottom: 48px; }
+        .auth-left-logo span { color: var(--accent); }
+        .auth-left h1 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+        .auth-left p { font-size: 18px; opacity: 0.9; margin-bottom: 48px; }
+        .auth-features { display: flex; flex-direction: column; gap: 20px; }
+        .auth-feature { display: flex; align-items: center; gap: 16px; }
+        .auth-feature-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .auth-feature-text h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .auth-feature-text p { font-size: 13px; opacity: 0.7; margin: 0; }
+        .auth-right { flex: 1; display: flex; align-items: center; justify-content: center; padding: 64px; overflow-y: auto; }
+        .auth-form-container { width: 100%; max-width: 520px; }
+        .auth-tabs { display: flex; gap: 0; margin-bottom: 32px; border-bottom: 1px solid var(--border); }
+        .auth-tab { padding: 12px 24px; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+        .auth-tab:hover { color: var(--primary); }
+        .auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .auth-form h2 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+        .auth-form > p { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+        .auth-form > p a { color: var(--accent); text-decoration: none; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group.full { grid-column: span 2; }
+        .form-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+        .form-label span { color: var(--error); }
+        .form-input, .form-select { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: all 0.3s; background: white; }
+        .form-input:focus, .form-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,51,102,0.1); }
+        .form-select { cursor: pointer; }
+        .form-row { display: flex; justify-content: space-between; align-items: center; margin: 16px 0; }
+        .checkbox-label { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--text-secondary); cursor: pointer; }
+        .checkbox-label input { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--primary); }
+        .checkbox-label a { color: var(--accent); text-decoration: none; }
+        .btn { width: 100%; padding: 14px 24px; border-radius: 8px; font-weight: 500; cursor: pointer; border: none; font-size: 15px; }
+        .btn-cta { background: var(--accent); color: white; }
+        .btn-cta:hover { background: #E55A2B; }
+        .verification-note { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: var(--secondary); border-radius: 8px; font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; }
+        .verification-note .icon { color: var(--primary); font-size: 16px; }
+        @media (max-width: 768px) { .auth-left { display: none; } .auth-right { padding: 32px 24px; } .form-grid { grid-template-columns: 1fr; } .form-group.full { grid-column: span 1; } }
+
+        /* Language Switcher */
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; background: transparent; color: rgba(255,255,255,0.8); cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); color: #fff; }
+        </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-left-logo">HBHR <span>Portal</span></div>
+            <h1>Recruit Top International Talent</h1>
+            <p>Join hundreds of Chinese enterprises finding qualified Southeast Asian graduates through our platform.</p>
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <div class="auth-feature-icon">👥</div>
+                    <div class="auth-feature-text"><h4>Talent Pool Access</h4><p>Browse thousands of qualified candidates</p></div>
+                </div>
+                <div class="auth-feature">
+                    <div class="auth-feature-icon">🎯</div>
+                    <div class="auth-feature-text"><h4>Targeted Recruitment</h4><p>Filter by nationality, major, and language</p></div>
+                </div>
+                <div class="auth-feature">
+                    <div class="auth-feature-icon">🎥</div>
+                    <div class="auth-feature-text"><h4>Video Interviews</h4><p>Conduct interviews directly on the platform</p></div>
+                </div>
+                <div class="auth-feature">
+                    <div class="auth-feature-icon">📊</div>
+                    <div class="auth-feature-text"><h4>Analytics Dashboard</h4><p>Track recruitment metrics and results</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            
+            <!-- Language Switcher -->
+            <div style="text-align: right; margin-bottom: 16px;">
+                <div class="lang-switcher">
+                    <button class="lang-btn" data-lang="cn">中文</button>
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="th">TH</button>
+                </div>
+            </div>
+            <div class="auth-form-container">
+                <div class="auth-tabs">
+                    <div class="auth-tab">Student</div>
+                    <div class="auth-tab active">Enterprise</div>
+                    <div class="auth-tab">Admin</div>
+                </div>
+                <div class="auth-form">
+                    <h2>Register Your Company</h2>
+                    <p>Already registered? <a href="login.html">Sign in</a></p>
+                    
+                    <div class="verification-note">
+                        <span class="icon">ℹ️</span>
+                        <span>Your account will be verified within 24-48 hours after registration. You'll receive an email confirmation once approved.</span>
+                    </div>
+                    
+                    <form>
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">Company Name (English) <span>*</span></label>
+                                <input type="text" class="form-input" placeholder="Enter company name in English">
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Company Name (Chinese)</label>
+                                <input type="text" class="form-input" placeholder="公司中文名称">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Industry <span>*</span></label>
+                                <select class="form-select">
+                                    <option value="">Select industry...</option>
+                                    <option>E-commerce / Internet</option>
+                                    <option>Technology</option>
+                                    <option>Finance / Banking</option>
+                                    <option>Manufacturing</option>
+                                    <option>Education / Training</option>
+                                    <option>Healthcare</option>
+                                    <option>Retail</option>
+                                    <option>Logistics</option>
+                                    <option>Media / Entertainment</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Company Size <span>*</span></label>
+                                <select class="form-select">
+                                    <option value="">Select size...</option>
+                                    <option>Small (50-200)</option>
+                                    <option>Medium (200-1000)</option>
+                                    <option>Large (1000-5000)</option>
+                                    <option>Enterprise (5000+)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Business Registration Number</label>
+                                <input type="text" class="form-input" placeholder="Registration number">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Website</label>
+                                <input type="url" class="form-input" placeholder="https://www.company.com">
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Headquarters Address <span>*</span></label>
+                                <input type="text" class="form-input" placeholder="Full address">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contact Person Name <span>*</span></label>
+                                <input type="text" class="form-input" placeholder="Full name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contact Person Position</label>
+                                <input type="text" class="form-input" placeholder="Job title">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Business Email <span>*</span></label>
+                                <input type="email" class="form-input" placeholder="company@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number <span>*</span></label>
+                                <input type="tel" class="form-input" placeholder="+86 XXX XXXX XXXX">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password <span>*</span></label>
+                                <input type="password" class="form-input" placeholder="Min. 8 characters">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirm Password <span>*</span></label>
+                                <input type="password" class="form-input" placeholder="Confirm your password">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-cta">Register Company</button>
+                        <div class="divider">
+                            <div class="divider-line"></div>
+                            <span class="divider-text">or sign up with</span>
+                            <div class="divider-line"></div>
+                        </div>
+                        <div class="social-buttons">
+                            <button class="social-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                                Google
+                            </button>
+                            <button class="social-btn">
+                                <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                Facebook
+                            </button>
+                            <button class="social-btn">
+                                <svg viewBox="0 0 24 24" fill="#0077B5"><path d="M20.447 20.452h-3.554v-1.406c0-.896-.356-1.54-1.127-1.54-.622 0-.978.42-1.033 1.022v1.924h-2.336c.032 1.044 0 1.92 0 2.906h2.336v7.515c0 .184.014.366.074.524h2.992c-.088-.304-.144-.622-.144-.97 0-5.052 3.752-9.886 9.6-9.886 2.654 0 5.14.994 6.97 2.778l-1.934 1.933c-.892-.87-2.064-1.396-3.434-1.396-2.62 0-4.522 1.836-4.522 4.534 0 .956.304 1.776.828 2.39.644.736 1.492 1.078 2.376 1.078 1.162 0 1.892-.524 2.392-1.022l.026-.006-.004 1.808H20.447zM6.59 7.004c-.716 0-1.304.578-1.304 1.305v8.436H2.592V8.31h2.692v.978c.41-.614 1.168-1.028 2.08-1.028h.818l.042 1.284-1.634.46z"/><path d="M7.002 0C3.136 0 0 3.136 0 7.002s3.136 7.002 7.002 7.002 7.002-3.136 7.002-7.002S10.868 0 7.002 0zm3.564 10.602l1.688-.476.052 1.476c.038.886.344 1.476.822 1.476.186 0 .4-.07.522-.2l-.026-.002c-.428 0-.832-.3-.906-.704l-.052-1.568.934-.264.04 1.148c.038.88.344 1.484.822 1.484.188 0 .4-.074.524-.204l-.026-.002c-.428 0-.83-.304-.904-.706l-.076-2.194-2.058.58v-.05l-.028-.82-1.09.31-.04-1.14c-.038-.876-.344-1.486-.822-1.486-.186 0-.398.074-.522.202l.026.002c.428 0 .83.304.904.704l.06 1.736z"/></svg>
+                                LinkedIn
+                            </button>
+                            <button class="social-btn">
+                                <svg viewBox="0 0 24 24" fill="#07C160"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.479c0 .27-.144.566-.438.752-.186.112-.438.168-.688.168-.126 0-.25-.02-.374-.054a.715.715 0 0 1-.416-.278.622.622 0 0 1-.114-.42c0-.167.08-.323.23-.448a6.526 6.526 0 0 0 1.064-.96c.396-.456.696-.966.88-1.524a.592.592 0 0 1-.086-.252c0-.21.087-.405.25-.548a.585.585 0 0 1 .583-.115c.45.174.852.382 1.213.62.47.31.88.662 1.224 1.063a.585.585 0 0 1 .07.686c-.14.24-.324.532-.56.88-.236.35-.494.704-.776 1.062-.282.358-.574.69-.88.994-.304.306-.608.578-.91.818-.304.24-.6.432-.898.578-.296.144-.574.218-.83.218-.186 0-.35-.028-.5-.086a1.71 1.71 0 0 1-.4-.24 4.353 4.353 0 0 1-.336-.34 2.044 2.044 0 0 1-.222-.288.596.596 0 0 1-.07-.282c0-.174.07-.335.21-.48.144-.144.334-.268.58-.374s.526-.196.884-.278c.358-.08.754-.13 1.188-.15.436-.018.89-.01 1.36.02.466.032.95.084 1.446.158.5.074.976.182 1.424.322.45.14.84.336 1.18.58.34.244.584.56.734.942.08.188.088.396.028.616-.06.22-.206.422-.436.602-.23.18-.528.312-.892.396-.364.082-.782.092-1.254.028-.282-.042-.578-.1-.884-.18a9.553 9.553 0 0 1-.968-.306 8.38 8.38 0 0 1-.952-.426c-.306-.16-.578-.348-.816-.566a6.674 6.674 0 0 1-.638-.662 3.076 3.076 0 0 1-.438-.688c-.114-.226-.17-.458-.17-.696 0-.164.03-.318.086-.468.058-.148.142-.28.252-.4.11-.118.244-.22.4-.306a2.71 2.71 0 0 1 .528-.184c.2-.048.418-.058.652-.03.236.028.486.1.75.216.264.118.534.282.81.496.278.214.548.484.816.808.268.326.51.71.73 1.154.22.444.404.952.55 1.526.148.574.226 1.23.238 1.968.012.738-.072 1.554-.26 2.446-.186.894-.506 1.768-.96 2.62-.452.854-1.074 1.63-1.87 2.324-.794.694-1.808 1.25-3.044 1.672-1.234.42-2.704.63-4.41.63-1.058 0-2.054-.084-2.984-.252a12.32 12.32 0 0 1-2.568-.746 8.432 8.432 0 0 1-2.146-1.324C3.27 19.03 2.61 17.826 2.17 16.428c-.244-.776-.366-1.598-.366-2.466C1.804 12.394 2.618 10.8 4.11 9.562c.744-.618 1.588-1.094 2.534-1.43A12.52 12.52 0 0 1 8.69 7.4c.38-.022.75-.036 1.106-.04.358-.006.696-.008 1.012-.008h.096c.102 0 .218-.002.35-.008.13-.004.26-.016.39-.032.13-.018.248-.046.354-.086.108-.04.192-.09.254-.152a.557.557 0 0 0 .14-.23c.026-.092.036-.2.036-.32 0-.1-.01-.202-.026-.308-.018-.104-.052-.212-.106-.32a.87.87 0 0 0-.196-.27.594.594 0 0 0-.306-.158.965.965 0 0 0-.416.09c-.136.06-.27.15-.398.266a4.383 4.383 0 0 1-.344.314 3.659 3.659 0 0 1-.38.272c-.126.076-.246.138-.362.186a.942.942 0 0 1-.36.072 2.39 2.39 0 0 1-.396-.026c-.13-.024-.262-.064-.398-.118-.136-.056-.272-.126-.408-.212a5.335 5.335 0 0 1-.394-.278c-.13-.102-.252-.22-.368-.35a4.32 4.32 0 0 1-.296-.396 2.368 2.368 0 0 1-.202-.438c-.046-.154-.07-.318-.07-.492a3.22 3.22 0 0 1 .036-.506c.024-.166.068-.33.132-.494a4.08 4.08 0 0 1 .262-.466c.106-.16.232-.31.376-.456a6.36 6.36 0 0 1 .484-.426c.176-.132.368-.254.576-.368a7.22 7.22 0 0 1 .662-.29c.23-.082.468-.148.718-.198.248-.05.51-.074.784-.074.118 0 .234.004.35.01.114.008.226.02.336.034.11.016.218.036.322.06.106.026.204.056.296.092.094.036.174.08.238.132.066.05.12.112.16.182.042.07.064.148.064.236 0 .104-.022.2-.064.3a.622.622 0 0 1-.198.24 1.984 1.984 0 0 1-.306.194c-.12.06-.25.11-.392.148a4.52 4.52 0 0 1-.434.088 3.84 3.84 0 0 1-.434.02 3.98 3.98 0 0 1-.838-.076c-.27-.054-.532-.136-.78-.25a4.49 4.49 0 0 1-.686-.4 3.55 3.55 0 0 1-.568-.522c-.166-.19-.302-.406-.404-.65a2.48 2.48 0 1 0-3.408-.006.575.575 0 0 1-.268.072.584.584 0 0 1-.462-.19.595.595 0 0 1-.16-.436c.01-.15.064-.296.158-.438.094-.142.23-.278.408-.408.176-.128.394-.25.654-.36.26-.11.556-.206.88-.29.326-.08.68-.142 1.064-.182.386-.04.8-.056 1.242-.056z"/></svg>
+                                WeChat
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

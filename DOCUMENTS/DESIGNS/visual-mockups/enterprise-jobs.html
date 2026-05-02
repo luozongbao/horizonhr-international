@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Postings - HBHR Enterprise</title>
+    <style>
+        :root { --primary: #003366; --primary-hover: #002244; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --error: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        .dashboard { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--white); position: fixed; height: 100vh; overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar-logo { padding: 24px; border-bottom: 1px solid var(--border); }
+        .sidebar-logo h2 { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .sidebar-logo span { color: var(--accent); display: block; font-size: 12px; font-weight: 400; }
+        .company-profile { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .company-logo { width: 48px; height: 48px; border-radius: 8px; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary); font-size: 18px; }
+        .company-info h3 { font-size: 14px; font-weight: 600; }
+        .company-info p { font-size: 11px; color: var(--success); }
+        .sidebar-nav { padding: 16px 0; }
+        .nav-item { display: flex; align-items: center; padding: 12px 24px; color: var(--text-secondary); text-decoration: none; gap: 12px; border-left: 3px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: var(--secondary); color: var(--primary); border-left-color: var(--primary); }
+        .nav-item.active { font-weight: 500; }
+        .nav-item svg { width: 20px; height: 20px; }
+        .nav-badge { margin-left: auto; background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+        .main { flex: 1; margin-left: 260px; }
+        .header { background: var(--white); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; }
+        .header-left h1 { font-size: 24px; font-weight: 600; color: var(--primary); }
+        .content { padding: 32px; }
+        .card { background: var(--white); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .card-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 16px; font-weight: 600; }
+        .card-body { padding: 24px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-cta { background: var(--accent); color: var(--white); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        
+        /* Filters */
+        .filters { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+        .filter-group { display: flex; align-items: center; gap: 8px; }
+        .filter-label { font-size: 14px; color: var(--text-secondary); }
+        select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; min-width: 150px; }
+        
+        /* Job Table */
+        .job-table { width: 100%; border-collapse: collapse; }
+        .job-table th { text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; color: var(--text-secondary); border-bottom: 1px solid var(--border); background: #FAFBFC; }
+        .job-table td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+        .job-table tr:hover { background: #FAFBFC; }
+        .job-title { font-weight: 500; margin-bottom: 4px; }
+        .job-meta { font-size: 12px; color: var(--text-secondary); display: flex; gap: 12px; }
+        .job-stats { display: flex; gap: 16px; }
+        .job-stat { text-align: center; }
+        .job-stat-value { font-size: 14px; font-weight: 600; color: var(--primary); }
+        .job-stat-label { font-size: 10px; color: var(--text-secondary); }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .badge.active { background: #E6F7ED; color: var(--success); }
+        .badge.draft { background: #F8F9FA; color: var(--text-secondary); }
+        .badge.closed { background: #FFE6E6; color: var(--error); }
+        .badge.expired { background: #FFF8E6; color: #B8860B; }
+        .actions { display: flex; gap: 8px; }
+        .action-btn { width: 32px; height: 32px; border: none; background: transparent; cursor: pointer; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+        .action-btn:hover { background: var(--secondary); color: var(--primary); }
+        
+        .pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+        .pagination-info { font-size: 14px; color: var(--text-secondary); }
+        .pagination-buttons { display: flex; gap: 4px; }
+        .page-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--white); border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><h2>HBHR<span>Enterprise</span></h2></div>
+            <div class="company-profile">
+                <div class="company-logo">阿</div>
+                <div class="company-info"><h3>Alibaba Group</h3><p>✓ Verified</p></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="enterprise-dashboard.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="enterprise-profile.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    Company Profile
+                </a>
+                <a href="enterprise-jobs.html" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    Job Postings<span class="nav-badge">4</span>
+                </a>
+                <a href="enterprise-talent.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                    Talent Search
+                </a>
+                <a href="enterprise-interviews.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    Interviews
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="main">
+            <header class="header">
+                <div class="header-left"><h1>Job Postings</h1></div>
+                <button class="btn btn-cta">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Post New Job
+                </button>
+            </header>
+            
+            <div class="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Job Postings</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Filters -->
+                        <div class="filters">
+                            <div class="filter-group">
+                                <span class="filter-label">Status:</span>
+                                <select>
+                                    <option>All Status</option>
+                                    <option>Active</option>
+                                    <option>Draft</option>
+                                    <option>Closed</option>
+                                    <option>Expired</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <span class="filter-label">Sort by:</span>
+                                <select>
+                                    <option>Newest First</option>
+                                    <option>Most Applications</option>
+                                    <option>Expiring Soon</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Table -->
+                        <table class="job-table">
+                            <thead>
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Location</th>
+                                    <th>Salary Range</th>
+                                    <th>Applications</th>
+                                    <th>Interviews</th>
+                                    <th>Status</th>
+                                    <th>Expires</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="job-title">Marketing Manager</div>
+                                        <div class="job-meta">
+                                            <span>Full-time</span>
+                                            <span>📅 Apr 1, 2026</span>
+                                        </div>
+                                    </td>
+                                    <td>Shanghai</td>
+                                    <td>¥15,000-25,000</td>
+                                    <td>45</td>
+                                    <td>12</td>
+                                    <td><span class="badge active">Active</span></td>
+                                    <td>May 15, 2026</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn" title="Edit"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                                            <button class="action-btn" title="View Applications"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></button>
+                                            <button class="action-btn" title="Close"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="job-title">Software Developer</div>
+                                        <div class="job-meta">
+                                            <span>Full-time</span>
+                                            <span>📅 Apr 5, 2026</span>
+                                        </div>
+                                    </td>
+                                    <td>Hangzhou</td>
+                                    <td>¥20,000-35,000</td>
+                                    <td>67</td>
+                                    <td>8</td>
+                                    <td><span class="badge active">Active</span></td>
+                                    <td>May 20, 2026</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn" title="Edit"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                                            <button class="action-btn" title="View Applications"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></button>
+                                            <button class="action-btn" title="Close"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="job-title">Data Analyst</div>
+                                        <div class="job-meta">
+                                            <span>Full-time</span>
+                                            <span>📅 Apr 8, 2026</span>
+                                        </div>
+                                    </td>
+                                    <td>Shanghai</td>
+                                    <td>¥18,000-28,000</td>
+                                    <td>34</td>
+                                    <td>3</td>
+                                    <td><span class="badge active">Active</span></td>
+                                    <td>Apr 30, 2026</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn" title="Edit"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                                            <button class="action-btn" title="View Applications"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></button>
+                                            <button class="action-btn" title="Close"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="job-title">HR Coordinator</div>
+                                        <div class="job-meta">
+                                            <span>Full-time</span>
+                                            <span>📅 Mar 20, 2026</span>
+                                        </div>
+                                    </td>
+                                    <td>Hangzhou</td>
+                                    <td>¥10,000-15,000</td>
+                                    <td>89</td>
+                                    <td>15</td>
+                                    <td><span class="badge closed">Closed</span></td>
+                                    <td>Apr 20, 2026</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn" title="View"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+                                            <button class="action-btn" title="Reopen"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- Pagination -->
+                        <div class="pagination">
+                            <div class="pagination-info">Showing 1-4 of 4 jobs</div>
+                            <div class="pagination-buttons">
+                                <button class="page-btn active">1</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

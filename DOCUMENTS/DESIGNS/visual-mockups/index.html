@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBHR - Visual Mockups</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --primary-hover: #002244;
+            --secondary: #E6F0FF;
+            --accent: #FF6B35;
+            --white: #FFFFFF;
+            --text: #1A1A2E;
+            --text-secondary: #6C757D;
+            --border: #DEE2E6;
+            --success: #28A745;
+            --error: #DC3545;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; }
+        
+        /* Header */
+        .header { height: 72px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 32px; margin-left: auto; }
+        .nav a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 16px; }
+        .nav a:hover { color: var(--primary); }
+        .header-actions { display: flex; gap: 16px; margin-left: 32px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-cta { background: var(--accent); color: var(--white); }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        
+        /* Page Hero */
+        .page-hero { background: var(--primary); height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--white); }
+        .page-hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 8px; }
+        .page-hero p { font-size: 20px; opacity: 0.9; }
+        
+        /* Section */
+        /* Language Switcher */
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .lang-btn:hover, .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        
+        .section { padding: 64px 48px; }
+        .section-title { font-size: 36px; font-weight: 600; color: var(--primary); text-align: center; margin-bottom: 48px; }
+        
+        /* Banner */
+        .banner { height: 480px; background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--white); text-align: center; }
+        .banner h1 { font-size: 48px; font-weight: 700; margin-bottom: 32px; }
+        .banner-btns { display: flex; gap: 16px; }
+        .banner-btns .btn { padding: 14px 28px; font-size: 16px; }
+        
+        /* Cards Grid */
+        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 32px; text-align: center; box-shadow: 0 2px 8px rgba(0,51,102,0.08); transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,51,102,0.12); }
+        .card-icon { font-size: 48px; margin-bottom: 16px; }
+        .card h3 { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .card p { font-size: 16px; color: var(--text-secondary); margin-bottom: 16px; }
+        .card .link { color: var(--accent); font-weight: 500; text-decoration: none; }
+        
+        /* Partner Bar */
+        .partner-bar { background: var(--secondary); padding: 32px 48px; }
+        .partner-bar h4 { font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 16px; }
+        .partner-scroll { display: flex; gap: 32px; overflow-x: auto; }
+        .partner-item { width: 80px; height: 80px; background: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-secondary); border: 1px solid var(--border); flex-shrink: 0; }
+        
+        /* Advantages */
+        .advantages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; background: var(--white); }
+        .advantage { text-align: center; padding: 32px; }
+        .advantage-icon { width: 80px; height: 80px; background: var(--secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 24px; }
+        .advantage h4 { font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .advantage p { font-size: 14px; color: var(--text-secondary); }
+        
+        /* Footer */
+        .footer { background: var(--primary); color: var(--white); padding: 48px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer-links a:hover { color: var(--white); }
+        .footer p { font-size: 14px; opacity: 0.8; }
+        
+        /* Programs Grid */
+        .programs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 900px; margin: 0 auto; }
+        .program-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 40px; text-align: center; }
+        .program-card .icon { font-size: 64px; margin-bottom: 16px; }
+        .program-card h3 { font-size: 24px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+        .program-card ul { list-style: none; margin-bottom: 24px; }
+        .program-card li { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+        
+        /* Process Steps */
+        .process-steps { display: flex; justify-content: center; gap: 40px; margin-bottom: 48px; }
+        .step { text-align: center; position: relative; }
+        .step-circle { width: 80px; height: 80px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin: 0 auto 16px; }
+        .step.active .step-circle { background: var(--accent); }
+        .step h4 { font-size: 14px; font-weight: 500; color: var(--text); }
+        .step-arrow { position: absolute; right: -30px; top: 30px; font-size: 24px; color: var(--border); }
+        
+        /* University Grid */
+        .univ-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .univ-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 24px; text-align: center; }
+        .univ-logo { width: 120px; height: 80px; background: var(--secondary); border-radius: 8px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-secondary); }
+        .univ-card h4 { font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .univ-card p { font-size: 14px; color: var(--text-secondary); }
+        
+        /* FAQ Accordion */
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+        .faq-question { padding: 16px 24px; font-size: 16px; font-weight: 500; color: var(--primary); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .faq-answer { padding: 0 24px 16px; font-size: 14px; color: var(--text-secondary); }
+        
+        /* CTA Banner */
+        .cta-banner { background: var(--primary); color: var(--white); padding: 64px; text-align: center; }
+        .cta-banner h2 { font-size: 36px; font-weight: 600; margin-bottom: 32px; }
+        
+        /* Contact Section */
+        .contact-section { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+        .contact-info { padding: 32px; }
+        .contact-info h3 { font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 32px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+        .contact-item .icon { font-size: 24px; }
+        .contact-item p { font-size: 16px; color: var(--text-secondary); }
+        .social-icons { display: flex; gap: 12px; margin-top: 24px; }
+        .social-icon { width: 40px; height: 40px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
+        .contact-form { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 32px; }
+        .contact-form h3 { font-size: 24px; font-weight: 600; color: var(--primary); margin-bottom: 24px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text); }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 16px; }
+        .form-group textarea { height: 120px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        
+        /* Offices Grid */
+        .offices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .office-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 32px; text-align: center; }
+        .office-icon { width: 64px; height: 64px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 16px; }
+        .office-card h4 { font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .office-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+        
+        /* Module Tabs */
+        .module-tabs { display: flex; justify-content: center; gap: 0; border-bottom: 1px solid var(--border); }
+        .module-tab { padding: 16px 32px; font-size: 16px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 3px solid transparent; }
+        .module-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        
+        /* Talent Cards */
+        .talent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .talent-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 24px; text-align: center; }
+        .talent-photo { width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; margin: 0 auto 16px; border: 2px solid var(--secondary); }
+        .talent-card h4 { font-size: 18px; font-weight: 600; color: var(--primary); }
+        .talent-card .nationality { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+        .talent-card .univ { font-size: 14px; color: var(--text); margin-bottom: 4px; }
+        .talent-card .major { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+        .talent-card .languages { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+        .talent-card .intention { font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 16px; }
+        .talent-card .actions { display: flex; gap: 8px; justify-content: center; }
+        .talent-card .btn-sm { padding: 8px 16px; font-size: 14px; }
+        
+        /* Filter Bar */
+        .filter-bar { display: flex; gap: 16px; align-items: center; padding: 24px; background: var(--secondary); border-radius: 8px; margin-bottom: 32px; }
+        .filter-bar select { padding: 10px 16px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; background: var(--white); }
+        .filter-bar .count { margin-left: auto; font-size: 18px; font-weight: 600; color: var(--primary); }
+        
+        /* Team Grid */
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+        .team-card { text-align: center; }
+        .team-photo { width: 120px; height: 120px; background: var(--secondary); border-radius: 50%; margin: 0 auto 16px; }
+        .team-card h4 { font-size: 18px; font-weight: 600; color: var(--primary); }
+        .team-card p { font-size: 14px; color: var(--text-secondary); }
+        
+        /* Timeline */
+        .timeline { display: flex; justify-content: center; align-items: center; gap: 0; padding: 48px 0; }
+        .timeline-line { width: 80%; height: 4px; background: var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .timeline-node { width: 20px; height: 20px; background: var(--primary); border-radius: 50%; border: 4px solid var(--white); box-shadow: 0 0 0 2px var(--primary); }
+        .timeline-items { display: flex; justify-content: space-between; width: 80%; margin-top: -80px; }
+        .timeline-item { text-align: center; width: 100px; }
+        .timeline-year { font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .timeline-title { font-size: 14px; font-weight: 500; color: var(--text); }
+        
+        /* Service Flow */
+        .service-flow { display: flex; justify-content: center; gap: 40px; }
+        .service-item { text-align: center; width: 180px; }
+        .service-icon { width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 16px; }
+        .service-item h4 { font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .service-item p { font-size: 14px; color: var(--text-secondary); }
+        .service-arrow { font-size: 32px; color: var(--accent); align-self: center; }
+        
+        /* Success Cases */
+        .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+        .case-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .case-image { height: 200px; background: linear-gradient(135deg, var(--secondary) 0%, var(--border) 100%); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+        .case-content { padding: 24px; }
+        .case-card h4 { font-size: 24px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+        .case-stats { display: flex; gap: 24px; margin-bottom: 16px; }
+        .case-stats span { font-size: 16px; font-weight: 500; color: var(--success); }
+        .case-quote { font-size: 14px; color: var(--text-secondary); font-style: italic; }
+        
+        /* Live Section */
+        .live-badge { background: var(--error); color: var(--white); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .video-placeholder { width: 100%; height: 400px; background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 24px; }
+        .video-info { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .video-meta { display: flex; gap: 24px; font-size: 14px; color: var(--text-secondary); }
+        
+        /* Seminar Cards */
+        .seminar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .seminar-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .seminar-thumb { height: 160px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; justify-content: center; color: var(--white); }
+        .seminar-content { padding: 24px; }
+        .seminar-date { font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .seminar-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .seminar-speaker { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+        .seminar-target { display: inline-block; padding: 4px 12px; background: var(--secondary); color: var(--primary); border-radius: 12px; font-size: 12px; margin-bottom: 16px; }
+        
+        /* News Grid */
+        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .news-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .news-thumb { height: 200px; background: linear-gradient(135deg, var(--secondary) 0%, var(--border) 100%); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+        .news-content { padding: 24px; }
+        .news-tag { display: inline-block; padding: 4px 12px; background: var(--primary); color: var(--white); border-radius: 12px; font-size: 12px; margin-bottom: 12px; }
+        .news-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .news-date { font-size: 14px; color: var(--text-secondary); }
+        
+        /* Newsletter */
+        .newsletter { background: var(--primary); padding: 64px; text-align: center; color: var(--white); }
+        .newsletter h3 { font-size: 20px; font-weight: 500; margin-bottom: 24px; }
+        .newsletter-form { display: flex; justify-content: center; gap: 16px; }
+        .newsletter-form input { padding: 12px 24px; border: none; border-radius: 6px; width: 300px; font-size: 16px; }
+        
+        /* Services Grid */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .service-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 40px; text-align: center; }
+        .service-card .icon { font-size: 64px; margin-bottom: 24px; }
+        .service-card h3 { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+        .service-card p { font-size: 16px; color: var(--text-secondary); margin-bottom: 24px; }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .header { padding: 0 24px; }
+            .cards-grid, .advantages, .univ-grid, .talent-grid, .seminar-grid, .news-grid, .team-grid { grid-template-columns: 1fr; }
+            .programs-grid, .cases-grid, .contact-section { grid-template-columns: 1fr; }
+            .banner h1 { font-size: 32px; }
+            .banner-btns { flex-wrap: wrap; }
+            .process-steps { flex-direction: column; align-items: center; }
+            .service-flow { flex-direction: column; align-items: center; }
+            .offices-grid { grid-template-columns: 1fr; }
+            .section { padding: 32px 24px; }
+            .page-hero { height: 150px; }
+            .page-hero h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- MODULE 1: HOME PAGE -->
+<div class="module" id="home" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 1: Home Page (首页)</h2>
+    
+    <header class="header">
+        <div class="logo">Hubei Horizon <span>HR</span></div>
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Study in China</a>
+            <a href="#">Talent Pool</a>
+            <a href="#">Corporate</a>
+            <a href="#">Seminar</a>
+            <a href="#">News</a>
+            <a href="#">Contact</a>
+        </nav>
+        <div class="header-actions">
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="cn">中文</button>
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="th">TH</button>
+            </div>
+            <button class="btn btn-primary">Login</button>
+        </div>
+    </header>
+    
+    <section class="banner">
+        <h1>Connect Southeast Asian Youth<br>with Chinese Universities</h1>
+        <div class="banner-btns">
+            <button class="btn btn-cta">Study in China</button>
+            <button class="btn btn-cta">Services</button>
+            <button class="btn btn-cta">Employment</button>
+            <button class="btn btn-cta">Talent</button>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <h3>Study in China</h3>
+                <p>Chinese University Applications</p>
+                <a href="#" class="link">View More →</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Outstanding Students</h3>
+                <p>Talent Pool 500+ Profiles</p>
+                <a href="#" class="link">View More →</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Corporate Cooperation</h3>
+                <p>Join Us 50+ Partners</p>
+                <a href="#" class="link">View More →</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎥</div>
+                <h3>Seminar Center</h3>
+                <p>Live Watch</p>
+                <a href="#" class="link">View More →</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="partner-bar">
+        <h4>Partner Universities</h4>
+        <div class="partner-scroll">
+            <div class="partner-item">Logo 1</div>
+            <div class="partner-item">Logo 2</div>
+            <div class="partner-item">Logo 3</div>
+            <div class="partner-item">Logo 4</div>
+            <div class="partner-item">Logo 5</div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--secondary);">
+        <h2 class="section-title">Core Advantages</h2>
+        <div class="advantages">
+            <div class="advantage">
+                <div class="advantage-icon">🌍</div>
+                <h4>Stable SE Asia Channels</h4>
+                <p>10+ Years Experience</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage-icon">🏛️</div>
+                <h4>Rich University Partnerships</h4>
+                <p>50+ Partners Across China</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage-icon">📊</div>
+                <h4>Targeted Recruitment</h4>
+                <p>Chinese Enterprises One-Stop</p>
+            </div>
+            <div class="advantage">
+                <div class="advantage-icon">🔄</div>
+                <h4>Full Closed-loop Service</h4>
+                <p>End-to-End Solutions</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Site Map</a>
+        </div>
+        <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+    </footer>
+</div>
+
+<!-- MODULE 2: ABOUT US -->
+<div class="module" id="about" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 2: About Us (关于我们)</h2>
+    
+    <section class="page-hero">
+        <h1>About Us / 关于我们</h1>
+        <p>我们连接东南亚青年与中国高校</p>
+    </section>
+    
+    <section class="section">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto;">
+            <div style="background: var(--secondary); border-radius: 8px; height: 300px; display: flex; align-items: center; justify-content: center;">Company Photo</div>
+            <div>
+                <h2 style="font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 8px;">Hubei Horizon International Talent Service Co., Ltd.</h2>
+                <p style="font-size: 18px; color: var(--text-secondary); margin-bottom: 16px;">湖北豪睿国际人才服务有限公司</p>
+                <p style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">Our core mission is to connect Southeast Asian youth with Chinese universities and deliver quality local talent to Chinese enterprises.</p>
+                <div style="display: flex; gap: 12px;">
+                    <span style="padding: 8px 16px; background: var(--secondary); color: var(--primary); border-radius: 20px;">Professional</span>
+                    <span style="padding: 8px 16px; background: var(--secondary); color: var(--primary); border-radius: 20px;">International</span>
+                    <span style="padding: 8px 16px; background: var(--secondary); color: var(--primary); border-radius: 20px;">Reliable</span>
+                    <span style="padding: 8px 16px; background: var(--secondary); color: var(--primary); border-radius: 20px;">Closed-loop</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <h2 class="section-title">Our Journey / 发展历程</h2>
+        <div class="timeline">
+            <div class="timeline-line">
+                <div class="timeline-node"></div>
+                <div class="timeline-node"></div>
+                <div class="timeline-node"></div>
+                <div class="timeline-node"></div>
+                <div class="timeline-node"></div>
+                <div class="timeline-node"></div>
+            </div>
+        </div>
+        <div class="timeline-items">
+            <div class="timeline-item">
+                <div class="timeline-year">2018</div>
+                <div class="timeline-title">Founded</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2019</div>
+                <div class="timeline-title">SE Asia Office</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2020</div>
+                <div class="timeline-title">50+ Partners</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2022</div>
+                <div class="timeline-title">Online Interview</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2023</div>
+                <div class="timeline-title">10,000+ Students</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--secondary);">
+        <h2 class="section-title">Full-Process Service / 全流程服务</h2>
+        <div class="service-flow">
+            <div class="service-item">
+                <div class="service-icon">📋</div>
+                <h4>Recruitment</h4>
+                <p>Resume Collection</p>
+            </div>
+            <div class="service-arrow">→</div>
+            <div class="service-item">
+                <div class="service-icon">🏠</div>
+                <h4>Living Services</h4>
+                <p>Airport Pickup</p>
+            </div>
+            <div class="service-arrow">→</div>
+            <div class="service-item">
+                <div class="service-icon">📚</div>
+                <h4>Academic Tutoring</h4>
+                <p>Language Training</p>
+            </div>
+            <div class="service-arrow">→</div>
+            <div class="service-item">
+                <div class="service-icon">💼</div>
+                <h4>Employment</h4>
+                <p>Job Matching</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Core Team / 核心团队</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo">Photo</div>
+                <h4>Name</h4>
+                <p>CEO</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo">Photo</div>
+                <h4>Name</h4>
+                <p>COO</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo">Photo</div>
+                <h4>Name</h4>
+                <p>CTO</p>
+            </div>
+            <div class="team-card">
+                <div class="team-photo">Photo</div>
+                <h4>Name</h4>
+                <p>Director</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- MODULE 3: STUDY IN CHINA -->
+<div class="module" id="study" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 3: Study in China (留学中国)</h2>
+    
+    <section class="page-hero">
+        <h1>Study in China / 留学中国</h1>
+        <p>Your Path to Chinese Universities</p>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Programs We Offer / 招生项目</h2>
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="icon">🎓</div>
+                <h3>Vocational Training</h3>
+                <ul>
+                    <li>• 1-3 years</li>
+                    <li>• Practical skills</li>
+                    <li>• Job ready</li>
+                </ul>
+                <button class="btn btn-cta">Apply Now →</button>
+            </div>
+            <div class="program-card">
+                <div class="icon">🎓</div>
+                <h3>Bachelor's Degree</h3>
+                <ul>
+                    <li>• 4 years</li>
+                    <li>• Academic</li>
+                    <li>• Research oriented</li>
+                </ul>
+                <button class="btn btn-cta">Apply Now →</button>
+            </div>
+            <div class="program-card">
+                <div class="icon">🎓</div>
+                <h3>Master's Degree</h3>
+                <ul>
+                    <li>• 2-3 years</li>
+                    <li>• Research</li>
+                    <li>• Graduate</li>
+                </ul>
+                <button class="btn btn-cta">Apply Now →</button>
+            </div>
+            <div class="program-card">
+                <div class="icon">🗣️</div>
+                <h3>Chinese Language Training</h3>
+                <ul>
+                    <li>• HSK prep</li>
+                    <li>• Immersion</li>
+                    <li>• Certificates</li>
+                </ul>
+                <button class="btn btn-cta">Apply Now →</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <h2 class="section-title">How to Apply / 申请指南</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-circle">1</div>
+                <h4>Submit Online Form</h4>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-circle">2</div>
+                <h4>Document Review</h4>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step active">
+                <div class="step-circle">3</div>
+                <h4>Visa Application</h4>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-circle">4</div>
+                <h4>Airport Pickup</h4>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-circle">5</div>
+                <h4>Start Study</h4>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Partner Universities / 合作院校</h2>
+        <div class="univ-grid">
+            <div class="univ-card">
+                <div class="univ-logo">Logo</div>
+                <h4>Peking University</h4>
+                <p>Beijing</p>
+            </div>
+            <div class="univ-card">
+                <div class="univ-logo">Logo</div>
+                <h4>Tsinghua University</h4>
+                <p>Beijing</p>
+            </div>
+            <div class="univ-card">
+                <div class="univ-logo">Logo</div>
+                <h4>Wuhan University</h4>
+                <p>Wuhan</p>
+            </div>
+            <div class="univ-card">
+                <div class="univ-logo">Logo</div>
+                <h4>Fudan University</h4>
+                <p>Shanghai</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <h2 class="section-title">FAQ / 常见问题</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">▶ How difficult is the application process?<span>−</span></div>
+                <div class="faq-answer">Answer text goes here with detailed information about the application process, requirements, and timeline...</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">▶ What are the language requirements?<span>+</span></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">▶ What are the tuition fees?<span>+</span></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-banner">
+        <h2>Ready to Start Your Journey?<br>准备好开始你的留学之旅了吗？</h2>
+        <button class="btn btn-cta" style="font-size: 18px; padding: 16px 48px;">Apply Now →</button>
+    </section>
+</div>
+
+<!-- MODULE 4: TALENT POOL -->
+<div class="module" id="talent" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 4: Talent Pool (人才库)</h2>
+    
+    <section class="page-hero">
+        <h1>Talent Pool / 人才库</h1>
+        <p>Connecting Outstanding SE Asian Students with Chinese Enterprises</p>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <div class="filter-bar">
+            <select><option>Nationality</option></select>
+            <select><option>Major</option></select>
+            <select><option>Language</option></select>
+            <select><option>Education</option></select>
+            <select><option>Availability</option></select>
+            <span class="count">Found: 523 talents</span>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn btn-primary btn-sm">▦</button>
+                <button class="btn btn-outline btn-sm">≡</button>
+            </div>
+        </div>
+        
+        <div class="talent-grid">
+            <div class="talent-card">
+                <div class="talent-photo"></div>
+                <h4>Somchai Smith</h4>
+                <p class="nationality">🇹🇭 Thailand</p>
+                <p class="univ">🎓 Wuhan University</p>
+                <p class="major">Business Administration</p>
+                <p class="languages">🗣️ CN: HSK4 | EN: IELTS 6.0</p>
+                <p class="intention">💼 Marketing Manager</p>
+                <div class="actions">
+                    <button class="btn btn-outline btn-sm">Preview</button>
+                    <button class="btn btn-primary btn-sm">Resume</button>
+                </div>
+            </div>
+            <div class="talent-card">
+                <div class="talent-photo"></div>
+                <h4>Rina Wijaya</h4>
+                <p class="nationality">🇮🇩 Indonesia</p>
+                <p class="univ">🎓 Peking University</p>
+                <p class="major">Computer Science</p>
+                <p class="languages">🗣️ CN: HSK5 | EN: IELTS 7.0</p>
+                <p class="intention">💼 Software Developer</p>
+                <div class="actions">
+                    <button class="btn btn-outline btn-sm">Preview</button>
+                    <button class="btn btn-primary btn-sm">Resume</button>
+                </div>
+            </div>
+            <div class="talent-card">
+                <div class="talent-photo"></div>
+                <h4>Budi Santoso</h4>
+                <p class="nationality">🇻🇳 Vietnam</p>
+                <p class="univ">🎓 Tsinghua University</p>
+                <p class="major">Finance</p>
+                <p class="languages">🗣️ CN: HSK3 | EN: IELTS 5.0</p>
+                <p class="intention">💼 Finance Analyst</p>
+                <div class="actions">
+                    <button class="btn btn-outline btn-sm">Preview</button>
+                    <button class="btn btn-primary btn-sm">Resume</button>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary">Load More ↓</button>
+        </div>
+    </section>
+</div>
+
+<!-- MODULE 5: CORPORATE COOPERATION -->
+<div class="module" id="corporate" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 5: Corporate Cooperation (企业合作)</h2>
+    
+    <section class="page-hero">
+        <h1>Corporate Cooperation / 企业合作</h1>
+        <p>Partner with Us for Quality Talent Solutions</p>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Our Services for Enterprises / 企业服务</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">🎯</div>
+                <h3>Localized Recruitment</h3>
+                <p>Connect with quality SE Asian talent pool through our extensive network and expertise.</p>
+                <a href="#" class="link">Learn More →</a>
+            </div>
+            <div class="service-card">
+                <div class="icon">📚</div>
+                <h3>Targeted Training</h3>
+                <p>Customized programs to meet your specific industry needs and company culture.</p>
+                <a href="#" class="link">Learn More →</a>
+            </div>
+            <div class="service-card">
+                <div class="icon">👷</div>
+                <h3>Labor Dispatch</h3>
+                <p>Flexible staffing solutions for your workforce needs with reliable talent.</p>
+                <a href="#" class="link">Learn More →</a>
+            </div>
+        </div>
+        
+        <div style="background: var(--secondary); padding: 48px; text-align: center; border-radius: 8px; margin-top: 48px;">
+            <h3 style="font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 16px;">Customized Talent Programs / 定制人才计划</h3>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 24px;">We design recruitment solutions tailored to your industry and company culture.</p>
+            <button class="btn btn-cta">Contact Us →</button>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <h2 class="section-title">Success Cases / 合作案例</h2>
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-image">Company Photo</div>
+                <div class="case-content">
+                    <h4>Alibaba Group</h4>
+                    <div class="case-stats">
+                        <span>Positions: 50+</span>
+                        <span>Students Placed: 120</span>
+                        <span>Success Rate: 95%</span>
+                    </div>
+                    <p class="case-quote">"Horizon helped us find exceptional talent from SE Asia"</p>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">Company Photo</div>
+                <div class="case-content">
+                    <h4>Huawei Technologies</h4>
+                    <div class="case-stats">
+                        <span>Positions: 30+</span>
+                        <span>Students Placed: 85</span>
+                        <span>Success Rate: 92%</span>
+                    </div>
+                    <p class="case-quote">"Professional service with thorough understanding of our needs"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-banner">
+        <h2>Enterprise Portal / 企业入口</h2>
+        <div style="display: flex; gap: 24px; justify-content: center; margin-top: 32px;">
+            <button class="btn btn-outline" style="background: white; color: var(--primary);">Register as Enterprise</button>
+            <button class="btn btn-cta">Login to Portal</button>
+        </div>
+    </section>
+</div>
+
+<!-- MODULE 6: SEMINAR CENTER -->
+<div class="module" id="seminar" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 6: Seminar Center (研讨会中心)</h2>
+    
+    <section class="page-hero">
+        <h1>Seminar Center / 研讨会中心</h1>
+        <p>Live Broadcasts, Webinars, and On-Demand Content</p>
+    </section>
+    
+    <section class="section">
+        <div class="module-tabs">
+            <div class="module-tab active">📺 Live Seminars</div>
+            <div class="module-tab">📼 Playback</div>
+            <div class="module-tab">📅 Upcoming</div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--white);">
+        <span class="live-badge">🔴 LIVE NOW</span>
+        <div style="margin-top: 24px;">
+            <div class="video-placeholder">Video Player Area</div>
+            <div class="video-info">
+                <div>
+                    <h3 style="font-size: 24px; color: var(--text); margin-bottom: 8px;">How to Succeed in Chinese Universities</h3>
+                    <div class="video-meta">
+                        <span>Speaker: Dr. Zhang Wei</span>
+                        <span>Audience: 1,234</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary">Watch Now</button>
+                    <button class="btn btn-outline">Share</button>
+                    <button class="btn btn-outline">Register for Replay</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Upcoming Seminars / 即将开始的研讨会</h2>
+        <div class="seminar-grid">
+            <div class="seminar-card">
+                <div class="seminar-thumb">Thumbnail</div>
+                <div class="seminar-content">
+                    <p class="seminar-date">Apr 20, 2026 • 10:00 AM (BJT)</p>
+                    <h4 class="seminar-title">Chinese University Application Guide</h4>
+                    <p class="seminar-speaker">Speaker: Prof. Li</p>
+                    <span class="seminar-target">Target: Students</span>
+                    <button class="btn btn-cta" style="width: 100%;">🔔 Register</button>
+                </div>
+            </div>
+            <div class="seminar-card">
+                <div class="seminar-thumb">Thumbnail</div>
+                <div class="seminar-content">
+                    <p class="seminar-date">Apr 25, 2026 • 2:00 PM (BJT)</p>
+                    <h4 class="seminar-title">Job Market Trends</h4>
+                    <p class="seminar-speaker">Speaker: Mr. Wang</p>
+                    <span class="seminar-target">Target: Corporate</span>
+                    <button class="btn btn-cta" style="width: 100%;">🔔 Register</button>
+                </div>
+            </div>
+            <div class="seminar-card">
+                <div class="seminar-thumb">Thumbnail</div>
+                <div class="seminar-content">
+                    <p class="seminar-date">May 2, 2026 • 9:00 AM (BJT)</p>
+                    <h4 class="seminar-title">Visa Application Process</h4>
+                    <p class="seminar-speaker">Speaker: Ms. Chen</p>
+                    <span class="seminar-target">Target: Both</span>
+                    <button class="btn btn-cta" style="width: 100%;">🔔 Register</button>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 24px; color: var(--text-secondary);">You'll receive a reminder 15 minutes before start</p>
+    </section>
+</div>
+
+<!-- MODULE 7: NEWS -->
+<div class="module" id="news" style="border-bottom: 2px solid var(--accent); padding-bottom: 48px; margin-bottom: 48px;">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 7: News (新闻)</h2>
+    
+    <section class="page-hero">
+        <h1>News & Insights / 新闻资讯</h1>
+        <p>Stay Updated with Our Latest News</p>
+    </section>
+    
+    <section class="section">
+        <div class="module-tabs">
+            <div class="module-tab active">All</div>
+            <div class="module-tab">Company News</div>
+            <div class="module-tab">Industry News</div>
+            <div class="module-tab">Study Abroad</div>
+            <div class="module-tab">Recruitment</div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--secondary);">
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto;">
+            <div style="background: var(--white); border-radius: 8px; overflow: hidden;">
+                <div style="height: 300px; background: linear-gradient(135deg, var(--border) 0%, var(--secondary) 100%); display: flex; align-items: center; justify-content: center;">Featured Image</div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; background: var(--white); border-radius: 8px; padding: 32px;">
+                <span class="news-tag">Company News</span>
+                <h3 style="font-size: 28px; font-weight: 600; color: var(--primary); margin: 16px 0;">Article Title Goes Here</h3>
+                <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 24px;">Summary text goes here and continues for a couple lines with the full story preview...</p>
+                <p style="font-size: 14px; color: var(--text-secondary);">Apr 15, 2026 | 5 min read</p>
+                <a href="#" class="link" style="margin-top: 16px;">Read More →</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2 class="section-title">Latest News</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-thumb">Image</div>
+                <div class="news-content">
+                    <span class="news-tag">Company News</span>
+                    <h4 class="news-title">Title of the article goes here...</h4>
+                    <p class="news-date">Apr 12, 2026</p>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-thumb">Image</div>
+                <div class="news-content">
+                    <span class="news-tag">Industry News</span>
+                    <h4 class="news-title">Title of the article goes here...</h4>
+                    <p class="news-date">Apr 10, 2026</p>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-thumb">Image</div>
+                <div class="news-content">
+                    <span class="news-tag">Study Abroad</span>
+                    <h4 class="news-title">Title of the article goes here...</h4>
+                    <p class="news-date">Apr 8, 2026</p>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 32px;">
+            <button class="btn btn-primary">Load More ↓</button>
+        </div>
+    </section>
+    
+    <section class="newsletter">
+        <h3>Subscribe to Our Newsletter / 订阅我们的新闻通讯</h3>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email address">
+            <button class="btn btn-cta">Subscribe →</button>
+        </div>
+    </section>
+</div>
+
+<!-- MODULE 8: CONTACT US -->
+<div class="module" id="contact">
+    <h2 style="background: var(--accent); color: white; padding: 16px 48px; margin-bottom: 32px;">MODULE 8: Contact Us (联系我们)</h2>
+    
+    <section class="page-hero">
+        <h1>Contact Us / 联系我们</h1>
+        <p>We're Here to Help</p>
+    </section>
+    
+    <section class="section">
+        <div class="contact-section">
+            <div class="contact-info">
+                <h3>CONTACT INFORMATION</h3>
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <div>
+                        <strong>Address:</strong>
+                        <p>Wuhan, Hubei, China</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <div>
+                        <strong>Phone:</strong>
+                        <p>+86 27-1234-5678</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <div>
+                        <strong>Email:</strong>
+                        <p>info@hbhr.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">💬</span>
+                    <div>
+                        <strong>WeChat:</strong>
+                        <p>hbhr_official</p>
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <div class="social-icon">FB</div>
+                    <div class="social-icon">LI</div>
+                    <div class="social-icon">WA</div>
+                    <div class="social-icon">Line</div>
+                </div>
+                <div style="margin-top: 32px; height: 200px; background: var(--secondary); border-radius: 8px; display: flex; align-items: center; justify-content: center;">Google Map Embed</div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" placeholder="Enter your phone">
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" placeholder="Enter subject">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea placeholder="Enter your message"></textarea>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Send Message →</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--secondary);">
+        <h2 class="section-title">Our Offices / 我们的办事处</h2>
+        <div class="offices-grid">
+            <div class="office-card">
+                <div class="office-icon">🏢</div>
+                <h4>China HQ</h4>
+                <p>Wuhan, Hubei</p>
+                <p>Address details...</p>
+                <p>Phone: +86 27-xxx</p>
+                <p>Email: china@hbhr.com</p>
+                <a href="#" class="link">Get Directions →</a>
+            </div>
+            <div class="office-card">
+                <div class="office-icon">🏢</div>
+                <h4>Thailand</h4>
+                <p>Bangkok</p>
+                <p>Address details...</p>
+                <p>Phone: +66 2 xxx</p>
+                <p>Email: thailand@hbhr.com</p>
+                <a href="#" class="link">Get Directions →</a>
+            </div>
+            <div class="office-card">
+                <div class="office-icon">🏢</div>
+                <h4>Indonesia</h4>
+                <p>Jakarta</p>
+                <p>Address details...</p>
+                <p>Phone: +62 21 xxx</p>
+                <p>Email: indo@hbhr.com</p>
+                <a href="#" class="link">Get Directions →</a>
+            </div>
+            <div class="office-card">
+                <div class="office-icon">🏢</div>
+                <h4>Vietnam</h4>
+                <p>Ho Chi Minh</p>
+                <p>Address details...</p>
+                <p>Phone: +84 28 xxx</p>
+                <p>Email: vietnam@hbhr.com</p>
+                <a href="#" class="link">Get Directions →</a>
+            </div>
+            <div class="office-card">
+                <div class="office-icon">🏢</div>
+                <h4>Malaysia</h4>
+                <p>Kuala Lumpur</p>
+                <p>Address details...</p>
+                <p>Phone: +60 3 xxx</p>
+                <p>Email: malaysia@hbhr.com</p>
+                <a href="#" class="link">Get Directions →</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Site Map</a>
+    </div>
+    <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
