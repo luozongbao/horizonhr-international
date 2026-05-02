@@ -9,7 +9,8 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Send seminar reminder emails to registrants ~15 minutes before start.
+        $schedule->command('seminars:send-reminders')->everyMinute();
     }
 
     protected function commands(): void

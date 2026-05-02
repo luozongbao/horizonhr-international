@@ -104,9 +104,6 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'index']);
         Route::post  ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'store']);
         Route::delete('/applications/{id}',       [\App\Http\Controllers\Student\ApplicationController::class,   'destroy']);
-        Route::get   ('/seminars',                [\App\Http\Controllers\Student\SeminarController::class,       'index']);
-        Route::post  ('/seminars/{id}/register',  [\App\Http\Controllers\Student\SeminarController::class,       'register']);
-        Route::get   ('/seminars/{id}/stream',    [\App\Http\Controllers\Student\SeminarController::class,       'streamUrl']);
     });
 
     /*
@@ -165,9 +162,13 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::put   ('/interviews/{id}/record',          [\App\Http\Controllers\Admin\InterviewController::class,      'updateRecord']);
 
         // Seminars
-        Route::apiResource('/seminars',           \App\Http\Controllers\Admin\SeminarController::class);
-        Route::post  ('/seminars/{id}/start',     [\App\Http\Controllers\Admin\SeminarController::class,        'startStream']);
-        Route::post  ('/seminars/{id}/end',       [\App\Http\Controllers\Admin\SeminarController::class,        'endStream']);
+        Route::get   ('/seminars',                [\App\Http\Controllers\Admin\SeminarController::class,        'index']);
+        Route::post  ('/seminars',                [\App\Http\Controllers\Admin\SeminarController::class,        'store']);
+        Route::get   ('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'show']);
+        Route::put   ('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'update']);
+        Route::delete('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'destroy']);
+        Route::post  ('/seminars/{id}/go-live',   [\App\Http\Controllers\Admin\SeminarController::class,        'goLive']);
+        Route::post  ('/seminars/{id}/end-live',  [\App\Http\Controllers\Admin\SeminarController::class,        'endLive']);
 
         // Announcements
         Route::apiResource('/announcements',      \App\Http\Controllers\Admin\AnnouncementController::class);
@@ -231,8 +232,12 @@ Route::prefix('public')->group(function () {
     Route::get('/enterprises/{id}',  [\App\Http\Controllers\Public\EnterpriseController::class, 'show']);
     Route::get('/talent',            [\App\Http\Controllers\Public\TalentController::class,  'index']);
     Route::get('/talent/{id}',       [\App\Http\Controllers\Public\TalentController::class,  'show']);
-    Route::get('/seminars',          [\App\Http\Controllers\Public\SeminarController::class, 'index']);
-    Route::get('/seminars/{id}',     [\App\Http\Controllers\Public\SeminarController::class, 'show']);
+    Route::get ('/seminars',                    [\App\Http\Controllers\Public\SeminarController::class, 'index']);
+    Route::get ('/seminars/{id}',               [\App\Http\Controllers\Public\SeminarController::class, 'show']);
+    Route::post('/seminars/{id}/register',      [\App\Http\Controllers\Public\SeminarController::class, 'register']);
+    Route::get ('/seminars/{id}/recording',     [\App\Http\Controllers\Public\SeminarController::class, 'recording']);
+    Route::get ('/seminars/{id}/danmu',         [\App\Http\Controllers\Public\SeminarController::class, 'getDanmu']);
+    Route::post('/seminars/{id}/danmu',         [\App\Http\Controllers\Public\SeminarController::class, 'sendDanmu']);
     // Pages (CMS static pages)
     Route::get('/pages',             [\App\Http\Controllers\Public\PageController::class,    'index']);
     Route::get('/pages/{slug}',      [\App\Http\Controllers\Public\PageController::class,    'show']);
