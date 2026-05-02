@@ -196,6 +196,14 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::post  ('/contacts/{id}/reply',     [\App\Http\Controllers\Admin\ContactController::class,        'reply']);
         Route::delete('/contacts/{id}',           [\App\Http\Controllers\Admin\ContactController::class,        'destroy']);
 
+        // Universities
+        Route::post  ('/universities',            [\App\Http\Controllers\Admin\UniversityController::class,     'store']);
+        Route::put   ('/universities/{id}',       [\App\Http\Controllers\Admin\UniversityController::class,     'update']);
+        Route::delete('/universities/{id}',       [\App\Http\Controllers\Admin\UniversityController::class,     'destroy']);
+
+        // Statistics
+        Route::get   ('/stats',                   [\App\Http\Controllers\Admin\StatisticsController::class,     'index']);
+
         // Settings
         Route::get   ('/settings',                [\App\Http\Controllers\Admin\SettingsController::class,       'index']);
         Route::put   ('/settings',                [\App\Http\Controllers\Admin\SettingsController::class,       'update']);
@@ -245,6 +253,8 @@ Route::prefix('public')->group(function () {
     Route::get('/posts',             [\App\Http\Controllers\Public\PostController::class,    'index']);
     Route::get('/posts/{id}',        [\App\Http\Controllers\Public\PostController::class,    'show']);
     Route::post('/contact',          [\App\Http\Controllers\Public\ContactController::class, 'store']);
+    Route::get ('/universities',     [\App\Http\Controllers\Public\UniversityController::class, 'index']);
+    Route::get ('/universities/{id}',[\App\Http\Controllers\Public\UniversityController::class, 'show']);
     Route::get('/settings',          [\App\Http\Controllers\Public\SettingsController::class,   'publicConfig']);
     Route::get('/languages',         [\App\Http\Controllers\Public\LanguageController::class,    'activeLanguages']);
     Route::get('/translations',      [\App\Http\Controllers\Public\TranslationController::class, 'index']);
