@@ -111,8 +111,10 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::delete('/jobs/{id}',               [\App\Http\Controllers\Enterprise\JobController::class,        'destroy']);
         Route::put   ('/jobs/{id}/publish',       [\App\Http\Controllers\Enterprise\JobController::class,        'publish'])->middleware('enterprise.verified');
         Route::put   ('/jobs/{id}/close',         [\App\Http\Controllers\Enterprise\JobController::class,        'close']);
+        Route::get   ('/applications',             [\App\Http\Controllers\Enterprise\ApplicationController::class,'index']);
+        Route::get   ('/applications/{id}',          [\App\Http\Controllers\Enterprise\ApplicationController::class,'show']);
+        Route::put   ('/applications/{id}/status',   [\App\Http\Controllers\Enterprise\ApplicationController::class,'updateStatus']);
         Route::get   ('/jobs/{id}/applications',  [\App\Http\Controllers\Enterprise\JobController::class,        'applications']);
-        Route::put   ('/applications/{id}/status',[\App\Http\Controllers\Enterprise\ApplicationController::class,'updateStatus']);
         Route::get   ('/talent',                  [\App\Http\Controllers\Enterprise\TalentController::class,     'index']);
         Route::get   ('/talent/{id}',             [\App\Http\Controllers\Enterprise\TalentController::class,     'show']);
         Route::post  ('/interviews',              [\App\Http\Controllers\Enterprise\InterviewController::class,  'store']);
@@ -139,6 +141,9 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         // Jobs
         Route::get   ('/jobs',                    [\App\Http\Controllers\Admin\JobController::class,            'index']);
         Route::delete('/jobs/{id}',               [\App\Http\Controllers\Admin\JobController::class,            'destroy']);
+
+        // Applications
+        Route::get   ('/applications',            [\App\Http\Controllers\Admin\ApplicationController::class,   'index']);
 
         // Resume review
         Route::get   ('/resumes',                 [\App\Http\Controllers\Admin\ResumeController::class,         'index']);
