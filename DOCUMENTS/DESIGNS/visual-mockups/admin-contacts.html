@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages - HBHR Admin</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --warning: #FFC107; --danger: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); background: #F5F7FA; display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--primary); min-height: 100vh; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; }
+        .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-logo .brand { font-size: 18px; font-weight: 700; color: white; }
+        .sidebar-logo .brand span { color: var(--accent); }
+        .sidebar-logo .role { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sidebar-nav { padding: 16px 0; flex: 1; overflow-y: auto; }
+        .nav-section-label { padding: 16px 20px 8px; font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.7px; font-weight: 600; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 14px; color: rgba(255,255,255,0.75); cursor: pointer; text-decoration: none; }
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.12); color: white; border-left: 3px solid var(--accent); padding-left: 17px; }
+        .nav-item .icon { width: 18px; text-align: center; font-size: 15px; }
+        .nav-badge { margin-left: auto; background: var(--accent); color: white; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+        .main-wrapper { margin-left: 260px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+        .topbar { background: white; height: 64px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; gap: 16px; }
+        .topbar h2 { font-size: 20px; font-weight: 600; color: var(--primary); }
+        .topbar .actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 5px 9px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .user-chip { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .user-avatar { width: 36px; height: 36px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; }
+        .user-name { font-size: 14px; font-weight: 500; }
+        .content { padding: 32px; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .page-header h1 { font-size: 26px; font-weight: 600; color: var(--primary); }
+        .page-header p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-view { background: var(--secondary); color: var(--primary); }
+        .btn-reply { background: #E8F5E9; color: var(--success); }
+        .btn-delete { background: #FEEAE9; color: var(--danger); }
+        .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-pill { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-pill .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-pill .label { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .stat-pill .icon { font-size: 32px; opacity: 0.5; }
+        /* Status filter row */
+        .status-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+        .status-tab { padding: 8px 20px; border-radius: 24px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: white; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .status-tab .cnt { background: var(--border); padding: 2px 7px; border-radius: 10px; font-size: 11px; }
+        .status-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .status-tab.active .cnt { background: rgba(255,255,255,0.25); }
+        /* Toolbar */
+        .toolbar { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 14px 18px; display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+        .toolbar input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; }
+        .toolbar select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: white; }
+        /* Two panel layout */
+        .panel-layout { display: grid; grid-template-columns: 1fr 380px; gap: 20px; }
+        /* Messages List */
+        .messages-list { display: flex; flex-direction: column; gap: 0; background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+        .message-item { padding: 16px 20px; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; gap: 16px; align-items: flex-start; }
+        .message-item:last-child { border-bottom: none; }
+        .message-item:hover { background: #FAFBFC; }
+        .message-item.active { background: var(--secondary); border-left: 3px solid var(--primary); padding-left: 17px; }
+        .message-item.unread .msg-name { font-weight: 700; color: var(--primary); }
+        .msg-avatar { width: 40px; height: 40px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .msg-meta { flex: 1; min-width: 0; }
+        .msg-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .msg-name { font-size: 14px; font-weight: 500; color: var(--text); }
+        .msg-date { font-size: 11px; color: var(--text-secondary); }
+        .msg-subject { font-size: 13px; color: var(--primary); margin-bottom: 3px; font-weight: 500; }
+        .msg-preview { font-size: 12px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .unread-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+        .msg-status { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+        .status-badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .status-new { background: #FEEAE9; color: var(--danger); }
+        .status-read { background: #F5F5F5; color: var(--text-secondary); }
+        .status-replied { background: #E8F5E9; color: var(--success); }
+        /* Message Detail Panel */
+        .detail-panel { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; position: sticky; top: 88px; }
+        .detail-header { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+        .detail-header h3 { font-size: 17px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .detail-meta { display: flex; flex-direction: column; gap: 6px; }
+        .detail-meta-row { display: flex; gap: 8px; font-size: 13px; }
+        .detail-meta-label { color: var(--text-secondary); width: 60px; flex-shrink: 0; }
+        .detail-meta-value { color: var(--text); font-weight: 500; }
+        .detail-body { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+        .detail-body p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+        .detail-actions { padding: 16px 24px; display: flex; gap: 8px; }
+        .reply-area { padding: 0 24px 20px; }
+        .reply-area label { display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; }
+        .reply-area textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 100px; }
+        .reply-send { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; width: 100%; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="brand">Hubei <span>Horizon</span> HR</div>
+        <div class="role">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">Users / Management</div>
+        <a class="nav-item" href="admin-dashboard.html"><span class="icon">📊</span> Dashboard</a>
+        <a class="nav-item" href="admin-users.html"><span class="icon">👥</span> User Management</a>
+        <a class="nav-item" href="admin-resumes.html"><span class="icon">📄</span> Resume Review</a>
+        <a class="nav-item" href="admin-interviews.html"><span class="icon">🎥</span> Interviews</a>
+        <a class="nav-item" href="admin-seminars.html"><span class="icon">📡</span> Seminars</a>
+        <div class="nav-section-label">Content</div>
+        <a class="nav-item" href="admin-cms-pages.html"><span class="icon">📑</span> CMS Pages</a>
+        <a class="nav-item" href="admin-cms-posts.html"><span class="icon">📰</span> Posts & News</a>
+        <a class="nav-item" href="admin-news.html"><span class="icon">📢</span> Announcements</a>
+        <a class="nav-item active" href="admin-contacts.html"><span class="icon">✉️</span> Contact Messages <span class="nav-badge">7</span></a>
+        <div class="nav-section-label">System</div>
+        <a class="nav-item" href="admin-settings.html"><span class="icon">⚙️</span> System Settings</a>
+        <a class="nav-item" href="admin-language-settings.html"><span class="icon">🌐</span> Language Settings</a>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <div class="topbar">
+        <h2>Contact Messages</h2>
+        <div class="actions">
+            <div class="lang-switcher">
+                <button class="lang-btn">中文</button>
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">TH</button>
+            </div>
+            <div class="user-chip">
+                <div class="user-avatar">A</div>
+                <span class="user-name">Admin</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <div>
+                <h1>Contact Messages</h1>
+                <p>Incoming inquiries from the Contact Us page. Respond directly from here.</p>
+            </div>
+            <button class="btn btn-primary">Export CSV</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-strip">
+            <div class="stat-pill">
+                <div><div class="num" style="color:var(--danger);">7</div><div class="label">New / Unread</div></div>
+                <div class="icon">🔴</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num">15</div><div class="label">Total This Week</div></div>
+                <div class="icon">✉️</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num">89</div><div class="label">Total This Month</div></div>
+                <div class="icon">📬</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num" style="color:var(--success);">76%</div><div class="label">Response Rate</div></div>
+                <div class="icon">✅</div>
+            </div>
+        </div>
+
+        <!-- Status Tabs -->
+        <div class="status-tabs">
+            <div class="status-tab active">All <span class="cnt">89</span></div>
+            <div class="status-tab">New <span class="cnt">7</span></div>
+            <div class="status-tab">Read <span class="cnt">34</span></div>
+            <div class="status-tab">Replied <span class="cnt">48</span></div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <input type="text" placeholder="🔍 Search by name, email, or subject...">
+            <select><option>All Topics</option><option>University Application</option><option>Scholarship Info</option><option>Job / Recruitment</option><option>Enterprise Partnership</option><option>Technical Support</option><option>Other</option></select>
+            <select><option>All Roles</option><option>Student</option><option>Job Seeker</option><option>Enterprise</option><option>University</option></select>
+        </div>
+
+        <!-- Two-Panel Layout -->
+        <div class="panel-layout">
+            <!-- Messages List -->
+            <div class="messages-list">
+                <!-- Unread/New -->
+                <div class="message-item unread active">
+                    <div class="msg-avatar">👩‍🎓</div>
+                    <div class="msg-meta">
+                        <div class="msg-header">
+                            <span class="msg-name">Siriporn Thanakit</span>
+                            <span class="msg-date">Today, 09:14</span>
+                        </div>
+                        <div class="msg-subject">University Application — MBBS at Tongji Medical</div>
+                        <div class="msg-preview">Hi, I'm a Thai student interested in applying for MBBS at Tongji. I'd like to know if my current academic...</div>
+                    </div>
+                    <div class="msg-status">
+                        <div class="unread-dot"></div>
+                        <span class="status-badge status-new">New</span>
+                    </div>
+                </div>
+                <div class="message-item unread">
+                    <div class="msg-avatar">👨‍💼</div>
+                    <div class="msg-meta">
+                        <div class="msg-header">
+                            <span class="msg-name">David Nguyen</span>
+                            <span class="msg-date">Today, 07:52</span>
+                        </div>
+                        <div class="msg-subject">Enterprise Partnership — HR Manager at TechViet</div>
+                        <div class="msg-preview">We are looking to hire 10 Vietnamese-Chinese bilingual engineers and would like to explore a partnership...</div>
+                    </div>
+                    <div class="msg-status">
+                        <div class="unread-dot"></div>
+                        <span class="status-badge status-new">New</span>
+                    </div>
+                </div>
+                <div class="message-item unread">
+                    <div class="msg-avatar">👩</div>
+                    <div class="msg-meta">
+                        <div class="msg-header">
+                            <span class="msg-name">Anita Putri</span>
+                            <span class="msg-date">Yesterday, 22:31</span>
+                        </div>
+                        <div class="msg-subject">Scholarship Information — Indonesian Student</div>
+                        <div class="msg-preview">Hello, I am a final year high school student from Jakarta. I want to apply for the CSC scholarship for...</div>
+                    </div>
+                    <div class="msg-status">
+                        <div class="unread-dot"></div>
+                        <span class="status-badge status-new">New</span>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="msg-avatar">👨‍💻</div>
+                    <div class="msg-meta">
+                        <div class="msg-header">
+                            <span class="msg-name">Krit Sombat</span>
+                            <span class="msg-date">May 31, 14:20</span>
+                        </div>
+                        <div class="msg-subject">Technical Support — Login Issue</div>
+                        <div class="msg-preview">I'm unable to log in to my student account. I receive an error message saying "Invalid credentials" even though...</div>
+                    </div>
+                    <div class="msg-status">
+                        <span class="status-badge status-read">Read</span>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="msg-avatar">👩‍🏫</div>
+                    <div class="msg-meta">
+                        <div class="msg-header">
+                            <span class="msg-name">Dr. Nguyen Thi Lan</span>
+                            <span class="msg-date">May 30, 10:05</span>
+                        </div>
+                        <div class="msg-subject">University Partnership — Hanoi Medical University</div>
+                        <div class="msg-preview">We are interested in exploring a formal partnership agreement between Hanoi Medical University and HBHR for...</div>
+                    </div>
+                    <div class="msg-status">
+                        <span class="status-badge status-replied">Replied</span>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="msg-avatar">👨</div>
+                    <div class="msg-meta">
+                        <div class="msg-header">
+                            <span class="msg-name">Ahmad Fauzi</span>
+                            <span class="msg-date">May 29, 16:48</span>
+                        </div>
+                        <div class="msg-subject">Job Recruitment — Seeking Position in China</div>
+                        <div class="msg-preview">I graduated from Wuhan University in June 2025 with a degree in International Economics. I would like to...</div>
+                    </div>
+                    <div class="msg-status">
+                        <span class="status-badge status-replied">Replied</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Detail Panel -->
+            <div class="detail-panel">
+                <div class="detail-header">
+                    <h3>University Application — MBBS at Tongji Medical</h3>
+                    <div class="detail-meta">
+                        <div class="detail-meta-row"><span class="detail-meta-label">From:</span><span class="detail-meta-value">Siriporn Thanakit &lt;siriporn@email.com&gt;</span></div>
+                        <div class="detail-meta-row"><span class="detail-meta-label">Phone:</span><span class="detail-meta-value">+66 89 123 4567</span></div>
+                        <div class="detail-meta-row"><span class="detail-meta-label">Role:</span><span class="detail-meta-value">Student / Prospective Student</span></div>
+                        <div class="detail-meta-row"><span class="detail-meta-label">Date:</span><span class="detail-meta-value">June 1, 2026 at 09:14</span></div>
+                    </div>
+                </div>
+                <div class="detail-body">
+                    <p>Hi HBHR Team,</p>
+                    <br>
+                    <p>I'm a Thai student interested in applying for the MBBS program at Tongji Medical College for 2027 intake. I'd like to know if my current academic results (GPA 3.6/4.0) would qualify me for the Chinese Government Scholarship (CSC).</p>
+                    <br>
+                    <p>I also have HSK 4 certificate and some basic science background. Could you advise what additional preparation I need and what the timeline looks like?</p>
+                    <br>
+                    <p>Thank you,<br>Siriporn</p>
+                </div>
+                <div class="detail-actions">
+                    <button class="btn-sm btn-view">Mark as Read</button>
+                    <button class="btn-sm btn-delete">Delete</button>
+                    <a href="#" style="font-size:12px;color:var(--primary);text-decoration:none;margin-left:auto;">View full profile →</a>
+                </div>
+                <div class="reply-area">
+                    <label>Reply to Siriporn</label>
+                    <textarea placeholder="Type your reply here...">Dear Siriporn,
+
+Thank you for your inquiry. Your GPA of 3.6/4.0 is competitive for the CSC scholarship at Tongji Medical College.
+
+For the 2027 intake, we recommend...</textarea>
+                    <button class="reply-send">Send Reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

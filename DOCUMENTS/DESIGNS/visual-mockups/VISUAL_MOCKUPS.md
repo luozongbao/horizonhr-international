@@ -1083,4 +1083,76 @@
 ---
 
 _Visual Mockups completed based on wireframes and design system_
+
+---
+
+## HTML Mockup Files Index
+
+All HTML mockup files are located in `DOCUMENTS/DESIGNS/visual-mockups/`.
+
+### Public Pages
+
+| File | Route | Description | Status |
+|------|-------|-------------|--------|
+| `index.html` | `/` | Home page — hero banner, core service cards, partner logos, advantages | ✅ |
+| `about.html` | `/about` | About Us — company intro, stats row, values grid, timeline, team | ✅ |
+| `study.html` | `/study` | Study in China — programs grid, 6-step process, universities, FAQ, CTA | ✅ |
+| `talent-pool.html` | `/talent` | Talent Pool — anonymized talent cards with filters (PDPA-compliant) | ✅ |
+| `corporate.html` | `/corporate` | Corporate Services — service grid, how-it-works, partner logos, comparison table | ✅ |
+| `seminars.html` | `/seminars` | Seminar Listing — category tabs, live banner, seminar cards, pagination | ✅ |
+| `seminar-detail.html` | `/seminars/:id` | Seminar Detail — hero, speaker info, agenda, registration card, related | ✅ |
+| `news.html` | `/news` | News & Blog — category tabs, featured article, news cards, pagination | ✅ |
+| `news-detail.html` | `/news/:id` | Article Detail — full article, sidebar, social share, related articles | ✅ |
+| `contact.html` | `/contact` | Contact Us — office cards, contact form, info sidebar (map/WeChat/hours) | ✅ |
+| `login.html` | `/login` | Login — email/password, social sign-in buttons (Google, WeChat, LINE) | ✅ |
+| `register-student.html` | `/register/student` | Student Registration — PDPA consent + email confirmation notice | ✅ |
+| `register-enterprise.html` | `/register/enterprise` | Enterprise Registration — PDPA consent checkbox | ✅ |
+| `email-confirm-success.html` | — | Email Confirmation Success — green checkmark, login CTA, next-steps | ✅ |
+
+### Student Portal
+
+| File | Route | Description | Status |
+|------|-------|-------------|--------|
+| `student-dashboard.html` | `/student/dashboard` | Student dashboard — stats, application tracker, upcoming interviews | ✅ |
+| `student-profile.html` | `/student/profile` | Student profile editor — personal info, education, skills, languages | ✅ |
+| `student-resume.html` | `/student/resume` | Resume builder — live preview, section editor | ✅ |
+| `student-applications.html` | `/student/applications` | Job applications list — status tracking, timeline view | ✅ |
+| `student-interviews.html` | `/student/interviews` | Scheduled interviews — TRTC video call entry, calendar | ✅ |
+| `student-seminars.html` | `/student/seminars` | Registered seminars — live/upcoming, TRTC CSS stream entry | ✅ |
+
+### Enterprise Portal
+
+| File | Route | Description | Status |
+|------|-------|-------------|--------|
+| `enterprise-dashboard.html` | `/enterprise/dashboard` | Enterprise dashboard — job stats, recent applicants, interview schedule | ✅ |
+| `enterprise-profile.html` | `/enterprise/profile` | Company profile editor — logo, description, address, verification status | ✅ |
+| `enterprise-jobs.html` | `/enterprise/jobs` | Job posting management — create, edit, activate/deactivate | ✅ |
+| `enterprise-talent.html` | `/enterprise/talent` | Talent browsing — search resumes, shortlist candidates | ✅ |
+| `enterprise-interviews.html` | `/enterprise/interviews` | Interview management — TRTC room creation, candidate invitations | ✅ |
+
+### Admin Panel
+
+| File | Route | Description | Status |
+|------|-------|-------------|--------|
+| `admin-dashboard.html` | `/admin/dashboard` | Admin overview — KPI stats, activity feeds, pending approvals | ✅ |
+| `admin-users.html` | `/admin/users` | User management — students, enterprises, admins; role assignment | ✅ |
+| `admin-resumes.html` | `/admin/resumes` | Resume review — approval queue, status badges | ✅ |
+| `admin-interviews.html` | `/admin/interviews` | Interview oversight — all TRTC sessions, logs | ✅ |
+| `admin-seminars.html` | `/admin/seminars` | Seminar management — TRTC CSS streams, speaker setup | ✅ |
+| `admin-news.html` | `/admin/news` | Announcements — system-wide notices, push notifications | ✅ |
+| `admin-settings.html` | `/admin/settings` | System settings — general, email SMTP, payment, security | ✅ |
+| `admin-language-settings.html` | `/admin/languages` | i18n management — EN / ZH_CN / TH string editor | ✅ |
+| `admin-cms-pages.html` | `/admin/pages` | CMS static pages — multilingual page management with lang flags | ✅ |
+| `admin-cms-posts.html` | `/admin/posts` | Posts & News — category tabs, publish/draft/schedule, bulk actions | ✅ |
+| `admin-contacts.html` | `/admin/contacts` | Contact Messages — inbox with two-panel layout, inline reply | ✅ |
+
+### Summary
+
+| Category | Count |
+|----------|-------|
+| Public pages | 14 |
+| Student portal | 6 |
+| Enterprise portal | 5 |
+| Admin panel | 11 |
+| **Total** | **36** |
 _All 8 modules designed with PC + Mobile responsive layouts_

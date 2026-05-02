@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Pages - HBHR Admin</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --warning: #FFC107; --danger: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); background: #F5F7FA; display: flex; min-height: 100vh; }
+        /* Sidebar */
+        .sidebar { width: 260px; background: var(--primary); min-height: 100vh; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; }
+        .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-logo .brand { font-size: 18px; font-weight: 700; color: white; }
+        .sidebar-logo .brand span { color: var(--accent); }
+        .sidebar-logo .role { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sidebar-nav { padding: 16px 0; flex: 1; overflow-y: auto; }
+        .nav-section-label { padding: 16px 20px 8px; font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.7px; font-weight: 600; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 14px; color: rgba(255,255,255,0.75); cursor: pointer; text-decoration: none; }
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.12); color: white; border-left: 3px solid var(--accent); padding-left: 17px; }
+        .nav-item .icon { width: 18px; text-align: center; font-size: 15px; }
+        /* Main */
+        .main-wrapper { margin-left: 260px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+        /* Top Bar */
+        .topbar { background: white; height: 64px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; gap: 16px; }
+        .topbar h2 { font-size: 20px; font-weight: 600; color: var(--primary); }
+        .topbar .actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 5px 9px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .user-chip { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .user-avatar { width: 36px; height: 36px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; }
+        .user-name { font-size: 14px; font-weight: 500; color: var(--text); }
+        /* Content */
+        .content { padding: 32px; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .page-header h1 { font-size: 26px; font-weight: 600; color: var(--primary); }
+        .page-header p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-sm { padding: 6px 12px; font-size: 13px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-edit { background: var(--secondary); color: var(--primary); }
+        .btn-preview { background: #F0F0F0; color: var(--text-secondary); }
+        .btn-delete { background: #FEEAE9; color: var(--danger); }
+        /* Stats Strip */
+        .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-pill { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-pill .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .stat-pill .label { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .stat-pill .icon { font-size: 32px; opacity: 0.5; }
+        /* Toolbar */
+        .toolbar { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 16px 20px; display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+        .toolbar input { flex: 1; padding: 9px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; }
+        .toolbar select { padding: 9px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: white; }
+        /* Table */
+        .table-card { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+        .table-card table { width: 100%; border-collapse: collapse; }
+        .table-card thead th { background: #F5F7FA; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+        .table-card tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+        .table-card tbody tr:last-child td { border-bottom: none; }
+        .table-card tbody tr:hover { background: #FAFBFC; }
+        .page-title { font-weight: 600; color: var(--primary); }
+        .page-slug { font-size: 12px; color: var(--text-secondary); font-family: monospace; background: #F0F0F0; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+        .lang-flags { display: flex; gap: 6px; }
+        .lang-flag { width: 28px; height: 20px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; border: 1px solid var(--border); }
+        .lang-flag.active { background: var(--success); color: white; border-color: var(--success); }
+        .lang-flag.missing { background: #FFF3EE; color: var(--accent); border-color: var(--accent); }
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .status-published { background: #E8F5E9; color: var(--success); }
+        .status-draft { background: #FFF8E1; color: #856404; }
+        .status-hidden { background: #F5F5F5; color: var(--text-secondary); }
+        .actions-col { display: flex; gap: 6px; flex-wrap: wrap; }
+        /* Add Page Row */
+        .add-row { background: var(--secondary); }
+        .add-row td { padding: 12px 16px; }
+        .add-row input, .add-row select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: white; }
+        /* Pagination */
+        .pagination { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--border); }
+        .page-btn { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; background: white; }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="brand">Hubei <span>Horizon</span> HR</div>
+        <div class="role">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">Users / Management</div>
+        <a class="nav-item" href="admin-dashboard.html"><span class="icon">📊</span> Dashboard</a>
+        <a class="nav-item" href="admin-users.html"><span class="icon">👥</span> User Management</a>
+        <a class="nav-item" href="admin-resumes.html"><span class="icon">📄</span> Resume Review</a>
+        <a class="nav-item" href="admin-interviews.html"><span class="icon">🎥</span> Interviews</a>
+        <a class="nav-item" href="admin-seminars.html"><span class="icon">📡</span> Seminars</a>
+        <div class="nav-section-label">Content</div>
+        <a class="nav-item active" href="admin-cms-pages.html"><span class="icon">📑</span> CMS Pages</a>
+        <a class="nav-item" href="admin-cms-posts.html"><span class="icon">📰</span> Posts & News</a>
+        <a class="nav-item" href="admin-news.html"><span class="icon">📢</span> Announcements</a>
+        <a class="nav-item" href="admin-contacts.html"><span class="icon">✉️</span> Contact Messages</a>
+        <div class="nav-section-label">System</div>
+        <a class="nav-item" href="admin-settings.html"><span class="icon">⚙️</span> System Settings</a>
+        <a class="nav-item" href="admin-language-settings.html"><span class="icon">🌐</span> Language Settings</a>
+    </nav>
+</aside>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+    <!-- Top Bar -->
+    <div class="topbar">
+        <h2>CMS Pages</h2>
+        <div class="actions">
+            <div class="lang-switcher">
+                <button class="lang-btn">中文</button>
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">TH</button>
+            </div>
+            <div class="user-chip">
+                <div class="user-avatar">A</div>
+                <span class="user-name">Admin</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1>CMS Page Management</h1>
+                <p>Manage static website pages with multi-language content support.</p>
+            </div>
+            <button class="btn btn-primary">+ Add New Page</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-strip">
+            <div class="stat-pill">
+                <div><div class="num">12</div><div class="label">Total Pages</div></div>
+                <div class="icon">📑</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num">10</div><div class="label">Published</div></div>
+                <div class="icon">✅</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num">2</div><div class="label">Drafts</div></div>
+                <div class="icon">📝</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num" style="color:var(--accent);">3</div><div class="label">Missing Translations</div></div>
+                <div class="icon">⚠️</div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <input type="text" placeholder="🔍 Search pages by title or slug...">
+            <select><option>All Status</option><option>Published</option><option>Draft</option><option>Hidden</option></select>
+            <select><option>All Languages</option><option>Missing EN</option><option>Missing ZH</option><option>Missing TH</option></select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:30%">Page Title</th>
+                        <th style="width:18%">Slug / URL</th>
+                        <th>Languages</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add New Row -->
+                    <tr class="add-row">
+                        <td><input type="text" placeholder="Page title (English)" style="width:100%;"></td>
+                        <td><input type="text" placeholder="/slug" style="width:100%;"></td>
+                        <td><select><option>Published</option><option>Draft</option></select></td>
+                        <td colspan="2">
+                            <button class="btn-sm btn-primary" style="background:var(--success);color:white;">+ Create Page</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">Home</div>
+                            <div class="page-slug">/</div>
+                        </td>
+                        <td><code style="font-size:12px;">/</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag active">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>Jun 1, 2026 · 10:24</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">About Us</div>
+                            <div class="page-slug">/about</div>
+                        </td>
+                        <td><code style="font-size:12px;">/about</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag active">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 30, 2026 · 14:08</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">Study in China</div>
+                            <div class="page-slug">/study</div>
+                        </td>
+                        <td><code style="font-size:12px;">/study</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag missing">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 28, 2026 · 09:15</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">Corporate Cooperation</div>
+                            <div class="page-slug">/corporate</div>
+                        </td>
+                        <td><code style="font-size:12px;">/corporate</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag missing">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 25, 2026 · 11:42</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">Contact Us</div>
+                            <div class="page-slug">/contact</div>
+                        </td>
+                        <td><code style="font-size:12px;">/contact</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag active">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 24, 2026 · 16:50</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">Privacy Policy</div>
+                            <div class="page-slug">/privacy</div>
+                        </td>
+                        <td><code style="font-size:12px;">/privacy</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag missing">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 20, 2026 · 08:30</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">Terms of Service</div>
+                            <div class="page-slug">/terms</div>
+                        </td>
+                        <td><code style="font-size:12px;">/terms</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag active">ZH</span><span class="lang-flag active">TH</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 20, 2026 · 08:31</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">University Partners <span style="font-size:11px;background:#FFF8E1;color:#856404;padding:2px 8px;border-radius:10px;margin-left:4px;">DRAFT</span></div>
+                            <div class="page-slug">/partners</div>
+                        </td>
+                        <td><code style="font-size:12px;">/partners</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag missing">ZH</span><span class="lang-flag missing">TH</span></div></td>
+                        <td><span class="status-badge status-draft">Draft</span></td>
+                        <td>May 15, 2026 · 14:20</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="page-title">FAQ <span style="font-size:11px;background:#FFF8E1;color:#856404;padding:2px 8px;border-radius:10px;margin-left:4px;">DRAFT</span></div>
+                            <div class="page-slug">/faq</div>
+                        </td>
+                        <td><code style="font-size:12px;">/faq</code></td>
+                        <td><div class="lang-flags"><span class="lang-flag active">EN</span><span class="lang-flag missing">ZH</span><span class="lang-flag missing">TH</span></div></td>
+                        <td><span class="status-badge status-draft">Draft</span></td>
+                        <td>May 10, 2026 · 10:00</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Delete</button></div></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">Showing 1–10 of 12</span>
+                <div class="page-btn">‹</div>
+                <div class="page-btn active">1</div>
+                <div class="page-btn">2</div>
+                <div class="page-btn">›</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

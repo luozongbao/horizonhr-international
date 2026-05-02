@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seminar Detail - HBHR</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        .header { height: 72px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 28px; margin-left: auto; }
+        .nav a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+        .nav a.active { color: var(--primary); }
+        .header-actions { display: flex; gap: 16px; margin-left: 32px; align-items: center; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        /* Seminar Hero */
+        .seminar-hero { background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); padding: 56px 48px; color: white; }
+        .breadcrumb { font-size: 13px; opacity: 0.75; margin-bottom: 16px; }
+        .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+        .breadcrumb span { margin: 0 8px; }
+        .seminar-hero-inner { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+        .seminar-status { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 20px; }
+        .status-dot { width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        .seminar-hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 16px; line-height: 1.3; }
+        .seminar-meta-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+        .meta-row { display: flex; align-items: center; gap: 10px; font-size: 14px; opacity: 0.9; }
+        .meta-icon { width: 20px; text-align: center; }
+        .viewers-count { background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 8px; display: inline-flex; gap: 12px; margin-top: 8px; }
+        .viewers-count span { font-size: 14px; opacity: 0.9; }
+        /* Registration Card */
+        .reg-card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 8px 32px rgba(0,51,102,0.15); color: var(--text); }
+        .reg-card h3 { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .reg-card .price { font-size: 28px; font-weight: 700; color: var(--accent); margin-bottom: 20px; }
+        .reg-form .form-group { margin-bottom: 16px; }
+        .reg-form label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--text-secondary); }
+        .reg-form input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
+        .reg-form button { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 4px; }
+        .reg-note { font-size: 12px; color: var(--text-secondary); text-align: center; margin-top: 12px; }
+        .share-row { display: flex; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; }
+        .share-btn { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--border); background: white; cursor: pointer; font-size: 13px; text-align: center; }
+        /* Content Area */
+        .content-area { display: grid; grid-template-columns: 1fr 380px; gap: 32px; max-width: 1200px; margin: 0 auto; padding: 40px 48px; align-items: start; }
+        .main-content { display: flex; flex-direction: column; gap: 24px; }
+        .content-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 32px; }
+        .content-card h2 { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+        .content-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+        /* Speaker */
+        .speaker-card { display: flex; gap: 20px; align-items: flex-start; }
+        .speaker-avatar { width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
+        .speaker-info h3 { font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .speaker-title { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+        .speaker-bio { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+        /* Agenda */
+        .agenda-list { list-style: none; }
+        .agenda-item { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .agenda-time { font-size: 13px; font-weight: 600; color: var(--primary); width: 80px; flex-shrink: 0; }
+        .agenda-title { font-size: 14px; color: var(--text-secondary); }
+        /* Sidebar sticky */
+        .sidebar-sticky { position: sticky; top: 88px; }
+        /* Related */
+        .related-list { display: flex; flex-direction: column; gap: 16px; }
+        .related-item { display: flex; gap: 12px; align-items: flex-start; }
+        .related-thumb { width: 72px; height: 56px; background: var(--secondary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+        .related-title { font-size: 14px; font-weight: 500; color: var(--primary); line-height: 1.4; margin-bottom: 4px; }
+        .related-date { font-size: 12px; color: var(--text-secondary); }
+        .footer { background: var(--primary); color: var(--white); padding: 48px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+        .footer p { font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Hubei <span>Horizon</span> HR</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="study.html">Study in China</a>
+        <a href="talent-pool.html">Talent Pool</a>
+        <a href="corporate.html">Corporate</a>
+        <a href="seminars.html" class="active">Seminar</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+        <div class="lang-switcher">
+            <button class="lang-btn">中文</button>
+            <button class="lang-btn active">EN</button>
+            <button class="lang-btn">TH</button>
+        </div>
+        <button class="btn btn-primary">Login</button>
+    </div>
+</header>
+
+<!-- Seminar Hero -->
+<div class="seminar-hero">
+    <div style="max-width:1200px;margin:0 auto;">
+        <div class="breadcrumb">
+            <a href="seminars.html">Seminar Center</a><span>›</span>Career Seminar
+        </div>
+        <div class="seminar-hero-inner">
+            <div>
+                <div class="seminar-status"><div class="status-dot"></div> LIVE NOW</div>
+                <h1>2026 Thailand Career Fair — Live Stream</h1>
+                <div class="seminar-meta-list">
+                    <div class="meta-row"><span class="meta-icon">🎤</span> Mr. Zhang Wei, CEO · Hubei Horizon HR</div>
+                    <div class="meta-row"><span class="meta-icon">📅</span> Today, June 1, 2026 · 14:00–16:00 CST</div>
+                    <div class="meta-row"><span class="meta-icon">🌐</span> Chinese · English · Thai</div>
+                    <div class="meta-row"><span class="meta-icon">🏷️</span> Career Seminar · Free to Attend</div>
+                </div>
+                <div class="viewers-count">
+                    <span>👁 8,234 watching now</span>
+                    <span>•</span>
+                    <span>📋 12,450 registered</span>
+                </div>
+            </div>
+            <!-- Registration / Watch Card -->
+            <div class="reg-card">
+                <h3>Watch Live Now</h3>
+                <p class="price">Free</p>
+                <div class="reg-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="your@email.com">
+                    </div>
+                    <button>🔴 Join Live Stream</button>
+                    <p class="reg-note">By registering you accept our <a href="#" style="color:var(--primary);">Terms</a> and <a href="#" style="color:var(--primary);">Privacy Policy</a>.</p>
+                </div>
+                <div class="share-row">
+                    <button class="share-btn">🔗 Copy Link</button>
+                    <button class="share-btn">💬 WeChat</button>
+                    <button class="share-btn">🐦 Twitter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content Area -->
+<div class="content-area">
+    <div class="main-content">
+        <!-- Description -->
+        <div class="content-card">
+            <h2>About This Seminar</h2>
+            <p>The 2026 Thailand Career Fair is the premier live streaming event connecting Thai students, graduates, and professionals with leading Chinese enterprises actively hiring Southeast Asian bilingual talent.</p>
+            <p>This seminar features presentations from 15 participating companies including technology firms, financial institutions, healthcare companies, and manufacturing enterprises — all with active job openings for Thai nationals with Chinese language skills.</p>
+            <p>Whether you're a fresh graduate from a Chinese university or a working professional looking to advance your career in China, this event gives you direct access to HR directors and decision makers from top employers.</p>
+        </div>
+
+        <!-- Speaker -->
+        <div class="content-card">
+            <h2>Featured Speaker</h2>
+            <div class="speaker-card">
+                <div class="speaker-avatar">👨‍💼</div>
+                <div class="speaker-info">
+                    <h3>Mr. Zhang Wei</h3>
+                    <div class="speaker-title">CEO & Founder · Hubei Horizon International HR</div>
+                    <div class="speaker-bio">Zhang Wei is the founder and CEO of Hubei Horizon International, with over 15 years of experience in cross-border talent recruitment across Southeast Asia. He has placed thousands of international graduates in Chinese enterprises and has established partnerships with 500+ universities across China.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agenda -->
+        <div class="content-card">
+            <h2>Seminar Agenda</h2>
+            <ul class="agenda-list">
+                <li class="agenda-item">
+                    <div class="agenda-time">14:00</div>
+                    <div class="agenda-title">Opening remarks & introduction to HBHR platform</div>
+                </li>
+                <li class="agenda-item">
+                    <div class="agenda-time">14:15</div>
+                    <div class="agenda-title">Job market overview: Opportunities for Thai nationals in China 2026</div>
+                </li>
+                <li class="agenda-item">
+                    <div class="agenda-time">14:35</div>
+                    <div class="agenda-title">Enterprise presentations — 5 companies (10 min each)</div>
+                </li>
+                <li class="agenda-item">
+                    <div class="agenda-time">15:25</div>
+                    <div class="agenda-title">Resume tips & interview preparation for Chinese companies</div>
+                </li>
+                <li class="agenda-item">
+                    <div class="agenda-time">15:45</div>
+                    <div class="agenda-title">Live Q&A with speakers and enterprise HR representatives</div>
+                </li>
+                <li class="agenda-item" style="border-bottom:none;">
+                    <div class="agenda-time">16:00</div>
+                    <div class="agenda-title">Closing remarks & one-on-one interview booking instructions</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar-sticky">
+        <!-- Related Seminars -->
+        <div class="content-card">
+            <h2 style="font-size:18px;margin-bottom:20px;">Upcoming Seminars</h2>
+            <div class="related-list">
+                <div class="related-item">
+                    <div class="related-thumb">🎓</div>
+                    <div>
+                        <div class="related-title">Wuhan University Open Day for International Students</div>
+                        <div class="related-date">Jun 5, 2026 · 10:00 CST</div>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="related-thumb">💼</div>
+                    <div>
+                        <div class="related-title">Huawei ASEAN Talent Day — Hiring 200 Engineers</div>
+                        <div class="related-date">Jun 8, 2026 · 14:00 CST</div>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="related-thumb">🏥</div>
+                    <div>
+                        <div class="related-title">MBBS in China — Scholarship Application Guide 2026</div>
+                        <div class="related-date">Jun 10, 2026 · 19:00 CST</div>
+                    </div>
+                </div>
+                <div class="related-item">
+                    <div class="related-thumb">📊</div>
+                    <div>
+                        <div class="related-title">Finance & Banking Careers for SE Asian Graduates</div>
+                        <div class="related-date">Jun 15, 2026 · 15:00 CST</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+                <a href="seminars.html" style="color:var(--primary);font-size:14px;font-weight:500;">View All Seminars →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Site Map</a>
+    </div>
+    <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

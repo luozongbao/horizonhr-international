@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Cooperation - HBHR</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; }
+        .header { height: 72px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 28px; margin-left: auto; }
+        .nav a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+        .nav a.active { color: var(--primary); }
+        .header-actions { display: flex; gap: 16px; margin-left: 32px; align-items: center; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .page-hero { background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); padding: 80px 48px; text-align: center; color: var(--white); }
+        .page-hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; }
+        .page-hero p { font-size: 20px; opacity: 0.9; max-width: 640px; margin: 0 auto 32px; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; }
+        .btn-white { background: var(--white); color: var(--primary); padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; border: none; cursor: pointer; }
+        .btn-outline-white { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.6); padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; cursor: pointer; }
+        .section { padding: 64px 48px; }
+        .section-bg { background: #F5F7FA; }
+        .section-title { font-size: 36px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+        .section-subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 48px; }
+        .section-center { text-align: center; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .service-card { background: var(--white); border-radius: 16px; padding: 40px; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(0,51,102,0.06); }
+        .service-icon { width: 72px; height: 72px; background: var(--secondary); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 24px; }
+        .service-card h3 { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+        .service-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+        .service-features { list-style: none; }
+        .service-features li { font-size: 14px; color: var(--text-secondary); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+        .service-features li::before { content: "✓"; color: var(--success); font-weight: 700; flex-shrink: 0; }
+        .how-it-works { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+        .how-step { text-align: center; padding: 32px 20px; }
+        .step-circle { width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin: 0 auto 20px; }
+        .how-step h4 { font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+        .how-step p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+        .partners-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .partner-logo { background: var(--white); border: 1px solid var(--border); border-radius: 8px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-secondary); font-weight: 600; text-align: center; padding: 8px; }
+        .features-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,51,102,0.06); }
+        .features-table th { background: var(--primary); color: white; padding: 16px 20px; text-align: left; font-size: 14px; font-weight: 600; }
+        .features-table th:not(:first-child) { text-align: center; }
+        .features-table td { padding: 14px 20px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        .features-table td:not(:first-child) { text-align: center; }
+        .features-table tr:last-child td { border-bottom: none; }
+        .features-table tr:nth-child(even) { background: var(--secondary); }
+        .check { color: var(--success); font-size: 18px; }
+        .dash { color: var(--border); font-size: 18px; }
+        .badge-plan { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .plan-standard { background: var(--secondary); color: var(--primary); }
+        .plan-premium { background: #FFF3EE; color: var(--accent); }
+        .plan-enterprise { background: #E8F5E9; color: #28A745; }
+        .cta-band { background: linear-gradient(135deg, var(--accent), #E85520); color: white; padding: 64px 48px; text-align: center; }
+        .cta-band h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+        .cta-band p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
+        .footer { background: var(--primary); color: var(--white); padding: 48px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+        .footer p { font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Hubei <span>Horizon</span> HR</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="study.html">Study in China</a>
+        <a href="talent-pool.html">Talent Pool</a>
+        <a href="corporate.html" class="active">Corporate</a>
+        <a href="seminars.html">Seminar</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+        <div class="lang-switcher">
+            <button class="lang-btn">中文</button>
+            <button class="lang-btn active">EN</button>
+            <button class="lang-btn">TH</button>
+        </div>
+        <button class="btn btn-primary">Login</button>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="page-hero">
+    <h1>Corporate Cooperation</h1>
+    <p>Hire Southeast Asian bilingual talent, post jobs directly to 10,000+ qualified candidates, and leverage our video interview platform to build your team faster.</p>
+    <div class="hero-btns">
+        <button class="btn-white">Register as Enterprise</button>
+        <button class="btn-outline-white">Schedule a Demo</button>
+    </div>
+</section>
+
+<!-- Services Overview -->
+<section class="section">
+    <div class="section-center">
+        <h2 class="section-title">Our Corporate Services</h2>
+        <p class="section-subtitle">End-to-end talent solutions for companies hiring Southeast Asian professionals</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🎯</div>
+            <h3>Talent Recruitment</h3>
+            <p>Access our curated pool of 10,000+ vetted Southeast Asian graduates and professionals with bilingual skills and Chinese university backgrounds.</p>
+            <ul class="service-features">
+                <li>AI-powered candidate matching</li>
+                <li>Pre-screened profiles with resume verification</li>
+                <li>Nationality, language & skill filtering</li>
+                <li>Direct messaging with candidates</li>
+                <li>Batch interview scheduling</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🎥</div>
+            <h3>Online Interview Platform</h3>
+            <p>Conduct high-quality 1:1 video interviews with candidates anywhere in the world using our TRTC-powered WebRTC interview suite.</p>
+            <ul class="service-features">
+                <li>HD video with screen sharing</li>
+                <li>Automatic interview recording & storage</li>
+                <li>Multi-interviewer panel support</li>
+                <li>Built-in scoring rubrics</li>
+                <li>Interview calendar management</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🏛️</div>
+            <h3>University Partnership</h3>
+            <p>Partner with 500+ Chinese universities to access fresh graduates, run on-campus presentations, and establish talent pipelines.</p>
+            <ul class="service-features">
+                <li>Campus recruitment events</li>
+                <li>Live career seminar hosting</li>
+                <li>Internship program coordination</li>
+                <li>Graduate tracking & analytics</li>
+                <li>Joint certification programs</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section section-bg">
+    <div class="section-center">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Start hiring Southeast Asian talent in 4 simple steps</p>
+        <div class="how-it-works">
+            <div class="how-step">
+                <div class="step-circle">1</div>
+                <h4>Register</h4>
+                <p>Create your enterprise account. Admin verification within 24 hours.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-circle">2</div>
+                <h4>Post a Job</h4>
+                <p>Create job listings with requirements, salary, and work location.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-circle">3</div>
+                <h4>Review & Interview</h4>
+                <p>Browse matched candidates and schedule online video interviews.</p>
+            </div>
+            <div class="how-step">
+                <div class="step-circle">4</div>
+                <h4>Hire</h4>
+                <p>Extend offer letters and HBHR assists with onboarding formalities.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partner Logos -->
+<section class="section">
+    <div class="section-center">
+        <h2 class="section-title">Trusted by 300+ Companies</h2>
+        <p class="section-subtitle">From startups to Fortune 500 companies, enterprises trust HBHR for cross-border talent</p>
+        <div class="partners-grid">
+            <div class="partner-logo">Fortune 500<br>Company A</div>
+            <div class="partner-logo">Tech Corp<br>China</div>
+            <div class="partner-logo">BRI Bank<br>Indonesia</div>
+            <div class="partner-logo">Thai Union<br>Group PCL</div>
+            <div class="partner-logo">Huawei<br>ASEAN</div>
+            <div class="partner-logo">Alibaba<br>International</div>
+            <div class="partner-logo">Samsung<br>China</div>
+            <div class="partner-logo">CITIC<br>Group</div>
+            <div class="partner-logo">Ping An<br>Insurance</div>
+            <div class="partner-logo">ByteDance<br>SEA</div>
+            <div class="partner-logo">DHL<br>Supply Chain</div>
+            <div class="partner-logo" style="border:2px dashed var(--primary);background:var(--secondary);color:var(--primary);">+289<br>more</div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Table -->
+<section class="section section-bg">
+    <div class="section-center">
+        <h2 class="section-title">Enterprise Plan Comparison</h2>
+        <p class="section-subtitle">Choose the plan that best fits your hiring needs</p>
+    </div>
+    <table class="features-table">
+        <thead>
+            <tr>
+                <th style="width:40%">Feature</th>
+                <th><span class="badge-plan plan-standard">Standard</span></th>
+                <th><span class="badge-plan plan-premium">Premium</span></th>
+                <th><span class="badge-plan plan-enterprise">Enterprise</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Active Job Postings</td><td>Up to 5</td><td>Up to 20</td><td>Unlimited</td></tr>
+            <tr><td>Talent Pool Access</td><td>Basic View</td><td>Full Profiles</td><td>Full + Priority</td></tr>
+            <tr><td>Video Interview Platform</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Interview Recording Storage</td><td>7 days</td><td>90 days</td><td>1 year</td></tr>
+            <tr><td>Batch Interview Scheduling</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>AI Candidate Matching</td><td><span class="dash">—</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Dedicated Account Manager</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>University Partnership Events</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>API Access</td><td><span class="dash">—</span></td><td><span class="dash">—</span></td><td><span class="check">✓</span></td></tr>
+            <tr><td>Priority Support</td><td>Email</td><td>Email + Chat</td><td>24/7 Dedicated</td></tr>
+        </tbody>
+    </table>
+    <div style="text-align:center;margin-top:24px;">
+        <button class="btn btn-primary" style="padding:14px 32px;font-size:15px;">Contact Sales for Pricing</button>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+    <h2>Ready to Build Your International Team?</h2>
+    <p>Join 300+ companies already hiring through HBHR. Start your free enterprise account today.</p>
+    <div style="display:flex;gap:16px;justify-content:center;">
+        <button class="btn-white">Register as Enterprise</button>
+        <button class="btn-outline-white">Talk to Sales</button>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Site Map</a>
+    </div>
+    <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - HBHR</title>
+    <style>
+        :root { --primary: #003366; --primary-hover: #002244; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; }
+        .header { height: 72px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 28px; margin-left: auto; }
+        .nav a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+        .nav a:hover, .nav a.active { color: var(--primary); }
+        .header-actions { display: flex; gap: 16px; margin-left: 32px; align-items: center; }
+        .lang-switcher { display: flex; align-items: center; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .page-hero { background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); padding: 80px 48px; text-align: center; color: var(--white); }
+        .page-hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; }
+        .page-hero p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .section { padding: 64px 48px; }
+        .section-bg { background: var(--secondary); }
+        .section-title { font-size: 36px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+        .section-subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 48px; }
+        .section-center { text-align: center; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+        .img-placeholder { background: var(--secondary); border-radius: 12px; height: 360px; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+        .text-body p { font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; margin: 48px 0; }
+        .stat-item .num { font-size: 48px; font-weight: 700; color: var(--primary); }
+        .stat-item .label { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .team-card { text-align: center; }
+        .team-avatar { width: 120px; height: 120px; background: var(--secondary); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+        .team-card h4 { font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .team-card p { font-size: 13px; color: var(--text-secondary); }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .value-card { background: var(--white); border-radius: 12px; padding: 32px; border: 1px solid var(--border); text-align: center; }
+        .value-icon { font-size: 48px; margin-bottom: 16px; }
+        .value-card h3 { font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+        .value-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+        .timeline { max-width: 700px; margin: 0 auto; }
+        .timeline-item { display: flex; gap: 24px; margin-bottom: 32px; }
+        .timeline-dot { width: 16px; height: 16px; background: var(--accent); border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+        .timeline-line { width: 2px; background: var(--border); margin-left: 7px; }
+        .timeline-year { font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .timeline-text { font-size: 14px; color: var(--text-secondary); }
+        .footer { background: var(--primary); color: var(--white); padding: 48px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+        .footer p { font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Hubei <span>Horizon</span> HR</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="study.html">Study in China</a>
+        <a href="talent-pool.html">Talent Pool</a>
+        <a href="corporate.html">Corporate</a>
+        <a href="seminars.html">Seminar</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+        <div class="lang-switcher">
+            <button class="lang-btn">中文</button>
+            <button class="lang-btn active">EN</button>
+            <button class="lang-btn">TH</button>
+        </div>
+        <button class="btn btn-primary">Login</button>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="page-hero">
+    <h1>About Us</h1>
+    <p>Bridging Southeast Asian talent with Chinese universities and enterprises since 2018.</p>
+</section>
+
+<!-- Company Intro -->
+<section class="section">
+    <div class="two-col">
+        <div class="text-body">
+            <h2 class="section-title">Who We Are</h2>
+            <p>Hubei Horizon International Talent Service Co., Ltd. (湖北豪睿国际人才服务有限公司) is a leading international talent recruitment and education consulting company headquartered in Wuhan, China.</p>
+            <p>We specialize in connecting Southeast Asian students and professionals with Chinese universities and enterprises, providing a full-service platform for education consulting, talent recruitment, interview facilitation, and career development.</p>
+            <p>Our bilingual team of over 50 professionals serves clients in China, Thailand, Vietnam, Indonesia, Malaysia, and beyond.</p>
+        </div>
+        <div class="img-placeholder">🏢</div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="section section-bg">
+    <div class="section-center">
+        <h2 class="section-title">Our Impact in Numbers</h2>
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="num">10,000+</div>
+                <div class="label">Students Placed</div>
+            </div>
+            <div class="stat-item">
+                <div class="num">500+</div>
+                <div class="label">Partner Universities</div>
+            </div>
+            <div class="stat-item">
+                <div class="num">300+</div>
+                <div class="label">Enterprise Partners</div>
+            </div>
+            <div class="stat-item">
+                <div class="num">8</div>
+                <div class="label">Years of Experience</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Values -->
+<section class="section">
+    <div class="section-center">
+        <h2 class="section-title">Our Core Values</h2>
+        <p class="section-subtitle">The principles that guide everything we do</p>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>Excellence</h3>
+                <p>We pursue the highest standards in matching talent with opportunity, ensuring every placement is a perfect fit for both candidate and employer.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Integrity</h3>
+                <p>Transparent processes, honest communication, and ethical practices are the foundation of every relationship we build.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🌏</div>
+                <h3>Global Perspective</h3>
+                <p>We embrace cultural diversity and leverage our international network to create opportunities that cross borders.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💡</div>
+                <h3>Innovation</h3>
+                <p>From AI-driven matching to online interviews, we leverage technology to make talent acquisition smarter and faster.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">👥</div>
+                <h3>People First</h3>
+                <p>Every student, every candidate, every enterprise — we put people at the center of every decision we make.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">📈</div>
+                <h3>Growth</h3>
+                <p>We are committed to the continuous growth of our clients, our partners, and our team.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- History / Timeline -->
+<section class="section section-bg">
+    <div class="section-center">
+        <h2 class="section-title">Our Journey</h2>
+        <p class="section-subtitle">Key milestones in our company history</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div>
+                <div style="width:16px;height:16px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:8px;"></div>
+            </div>
+            <div>
+                <div class="timeline-year">2018 — Founded</div>
+                <div class="timeline-text">Hubei Horizon International established in Wuhan with a mission to connect Southeast Asian students with Chinese universities.</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div>
+                <div style="width:16px;height:16px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:8px;"></div>
+            </div>
+            <div>
+                <div class="timeline-year">2020 — Enterprise Division</div>
+                <div class="timeline-text">Launched enterprise talent recruitment services, connecting bilingual graduates with Chinese and international companies.</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div>
+                <div style="width:16px;height:16px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:8px;"></div>
+            </div>
+            <div>
+                <div class="timeline-year">2022 — Digital Platform</div>
+                <div class="timeline-text">Launched online interview platform and seminar system, enabling remote talent assessment for 10,000+ concurrent viewers.</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div>
+                <div style="width:16px;height:16px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:8px;"></div>
+            </div>
+            <div>
+                <div class="timeline-year">2024 — Regional Expansion</div>
+                <div class="timeline-text">Expanded operations to Thailand, Vietnam, and Indonesia with local partner offices in Bangkok, Ho Chi Minh City, and Jakarta.</div>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div>
+                <div style="width:16px;height:16px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:8px;"></div>
+            </div>
+            <div>
+                <div class="timeline-year">2026 — HBHR Platform Launch</div>
+                <div class="timeline-text">Launched the fully integrated HBHR digital platform with AI-powered matching, TRTC video interviews, and multi-language support.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team -->
+<section class="section">
+    <div class="section-center">
+        <h2 class="section-title">Our Leadership Team</h2>
+        <p class="section-subtitle">Experienced professionals dedicated to international talent development</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">👨‍💼</div>
+                <h4>Zhang Wei</h4>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">👩‍💼</div>
+                <h4>Li Mei</h4>
+                <p>VP, University Relations</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">👨‍💻</div>
+                <h4>Somchai Thana</h4>
+                <p>Head of Southeast Asia</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">👩‍🎓</div>
+                <h4>Wang Fang</h4>
+                <p>Director, Enterprise Services</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Site Map</a>
+    </div>
+    <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

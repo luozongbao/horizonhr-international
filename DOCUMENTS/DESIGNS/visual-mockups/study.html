@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study in China - HBHR</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; }
+        .header { height: 72px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 28px; margin-left: auto; }
+        .nav a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+        .nav a.active { color: var(--primary); }
+        .header-actions { display: flex; gap: 16px; margin-left: 32px; align-items: center; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-cta { background: var(--accent); color: var(--white); }
+        .page-hero { background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); padding: 80px 48px; text-align: center; color: var(--white); }
+        .page-hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; }
+        .page-hero p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto 32px; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; }
+        .section { padding: 64px 48px; }
+        .section-bg { background: var(--secondary); }
+        .section-title { font-size: 36px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+        .section-subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 48px; }
+        .section-center { text-align: center; }
+        .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .program-card { background: var(--white); border-radius: 12px; padding: 40px; border: 1px solid var(--border); text-align: center; box-shadow: 0 2px 8px rgba(0,51,102,0.06); }
+        .program-icon { font-size: 56px; margin-bottom: 20px; }
+        .program-card h3 { font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+        .program-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7; }
+        .program-card ul { list-style: none; text-align: left; margin-bottom: 24px; }
+        .program-card li { font-size: 14px; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+        .program-card li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+        .steps-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .step-item { text-align: center; }
+        .step-num { width: 56px; height: 56px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; margin: 0 auto 12px; }
+        .step-item h4 { font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .step-item p { font-size: 12px; color: var(--text-secondary); }
+        .step-arrow { display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--border); margin-top: 16px; }
+        .unis-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .uni-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 20px 16px; text-align: center; }
+        .uni-logo { width: 64px; height: 64px; background: var(--secondary); border-radius: 8px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--text-secondary); }
+        .uni-name { font-size: 12px; font-weight: 600; color: var(--primary); }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+        .faq-q { padding: 20px 24px; font-size: 16px; font-weight: 500; color: var(--primary); background: var(--white); display: flex; justify-content: space-between; cursor: pointer; }
+        .faq-a { padding: 16px 24px 20px; font-size: 14px; color: var(--text-secondary); background: var(--secondary); line-height: 1.7; }
+        .cta-band { background: var(--primary); color: var(--white); padding: 64px 48px; text-align: center; }
+        .cta-band h2 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+        .cta-band p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
+        .cta-btns { display: flex; gap: 16px; justify-content: center; }
+        .btn-white { background: var(--white); color: var(--primary); padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; border: none; cursor: pointer; }
+        .btn-outline-white { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.6); padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px; cursor: pointer; }
+        .footer { background: var(--primary); color: var(--white); padding: 48px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+        .footer p { font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Hubei <span>Horizon</span> HR</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="study.html" class="active">Study in China</a>
+        <a href="talent-pool.html">Talent Pool</a>
+        <a href="corporate.html">Corporate</a>
+        <a href="seminars.html">Seminar</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+        <div class="lang-switcher">
+            <button class="lang-btn">中文</button>
+            <button class="lang-btn active">EN</button>
+            <button class="lang-btn">TH</button>
+        </div>
+        <button class="btn btn-primary">Login</button>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="page-hero">
+    <h1>Study in China</h1>
+    <p>Explore undergraduate, graduate, and language programs at China's top universities. We guide you from application to graduation.</p>
+    <div class="hero-btns">
+        <button class="btn btn-cta" style="padding:14px 28px;font-size:16px;">Start Application</button>
+        <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.4);padding:14px 28px;font-size:16px;">Browse Programs</button>
+    </div>
+</section>
+
+<!-- Programs -->
+<section class="section">
+    <div class="section-center">
+        <h2 class="section-title">Academic Programs</h2>
+        <p class="section-subtitle">Choose the right program for your goals</p>
+    </div>
+    <div class="programs-grid">
+        <div class="program-card">
+            <div class="program-icon">🎓</div>
+            <h3>Undergraduate</h3>
+            <p>4-year bachelor's degree programs in Medicine, Engineering, Business, Arts, and more.</p>
+            <ul>
+                <li>Duration: 4–6 years</li>
+                <li>Language: Chinese or English-taught</li>
+                <li>Scholarship available</li>
+                <li>HSK requirement varies by program</li>
+            </ul>
+            <button class="btn btn-primary" style="width:100%">View Programs</button>
+        </div>
+        <div class="program-card">
+            <div class="program-icon">🏫</div>
+            <h3>Postgraduate</h3>
+            <p>Master's and PhD programs for professionals seeking advanced qualifications.</p>
+            <ul>
+                <li>Duration: 2–4 years</li>
+                <li>Research or coursework based</li>
+                <li>Supervisor matching provided</li>
+                <li>Industry partnership programs</li>
+            </ul>
+            <button class="btn btn-primary" style="width:100%">View Programs</button>
+        </div>
+        <div class="program-card">
+            <div class="program-icon">🗣️</div>
+            <h3>Chinese Language</h3>
+            <p>Intensive Mandarin programs for beginners to advanced learners with cultural immersion.</p>
+            <ul>
+                <li>Duration: 1 semester – 2 years</li>
+                <li>HSK 1–6 preparation</li>
+                <li>Cultural activities included</li>
+                <li>Online + offline options</li>
+            </ul>
+            <button class="btn btn-primary" style="width:100%">View Programs</button>
+        </div>
+    </div>
+</section>
+
+<!-- Application Process -->
+<section class="section section-bg">
+    <div class="section-center">
+        <h2 class="section-title">Application Process</h2>
+        <p class="section-subtitle">Simple 6-step journey from inquiry to enrollment</p>
+        <div class="steps-grid">
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <h4>Register</h4>
+                <p>Create your free student account</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <h4>Profile</h4>
+                <p>Complete academic background</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <h4>Upload Resume</h4>
+                <p>Submit documents for review</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <h4>Interview</h4>
+                <p>Online video interview</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">5</div>
+                <h4>Offer</h4>
+                <p>Receive admission letter</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">6</div>
+                <h4>Enroll</h4>
+                <p>Visa & onboarding support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partner Universities -->
+<section class="section">
+    <div class="section-center">
+        <h2 class="section-title">Partner Universities</h2>
+        <p class="section-subtitle">500+ accredited universities across China</p>
+        <div class="unis-grid">
+            <div class="uni-card"><div class="uni-logo">WHU</div><div class="uni-name">Wuhan University</div></div>
+            <div class="uni-card"><div class="uni-logo">HUST</div><div class="uni-name">Huazhong Univ. of S&T</div></div>
+            <div class="uni-card"><div class="uni-logo">PKU</div><div class="uni-name">Peking University</div></div>
+            <div class="uni-card"><div class="uni-logo">THU</div><div class="uni-name">Tsinghua University</div></div>
+            <div class="uni-card"><div class="uni-logo">SJTU</div><div class="uni-name">Shanghai Jiao Tong</div></div>
+            <div class="uni-card"><div class="uni-logo">ZJU</div><div class="uni-name">Zhejiang University</div></div>
+            <div class="uni-card"><div class="uni-logo">SYSU</div><div class="uni-name">Sun Yat-Sen Univ.</div></div>
+            <div class="uni-card"><div class="uni-logo">NJU</div><div class="uni-name">Nanjing University</div></div>
+            <div class="uni-card"><div class="uni-logo">SCAU</div><div class="uni-name">S. China Agri. Univ.</div></div>
+            <div class="uni-card"><div class="uni-logo">CQMU</div><div class="uni-name">Chongqing Med. Univ.</div></div>
+            <div class="uni-card"><div class="uni-logo">SZU</div><div class="uni-name">Shenzhen University</div></div>
+            <div class="uni-card" style="background:var(--secondary);border:2px dashed var(--primary);"><div style="font-size:28px;text-align:center;color:var(--primary);padding:16px;">+489 more</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-bg">
+    <div class="section-center">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Answers to common questions about studying in China</p>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item">
+            <div class="faq-q">Do I need to speak Chinese to study in China? <span>▾</span></div>
+            <div class="faq-a">Not necessarily. Many universities offer English-taught programs, especially for international students. However, learning Mandarin will significantly improve your daily life and career prospects in China. We offer language preparation courses and HSK test support.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Are scholarships available for international students? <span>▾</span></div>
+            <div class="faq-a">Yes. The Chinese Government Scholarship (CSC), provincial scholarships, and university-specific scholarships are available. HBHR consultants can help you identify and apply for the scholarships you qualify for.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">How long does the admission process take? <span>▾</span></div>
+            <div class="faq-a">Typically 4–8 weeks from document submission to receiving an admission letter. Visa processing takes an additional 2–4 weeks. We recommend starting 3–4 months before your intended start date.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">What documents are required for application? <span>▾</span></div>
+            <div class="faq-a">Generally required: Passport copy, academic transcripts, graduation certificate, physical examination report, non-criminal record certificate, personal statement, and 2 recommendation letters. Requirements may vary by university and program.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Is accommodation provided by the university? <span>▾</span></div>
+            <div class="faq-a">Most partner universities provide on-campus dormitories for international students at affordable rates (typically RMB 800–2,500/month). We also assist with off-campus apartment searching in cities where needed.</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>Register free and get matched with the right university and program within 48 hours.</p>
+    <div class="cta-btns">
+        <button class="btn-white">Register as Student</button>
+        <button class="btn-outline-white">Contact a Consultant</button>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Site Map</a>
+    </div>
+    <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

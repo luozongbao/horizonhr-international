@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts & News - HBHR Admin</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; --success: #28A745; --warning: #FFC107; --danger: #DC3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); background: #F5F7FA; display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--primary); min-height: 100vh; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; }
+        .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-logo .brand { font-size: 18px; font-weight: 700; color: white; }
+        .sidebar-logo .brand span { color: var(--accent); }
+        .sidebar-logo .role { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sidebar-nav { padding: 16px 0; flex: 1; overflow-y: auto; }
+        .nav-section-label { padding: 16px 20px 8px; font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.7px; font-weight: 600; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 14px; color: rgba(255,255,255,0.75); cursor: pointer; text-decoration: none; }
+        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.12); color: white; border-left: 3px solid var(--accent); padding-left: 17px; }
+        .nav-item .icon { width: 18px; text-align: center; font-size: 15px; }
+        .main-wrapper { margin-left: 260px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+        .topbar { background: white; height: 64px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; gap: 16px; }
+        .topbar h2 { font-size: 20px; font-weight: 600; color: var(--primary); }
+        .topbar .actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 5px 9px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .user-chip { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .user-avatar { width: 36px; height: 36px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; }
+        .user-name { font-size: 14px; font-weight: 500; }
+        .content { padding: 32px; }
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .page-header h1 { font-size: 26px; font-weight: 600; color: var(--primary); }
+        .page-header p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-edit { background: var(--secondary); color: var(--primary); }
+        .btn-preview { background: #F0F0F0; color: var(--text-secondary); }
+        .btn-delete { background: #FEEAE9; color: var(--danger); }
+        .btn-publish { background: #E8F5E9; color: var(--success); }
+        .stats-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-pill { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-pill .num { font-size: 26px; font-weight: 700; color: var(--primary); }
+        .stat-pill .label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .stat-pill .icon { font-size: 28px; opacity: 0.5; }
+        /* Cat Tabs */
+        .cat-tabs { display: flex; gap: 0; background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+        .cat-tab { padding: 12px 20px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text-secondary); border-right: 1px solid var(--border); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .cat-tab:last-child { border-right: none; }
+        .cat-tab.active { background: var(--secondary); color: var(--primary); font-weight: 600; }
+        .cat-tab .count { background: var(--border); color: var(--text-secondary); padding: 2px 7px; border-radius: 10px; font-size: 11px; }
+        .cat-tab.active .count { background: var(--primary); color: white; }
+        /* Toolbar */
+        .toolbar { background: white; border-radius: 10px; border: 1px solid var(--border); padding: 14px 18px; display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+        .toolbar input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; }
+        .toolbar select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; background: white; }
+        /* Table */
+        .table-card { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+        .table-card table { width: 100%; border-collapse: collapse; }
+        .table-card thead th { background: #F5F7FA; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+        .table-card tbody td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
+        .table-card tbody tr:last-child td { border-bottom: none; }
+        .table-card tbody tr:hover { background: #FAFBFC; }
+        .post-row-title { font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+        .post-row-excerpt { font-size: 12px; color: var(--text-secondary); line-height: 1.5; max-width: 400px; }
+        .cat-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .cat-company { background: #E6F0FF; color: var(--primary); }
+        .cat-industry { background: #FFF3EE; color: var(--accent); }
+        .cat-study { background: #E8F5E9; color: var(--success); }
+        .cat-recruit { background: #FFF8E1; color: #856404; }
+        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .status-published { background: #E8F5E9; color: var(--success); }
+        .status-draft { background: #FFF8E1; color: #856404; }
+        .status-scheduled { background: var(--secondary); color: var(--primary); }
+        .actions-col { display: flex; gap: 4px; flex-wrap: wrap; }
+        .author-chip { display: flex; align-items: center; gap: 6px; }
+        .author-dot { width: 24px; height: 24px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--primary); }
+        .pagination { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--border); }
+        .page-btn { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; background: white; }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="brand">Hubei <span>Horizon</span> HR</div>
+        <div class="role">Admin Panel</div>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section-label">Users / Management</div>
+        <a class="nav-item" href="admin-dashboard.html"><span class="icon">📊</span> Dashboard</a>
+        <a class="nav-item" href="admin-users.html"><span class="icon">👥</span> User Management</a>
+        <a class="nav-item" href="admin-resumes.html"><span class="icon">📄</span> Resume Review</a>
+        <a class="nav-item" href="admin-interviews.html"><span class="icon">🎥</span> Interviews</a>
+        <a class="nav-item" href="admin-seminars.html"><span class="icon">📡</span> Seminars</a>
+        <div class="nav-section-label">Content</div>
+        <a class="nav-item" href="admin-cms-pages.html"><span class="icon">📑</span> CMS Pages</a>
+        <a class="nav-item active" href="admin-cms-posts.html"><span class="icon">📰</span> Posts & News</a>
+        <a class="nav-item" href="admin-news.html"><span class="icon">📢</span> Announcements</a>
+        <a class="nav-item" href="admin-contacts.html"><span class="icon">✉️</span> Contact Messages</a>
+        <div class="nav-section-label">System</div>
+        <a class="nav-item" href="admin-settings.html"><span class="icon">⚙️</span> System Settings</a>
+        <a class="nav-item" href="admin-language-settings.html"><span class="icon">🌐</span> Language Settings</a>
+    </nav>
+</aside>
+
+<div class="main-wrapper">
+    <div class="topbar">
+        <h2>Posts & News</h2>
+        <div class="actions">
+            <div class="lang-switcher">
+                <button class="lang-btn">中文</button>
+                <button class="lang-btn active">EN</button>
+                <button class="lang-btn">TH</button>
+            </div>
+            <div class="user-chip">
+                <div class="user-avatar">A</div>
+                <span class="user-name">Admin</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <div>
+                <h1>Posts & News Management</h1>
+                <p>Create and manage blog posts, news articles, and announcements across all languages.</p>
+            </div>
+            <button class="btn btn-primary">+ Create Post</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-strip">
+            <div class="stat-pill">
+                <div><div class="num">87</div><div class="label">Total Posts</div></div>
+                <div class="icon">📰</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num">72</div><div class="label">Published</div></div>
+                <div class="icon">✅</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num">11</div><div class="label">Drafts</div></div>
+                <div class="icon">📝</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num" style="color:var(--primary);">4</div><div class="label">Scheduled</div></div>
+                <div class="icon">🕐</div>
+            </div>
+            <div class="stat-pill">
+                <div><div class="num" style="color:var(--accent);">15,240</div><div class="label">Views This Month</div></div>
+                <div class="icon">👁</div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="cat-tabs">
+            <div class="cat-tab active">All Posts <span class="count">87</span></div>
+            <div class="cat-tab">Company News <span class="count">23</span></div>
+            <div class="cat-tab">Industry News <span class="count">31</span></div>
+            <div class="cat-tab">Study Abroad <span class="count">18</span></div>
+            <div class="cat-tab">Recruitment <span class="count">15</span></div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <input type="text" placeholder="🔍 Search posts by title, author, or content...">
+            <select><option>All Status</option><option>Published</option><option>Draft</option><option>Scheduled</option></select>
+            <select><option>All Authors</option><option>Admin</option><option>Content Team</option><option>Marketing</option></select>
+            <input type="date" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;">
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:35%">Title</th>
+                        <th>Category</th>
+                        <th>Author</th>
+                        <th>Status</th>
+                        <th>Published At</th>
+                        <th>Views</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">HBHR Platform Launches New AI-Powered Talent Matching for 2026</div>
+                            <div class="post-row-excerpt">Hubei Horizon International has officially launched its upgraded platform with advanced AI matching capabilities...</div>
+                        </td>
+                        <td><span class="cat-badge cat-company">Company News</span></td>
+                        <td><div class="author-chip"><div class="author-dot">A</div><span>Admin</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>Jun 1, 2026</td>
+                        <td>2,341</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">View</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">China's Demand for Bilingual ASEAN Professionals Surges 45% in 2025</div>
+                            <div class="post-row-excerpt">New MoHRSS data shows record demand for Southeast Asian professionals fluent in Chinese across sectors...</div>
+                        </td>
+                        <td><span class="cat-badge cat-industry">Industry News</span></td>
+                        <td><div class="author-chip"><div class="author-dot">CT</div><span>Content Team</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 28, 2026</td>
+                        <td>1,854</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">View</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">Chinese Government Scholarship 2026 — Application Deadline Extended to July 15</div>
+                            <div class="post-row-excerpt">The CSC has extended the application deadline for 2026 government scholarships for international students...</div>
+                        </td>
+                        <td><span class="cat-badge cat-study">Study Abroad</span></td>
+                        <td><div class="author-chip"><div class="author-dot">CT</div><span>Content Team</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 25, 2026</td>
+                        <td>3,120</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">View</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">Top 10 In-Demand Jobs for Thai Nationals in China in 2026</div>
+                            <div class="post-row-excerpt">From cross-border e-commerce specialists to Mandarin-speaking medical professionals, we rank the highest...</div>
+                        </td>
+                        <td><span class="cat-badge cat-recruit">Recruitment</span></td>
+                        <td><div class="author-chip"><div class="author-dot">MK</div><span>Marketing</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 20, 2026</td>
+                        <td>4,788</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">View</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">HBHR Signs MOU with Chulalongkorn University</div>
+                            <div class="post-row-excerpt">A new memorandum of understanding between HBHR and Thailand's leading university creates a talent pipeline...</div>
+                        </td>
+                        <td><span class="cat-badge cat-company">Company News</span></td>
+                        <td><div class="author-chip"><div class="author-dot">A</div><span>Admin</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 15, 2026</td>
+                        <td>978</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">View</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">HSK Exam Changes 2026: New Standards and What to Expect</div>
+                            <div class="post-row-excerpt">The Hanban has released updated HSK examination formats. Here's what international students need to know...</div>
+                        </td>
+                        <td><span class="cat-badge cat-study">Study Abroad</span></td>
+                        <td><div class="author-chip"><div class="author-dot">CT</div><span>Content Team</span></div></td>
+                        <td><span class="status-badge status-published">Published</span></td>
+                        <td>May 10, 2026</td>
+                        <td>2,203</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">View</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">Q3 2026 ASEAN Hiring Report — Draft</div>
+                            <div class="post-row-excerpt">A comprehensive analysis of hiring patterns and demand forecasting for Q3 2026 across ASEAN markets...</div>
+                        </td>
+                        <td><span class="cat-badge cat-industry">Industry News</span></td>
+                        <td><div class="author-chip"><div class="author-dot">MK</div><span>Marketing</span></div></td>
+                        <td><span class="status-badge status-draft">Draft</span></td>
+                        <td style="color:var(--text-secondary);">—</td>
+                        <td style="color:var(--text-secondary);">—</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-publish">Publish</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="post-row-title">July 2026 Scholarship Announcement — Scheduled</div>
+                            <div class="post-row-excerpt">Announcing new scholarship opportunities for Thai students applying to study Engineering or Medicine in China...</div>
+                        </td>
+                        <td><span class="cat-badge cat-study">Study Abroad</span></td>
+                        <td><div class="author-chip"><div class="author-dot">A</div><span>Admin</span></div></td>
+                        <td><span class="status-badge status-scheduled">Scheduled</span></td>
+                        <td style="color:var(--primary);font-weight:500;">Jul 1, 2026</td>
+                        <td style="color:var(--text-secondary);">—</td>
+                        <td><div class="actions-col"><button class="btn-sm btn-edit">Edit</button><button class="btn-sm btn-preview">Preview</button><button class="btn-sm btn-delete">Del</button></div></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">Showing 1–8 of 87</span>
+                <div class="page-btn">‹</div>
+                <div class="page-btn active">1</div>
+                <div class="page-btn">2</div>
+                <div class="page-btn">3</div>
+                <span style="font-size:13px;color:var(--text-secondary);">...</span>
+                <div class="page-btn">11</div>
+                <div class="page-btn">›</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

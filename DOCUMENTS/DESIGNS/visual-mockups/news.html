@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - HBHR</title>
+    <style>
+        :root { --primary: #003366; --secondary: #E6F0FF; --accent: #FF6B35; --white: #FFFFFF; --text: #1A1A2E; --text-secondary: #6C757D; --border: #DEE2E6; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, 'Microsoft YaHei', sans-serif; color: var(--text); line-height: 1.6; background: #F5F7FA; }
+        .header { height: 72px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .logo span { color: var(--accent); }
+        .nav { display: flex; gap: 28px; margin-left: auto; }
+        .nav a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+        .nav a.active { color: var(--primary); }
+        .header-actions { display: flex; gap: 16px; margin-left: 32px; align-items: center; }
+        .lang-switcher { display: flex; gap: 6px; }
+        .lang-btn { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 12px; font-weight: 500; }
+        .lang-btn.active { background: var(--secondary); border-color: var(--primary); color: var(--primary); }
+        .btn { padding: 10px 20px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none; font-size: 14px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .page-hero { background: linear-gradient(135deg, var(--primary) 0%, #004080 100%); padding: 60px 48px; text-align: center; color: var(--white); }
+        .page-hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 12px; }
+        .page-hero p { font-size: 18px; opacity: 0.9; max-width: 560px; margin: 0 auto; }
+        /* Filter / Category Tabs */
+        .cat-bar { background: white; border-bottom: 1px solid var(--border); padding: 0 48px; display: flex; align-items: stretch; gap: 0; }
+        .cat-tab { padding: 18px 20px; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--text-secondary); border-bottom: 3px solid transparent; white-space: nowrap; }
+        .cat-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+        .search-bar-area { margin-left: auto; display: flex; align-items: center; padding: 0 0 0 24px; }
+        .search-bar-area input { padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; width: 220px; }
+        /* Content */
+        .content { max-width: 1200px; margin: 0 auto; padding: 40px 48px; }
+        /* Featured Article */
+        .featured { background: white; border-radius: 16px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; margin-bottom: 40px; }
+        .featured-thumb { background: linear-gradient(135deg, var(--primary), #004080); display: flex; align-items: center; justify-content: center; font-size: 80px; min-height: 300px; }
+        .featured-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+        .badge-company { background: #E6F0FF; color: var(--primary); }
+        .badge-industry { background: #FFF3EE; color: var(--accent); }
+        .badge-study { background: #E8F5E9; color: #28A745; }
+        .badge-recruit { background: #FFF8E1; color: #FFA000; }
+        .featured-body h2 { font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 12px; line-height: 1.4; }
+        .featured-body .excerpt { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+        .article-meta { font-size: 13px; color: var(--text-secondary); display: flex; gap: 16px; margin-bottom: 20px; }
+        .featured-body a { color: var(--primary); font-weight: 600; font-size: 14px; text-decoration: none; }
+        /* Grid */
+        .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .news-card { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+        .news-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+        .news-thumb.company { background: linear-gradient(135deg, #E6F0FF, #B3CCF0); }
+        .news-thumb.industry { background: linear-gradient(135deg, #FFF3EE, #FFD0B8); }
+        .news-thumb.study { background: linear-gradient(135deg, #E8F5E9, #B9DFC0); }
+        .news-thumb.recruit { background: linear-gradient(135deg, #FFF8E1, #FFE5A0); }
+        .news-card-body { padding: 20px; }
+        .news-card-body h3 { font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 8px; line-height: 1.5; }
+        .news-card-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+        .news-card-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .news-card-footer .date { font-size: 12px; color: var(--text-secondary); }
+        .news-card-footer a { font-size: 13px; font-weight: 500; color: var(--primary); text-decoration: none; }
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 40px 0 8px; }
+        .page-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; background: var(--white); }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .footer { background: var(--primary); color: var(--white); padding: 48px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; }
+        .footer p { font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">Hubei <span>Horizon</span> HR</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="study.html">Study in China</a>
+        <a href="talent-pool.html">Talent Pool</a>
+        <a href="corporate.html">Corporate</a>
+        <a href="seminars.html">Seminar</a>
+        <a href="news.html" class="active">News</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+        <div class="lang-switcher">
+            <button class="lang-btn">中文</button>
+            <button class="lang-btn active">EN</button>
+            <button class="lang-btn">TH</button>
+        </div>
+        <button class="btn btn-primary">Login</button>
+    </div>
+</header>
+
+<section class="page-hero">
+    <h1>News & Updates</h1>
+    <p>Latest news on studying in China, career opportunities, recruitment trends, and HBHR company updates.</p>
+</section>
+
+<!-- Category Tabs -->
+<div class="cat-bar">
+    <div class="cat-tab active">All</div>
+    <div class="cat-tab">Company News</div>
+    <div class="cat-tab">Industry News</div>
+    <div class="cat-tab">Study Abroad</div>
+    <div class="cat-tab">Recruitment</div>
+    <div class="search-bar-area">
+        <input type="text" placeholder="🔍 Search news...">
+    </div>
+</div>
+
+<div class="content">
+    <!-- Featured Article -->
+    <div class="featured">
+        <div class="featured-thumb">📰</div>
+        <div class="featured-body">
+            <span class="badge badge-company">Company News</span>
+            <h2>HBHR Platform Launches New AI-Powered Talent Matching for 2026</h2>
+            <p class="excerpt">Hubei Horizon International has officially launched its upgraded platform with advanced AI matching capabilities, connecting Southeast Asian graduates to Chinese enterprise job openings within minutes. The new system uses multi-dimensional profiling including language skills, academic background, and work experience to generate compatibility scores.</p>
+            <div class="article-meta">
+                <span>📅 June 1, 2026</span>
+                <span>✍️ HBHR Editorial Team</span>
+                <span>⏱ 4 min read</span>
+            </div>
+            <a href="news-detail.html">Read Full Article →</a>
+        </div>
+    </div>
+
+    <!-- News Grid -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <h2 style="font-size:22px;font-weight:600;color:var(--primary);">Recent Articles</h2>
+        <span style="font-size:13px;color:var(--text-secondary);">Showing 6 of 87 articles</span>
+    </div>
+    <div class="news-grid">
+
+        <div class="news-card">
+            <div class="news-thumb industry">🏭</div>
+            <div class="news-card-body">
+                <span class="badge badge-industry">Industry News</span>
+                <h3>China's Demand for Bilingual ASEAN Professionals Surges 45% in 2025</h3>
+                <p>New MoHRSS data shows record demand for Southeast Asian professionals fluent in Chinese across manufacturing, trade, and technology sectors.</p>
+            </div>
+            <div class="news-card-footer">
+                <span class="date">May 28, 2026</span>
+                <a href="news-detail.html">Read More →</a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-thumb study">🎓</div>
+            <div class="news-card-body">
+                <span class="badge badge-study">Study Abroad</span>
+                <h3>Chinese Government Scholarship 2026 — Application Deadline Extended to July 15</h3>
+                <p>The CSC has extended the application deadline for 2026 government scholarships. Learn how to apply and what documents are required for international students.</p>
+            </div>
+            <div class="news-card-footer">
+                <span class="date">May 25, 2026</span>
+                <a href="news-detail.html">Read More →</a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-thumb recruit">💼</div>
+            <div class="news-card-body">
+                <span class="badge badge-recruit">Recruitment</span>
+                <h3>Top 10 In-Demand Jobs for Thai Nationals in China in 2026</h3>
+                <p>From cross-border e-commerce specialists to Mandarin-speaking medical professionals, we rank the highest-demand roles for Thai talents in the Chinese market.</p>
+            </div>
+            <div class="news-card-footer">
+                <span class="date">May 20, 2026</span>
+                <a href="news-detail.html">Read More →</a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-thumb company">🤝</div>
+            <div class="news-card-body">
+                <span class="badge badge-company">Company News</span>
+                <h3>HBHR Signs MOU with Chulalongkorn University for Talent Pipeline</h3>
+                <p>A new memorandum of understanding between HBHR and Thailand's leading university will create a structured talent pipeline for graduates interested in careers in China.</p>
+            </div>
+            <div class="news-card-footer">
+                <span class="date">May 15, 2026</span>
+                <a href="news-detail.html">Read More →</a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-thumb study">📚</div>
+            <div class="news-card-body">
+                <span class="badge badge-study">Study Abroad</span>
+                <h3>HSK Exam Changes 2026: New Standards and What to Expect</h3>
+                <p>The Hanban has released updated HSK examination formats. Here's what international students need to know about the new grading structure and preparation strategies.</p>
+            </div>
+            <div class="news-card-footer">
+                <span class="date">May 10, 2026</span>
+                <a href="news-detail.html">Read More →</a>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <div class="news-thumb industry">🌏</div>
+            <div class="news-card-body">
+                <span class="badge badge-industry">Industry News</span>
+                <h3>RCEP's Impact on Cross-Border Talent Mobility in Southeast Asia</h3>
+                <p>Two years into RCEP implementation, cross-border professional mobility between China and ASEAN nations has increased significantly. An analysis of the data.</p>
+            </div>
+            <div class="news-card-footer">
+                <span class="date">May 5, 2026</span>
+                <a href="news-detail.html">Read More →</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <div class="page-btn">‹</div>
+        <div class="page-btn active">1</div>
+        <div class="page-btn">2</div>
+        <div class="page-btn">3</div>
+        <span style="font-size:14px;color:var(--text-secondary);">...</span>
+        <div class="page-btn">15</div>
+        <div class="page-btn">›</div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Site Map</a>
+    </div>
+    <p>Copyright © 2026 Hubei Horizon International. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
