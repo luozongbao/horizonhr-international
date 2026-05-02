@@ -2,24 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
+        'role',
         'email',
         'password',
-        'role',
         'status',
-        'phone',
-        'language',
+        'enterprise_status',
+        'prefer_lang',
+        'email_verified',
+        'last_login_at',
+        'last_login_ip',
     ];
 
     protected $hidden = [
@@ -28,23 +29,23 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password'          => 'hashed',
+        'email_verified' => 'boolean',
+        'last_login_at'  => 'datetime',
+        'password'       => 'hashed',
     ];
 
-    // role: 'student' | 'enterprise' | 'admin'
-    public function isAdmin(): bool
+    public function student()
     {
-        return $this->role === 'admin';
+        return $this->hasOne(Student::class);
     }
 
-    public function isStudent(): bool
+    public function enterprise()
     {
-        return $this->role === 'student';
+        return $this->hasOne(Enterprise::class);
     }
 
-    public function isEnterprise(): bool
+    public function admin()
     {
-        return $this->role === 'enterprise';
+        return $this->hasOne(Admin::class);
     }
 }
