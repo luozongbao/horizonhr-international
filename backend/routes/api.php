@@ -77,9 +77,14 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/profile',                 [\App\Http\Controllers\Student\ProfileController::class,       'show']);
         Route::put   ('/profile',                 [\App\Http\Controllers\Student\ProfileController::class,       'update']);
         Route::post  ('/profile/avatar',          [\App\Http\Controllers\Student\ProfileController::class,       'uploadAvatar']);
-        Route::get   ('/resume',                  [\App\Http\Controllers\Student\ResumeController::class,        'show']);
-        Route::put   ('/resume',                  [\App\Http\Controllers\Student\ResumeController::class,        'update']);
-        Route::post  ('/resume/upload',           [\App\Http\Controllers\Student\ResumeController::class,        'upload']);
+        // Resumes
+        Route::get   ('/resumes',                 [\App\Http\Controllers\Student\ResumeController::class,        'index']);
+        Route::post  ('/resumes',                 [\App\Http\Controllers\Student\ResumeController::class,        'store']);
+        Route::put   ('/resumes/{id}',            [\App\Http\Controllers\Student\ResumeController::class,        'update']);
+        Route::delete('/resumes/{id}',            [\App\Http\Controllers\Student\ResumeController::class,        'destroy']);
+        // Talent Card
+        Route::get   ('/talent-card',             [\App\Http\Controllers\Student\TalentCardController::class,    'show']);
+        Route::put   ('/talent-card',             [\App\Http\Controllers\Student\TalentCardController::class,    'update']);
         Route::get   ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'index']);
         Route::post  ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'store']);
         Route::delete('/applications/{id}',       [\App\Http\Controllers\Student\ApplicationController::class,   'destroy']);
@@ -128,7 +133,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
 
         // Resume review
         Route::get   ('/resumes',                 [\App\Http\Controllers\Admin\ResumeController::class,         'index']);
-        Route::put   ('/resumes/{id}/status',     [\App\Http\Controllers\Admin\ResumeController::class,         'updateStatus']);
+        Route::put   ('/resumes/{id}/review',     [\App\Http\Controllers\Admin\ResumeController::class,         'review']);
 
         // Interviews
         Route::get   ('/interviews',              [\App\Http\Controllers\Admin\InterviewController::class,      'index']);
@@ -197,6 +202,7 @@ Route::prefix('public')->group(function () {
     Route::get('/jobs',              [\App\Http\Controllers\Public\JobController::class,     'index']);
     Route::get('/jobs/{id}',         [\App\Http\Controllers\Public\JobController::class,     'show']);
     Route::get('/talent',            [\App\Http\Controllers\Public\TalentController::class,  'index']);
+    Route::get('/talent/{id}',       [\App\Http\Controllers\Public\TalentController::class,  'show']);
     Route::get('/seminars',          [\App\Http\Controllers\Public\SeminarController::class, 'index']);
     Route::get('/seminars/{id}',     [\App\Http\Controllers\Public\SeminarController::class, 'show']);
     // Pages (CMS static pages)
