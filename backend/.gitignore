@@ -1,0 +1,41 @@
+# ── Composer / Vendor ─────────────────────────────────────────────────────────
+/vendor/
+
+# ── Environment ───────────────────────────────────────────────────────────────
+.env
+.env.backup
+.env.production
+
+# ── Laravel generated ─────────────────────────────────────────────────────────
+/bootstrap/cache/*.php
+/storage/app/public/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Keep directory structure
+!/storage/app/public/.gitkeep
+!/storage/framework/cache/.gitkeep
+!/storage/framework/sessions/.gitkeep
+!/storage/framework/testing/.gitkeep
+!/storage/framework/views/.gitkeep
+!/storage/logs/.gitkeep
+
+# ── IDE / Editor ──────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.suo
+*.sw?
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+.phpunit.result.cache
+coverage/
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log

@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "study": "留学中国",
+    "talent": "人才库",
+    "corporate": "企业合作",
+    "seminars": "招聘研讨会",
+    "news": "新闻资讯",
+    "contact": "联系我们",
+    "login": "登录",
+    "logout": "退出登录",
+    "register": "注册"
+  },
+  "auth": {
+    "email": "电子邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "forgotPassword": "忘记密码？",
+    "loginBtn": "登录",
+    "registerStudent": "学生注册",
+    "registerEnterprise": "企业注册",
+    "pdpaConsent": "我同意根据隐私政策（PDPA）收集和使用我的个人数据",
+    "emailConfirmNotice": "验证邮件将发送至您的邮箱，请在登录前确认您的电子邮件地址。",
+    "orContinueWith": "或通过以下方式继续"
+  },
+  "student": {
+    "dashboard": "控制台",
+    "profile": "我的资料",
+    "resume": "我的简历",
+    "applications": "求职申请",
+    "interviews": "面试安排",
+    "seminars": "研讨会"
+  },
+  "enterprise": {
+    "dashboard": "控制台",
+    "profile": "公司资料",
+    "jobs": "职位发布",
+    "talent": "人才搜索",
+    "interviews": "面试管理"
+  },
+  "admin": {
+    "dashboard": "控制台",
+    "users": "用户管理",
+    "resumes": "简历审核",
+    "interviews": "面试管理",
+    "seminars": "研讨会管理",
+    "news": "系统公告",
+    "pages": "CMS页面",
+    "posts": "文章与新闻",
+    "contacts": "联系消息",
+    "settings": "系统设置",
+    "languages": "语言设置"
+  },
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "view": "查看",
+    "search": "搜索",
+    "filter": "筛选",
+    "export": "导出",
+    "loading": "加载中...",
+    "noData": "暂无数据",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "submit": "提交",
+    "success": "成功",
+    "error": "错误",
+    "status": {
+      "active": "活跃",
+      "inactive": "未激活",
+      "pending": "待审核",
+      "approved": "已通过",
+      "rejected": "已拒绝",
+      "published": "已发布",
+      "draft": "草稿"
+    }
+  },
+  "footer": {
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "sitemap": "网站地图",
+    "copyright": "版权所有 © 2026 湖北豪睿国际人才服务有限公司"
+  }
+}
