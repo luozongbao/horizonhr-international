@@ -65,6 +65,22 @@ Route::prefix('auth/social')->group(function () {
 | check.status: blocks suspended/deleted accounts after Sanctum authentication
 |--------------------------------------------------------------------------
 */
+/*
+|--------------------------------------------------------------------------
+| Shared Interview Routes (role-filtered in controller)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
+    Route::get ('/interviews',            [\App\Http\Controllers\InterviewController::class, 'index']);
+    Route::post('/interviews',            [\App\Http\Controllers\InterviewController::class, 'store']);
+    Route::get ('/interviews/{id}',       [\App\Http\Controllers\InterviewController::class, 'show']);
+    Route::put ('/interviews/{id}',       [\App\Http\Controllers\InterviewController::class, 'update']);
+    Route::put ('/interviews/{id}/cancel',[\App\Http\Controllers\InterviewController::class, 'cancel']);
+});
+// Join: accepts Bearer token OR X-Room-Token (no standard auth:sanctum guard)
+Route::post('/interviews/{id}/join', [\App\Http\Controllers\InterviewController::class, 'join'])
+    ->middleware('interview.room.auth');
+
 Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
 
     /*
@@ -88,8 +104,6 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'index']);
         Route::post  ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'store']);
         Route::delete('/applications/{id}',       [\App\Http\Controllers\Student\ApplicationController::class,   'destroy']);
-        Route::get   ('/interviews',              [\App\Http\Controllers\Student\InterviewController::class,     'index']);
-        Route::get   ('/interviews/{id}/token',   [\App\Http\Controllers\Student\InterviewController::class,     'trtcToken']);
         Route::get   ('/seminars',                [\App\Http\Controllers\Student\SeminarController::class,       'index']);
         Route::post  ('/seminars/{id}/register',  [\App\Http\Controllers\Student\SeminarController::class,       'register']);
         Route::get   ('/seminars/{id}/stream',    [\App\Http\Controllers\Student\SeminarController::class,       'streamUrl']);
@@ -117,9 +131,6 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/jobs/{id}/applications',  [\App\Http\Controllers\Enterprise\JobController::class,        'applications']);
         Route::get   ('/talent',                  [\App\Http\Controllers\Enterprise\TalentController::class,     'index']);
         Route::get   ('/talent/{id}',             [\App\Http\Controllers\Enterprise\TalentController::class,     'show']);
-        Route::post  ('/interviews',              [\App\Http\Controllers\Enterprise\InterviewController::class,  'store']);
-        Route::put   ('/interviews/{id}',         [\App\Http\Controllers\Enterprise\InterviewController::class,  'update']);
-        Route::get   ('/interviews/{id}/token',   [\App\Http\Controllers\Enterprise\InterviewController::class,  'trtcToken']);
     });
 
     /*
@@ -150,7 +161,8 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::put   ('/resumes/{id}/review',     [\App\Http\Controllers\Admin\ResumeController::class,         'review']);
 
         // Interviews
-        Route::get   ('/interviews',              [\App\Http\Controllers\Admin\InterviewController::class,      'index']);
+        Route::get   ('/interviews',                     [\App\Http\Controllers\Admin\InterviewController::class,      'index']);
+        Route::put   ('/interviews/{id}/record',          [\App\Http\Controllers\Admin\InterviewController::class,      'updateRecord']);
 
         // Seminars
         Route::apiResource('/seminars',           \App\Http\Controllers\Admin\SeminarController::class);

@@ -47,5 +47,6 @@ class Kernel extends HttpKernel
         'role'                  => \App\Http\Middleware\CheckRole::class,
         'check.status'          => \App\Http\Middleware\CheckUserStatus::class,
         'enterprise.verified'   => \App\Http\Middleware\RequireEnterpriseVerified::class,
+        'interview.room.auth'   => \App\Http\Middleware\InterviewRoomAuth::class,
     ];
 }
