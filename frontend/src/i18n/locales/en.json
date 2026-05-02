@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "study": "Study in China",
+    "talent": "Talent Pool",
+    "corporate": "Corporate",
+    "seminars": "Seminars",
+    "news": "News",
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register"
+  },
+  "auth": {
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "loginBtn": "Sign In",
+    "registerStudent": "Register as Student",
+    "registerEnterprise": "Register as Enterprise",
+    "pdpaConsent": "I consent to the collection and use of my personal data in accordance with the Privacy Policy (PDPA)",
+    "emailConfirmNotice": "A verification email will be sent to your inbox. Please confirm your email address before logging in.",
+    "orContinueWith": "Or continue with"
+  },
+  "student": {
+    "dashboard": "Dashboard",
+    "profile": "My Profile",
+    "resume": "My Resume",
+    "applications": "Applications",
+    "interviews": "Interviews",
+    "seminars": "Seminars"
+  },
+  "enterprise": {
+    "dashboard": "Dashboard",
+    "profile": "Company Profile",
+    "jobs": "Job Postings",
+    "talent": "Talent Pool",
+    "interviews": "Interviews"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "users": "User Management",
+    "resumes": "Resume Review",
+    "interviews": "Interviews",
+    "seminars": "Seminars",
+    "news": "Announcements",
+    "pages": "CMS Pages",
+    "posts": "Posts & News",
+    "contacts": "Contact Messages",
+    "settings": "System Settings",
+    "languages": "Language Settings"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "success": "Success",
+    "error": "Error",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "published": "Published",
+      "draft": "Draft"
+    }
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "sitemap": "Site Map",
+    "copyright": "Copyright © 2026 Hubei Horizon International. All Rights Reserved."
+  }
+}

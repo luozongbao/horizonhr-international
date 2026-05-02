@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  nginx:
+    volumes:
+      - ./docker/nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./backend:/var/www/backend:ro
+      - ./frontend/dist:/var/www/frontend:ro
+    ports:
+      - "80:80"
+      - "443:443"
+
+  backend:
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+
+  frontend:
+    command: sh -c "npm install && npm run build"
+    # In production, static files are served by nginx — this service exits after build.
+
+  mariadb:
+    ports: []  # Do not expose MariaDB port externally in production
+
+  redis:
+    ports: []  # Do not expose Redis port externally in production
