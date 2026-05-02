@@ -105,7 +105,12 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/profile',                 [\App\Http\Controllers\Enterprise\ProfileController::class,    'show']);
         Route::put   ('/profile',                 [\App\Http\Controllers\Enterprise\ProfileController::class,    'update']);
         Route::post  ('/profile/logo',            [\App\Http\Controllers\Enterprise\ProfileController::class,    'uploadLogo']);
-        Route::apiResource('/jobs',               \App\Http\Controllers\Enterprise\JobController::class);
+        Route::get   ('/jobs',                    [\App\Http\Controllers\Enterprise\JobController::class,        'index']);
+        Route::post  ('/jobs',                    [\App\Http\Controllers\Enterprise\JobController::class,        'store'])->middleware('enterprise.verified');
+        Route::put   ('/jobs/{id}',               [\App\Http\Controllers\Enterprise\JobController::class,        'update']);
+        Route::delete('/jobs/{id}',               [\App\Http\Controllers\Enterprise\JobController::class,        'destroy']);
+        Route::put   ('/jobs/{id}/publish',       [\App\Http\Controllers\Enterprise\JobController::class,        'publish'])->middleware('enterprise.verified');
+        Route::put   ('/jobs/{id}/close',         [\App\Http\Controllers\Enterprise\JobController::class,        'close']);
         Route::get   ('/jobs/{id}/applications',  [\App\Http\Controllers\Enterprise\JobController::class,        'applications']);
         Route::put   ('/applications/{id}/status',[\App\Http\Controllers\Enterprise\ApplicationController::class,'updateStatus']);
         Route::get   ('/talent',                  [\App\Http\Controllers\Enterprise\TalentController::class,     'index']);
@@ -130,6 +135,10 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::put   ('/users/{id}/status',               [\App\Http\Controllers\Admin\UserController::class, 'updateStatus']);
         Route::put   ('/users/{id}/activate-enterprise',  [\App\Http\Controllers\Admin\UserController::class, 'activateEnterprise']);
         Route::delete('/users/{id}',                      [\App\Http\Controllers\Admin\UserController::class, 'destroy']);
+
+        // Jobs
+        Route::get   ('/jobs',                    [\App\Http\Controllers\Admin\JobController::class,            'index']);
+        Route::delete('/jobs/{id}',               [\App\Http\Controllers\Admin\JobController::class,            'destroy']);
 
         // Resume review
         Route::get   ('/resumes',                 [\App\Http\Controllers\Admin\ResumeController::class,         'index']);
@@ -201,6 +210,8 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
 Route::prefix('public')->group(function () {
     Route::get('/jobs',              [\App\Http\Controllers\Public\JobController::class,     'index']);
     Route::get('/jobs/{id}',         [\App\Http\Controllers\Public\JobController::class,     'show']);
+    Route::get('/enterprises',       [\App\Http\Controllers\Public\EnterpriseController::class, 'index']);
+    Route::get('/enterprises/{id}',  [\App\Http\Controllers\Public\EnterpriseController::class, 'show']);
     Route::get('/talent',            [\App\Http\Controllers\Public\TalentController::class,  'index']);
     Route::get('/talent/{id}',       [\App\Http\Controllers\Public\TalentController::class,  'show']);
     Route::get('/seminars',          [\App\Http\Controllers\Public\SeminarController::class, 'index']);
