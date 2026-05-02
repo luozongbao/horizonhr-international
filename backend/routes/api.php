@@ -62,9 +62,10 @@ Route::prefix('auth/social')->group(function () {
 /*
 |--------------------------------------------------------------------------
 | Authenticated routes (any role)
+| check.status: blocks suspended/deleted accounts after Sanctum authentication
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
 
     /*
     |------------------------------------------------------------------
