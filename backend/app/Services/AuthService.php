@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\SendEmailConfirmationJob;
+use App\Jobs\SendEnterprisePendingNotifyAdminJob;
 use App\Jobs\SendPasswordResetJob;
 use App\Models\ConsentLog;
 use App\Models\EmailConfirmation;
@@ -12,7 +13,6 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class AuthService
 {
@@ -78,12 +78,14 @@ class AuthService
             $token = $this->generateEmailConfirmationToken($user);
             dispatch(new SendEmailConfirmationJob($user, $token));
 
+            // Notify all admins that a new enterprise is pending review.
+            // The admin notification fires after email is confirmed (in AuthController::confirmEmail),
+            // but we also dispatch here so admins are aware immediately.
+            dispatch(new SendEnterprisePendingNotifyAdminJob($user));
+
             return $user;
         });
     }
-
-    /**
-     * Create an email_confirmations row and return the plain token.
      */
     public function generateEmailConfirmationToken(User $user): string
     {

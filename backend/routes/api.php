@@ -118,9 +118,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get   ('/dashboard',               [\App\Http\Controllers\Admin\DashboardController::class,      'index']);
 
         // User management
-        Route::apiResource('/users',              \App\Http\Controllers\Admin\UserController::class);
-        Route::put   ('/users/{id}/role',         [\App\Http\Controllers\Admin\UserController::class,           'updateRole']);
-        Route::put   ('/users/{id}/status',       [\App\Http\Controllers\Admin\UserController::class,           'updateStatus']);
+        Route::get   ('/users',                           [\App\Http\Controllers\Admin\UserController::class, 'index']);
+        Route::post  ('/users/admin',                     [\App\Http\Controllers\Admin\UserController::class, 'createAdmin']);
+        Route::get   ('/users/{id}',                      [\App\Http\Controllers\Admin\UserController::class, 'show']);
+        Route::put   ('/users/{id}/status',               [\App\Http\Controllers\Admin\UserController::class, 'updateStatus']);
+        Route::put   ('/users/{id}/activate-enterprise',  [\App\Http\Controllers\Admin\UserController::class, 'activateEnterprise']);
+        Route::delete('/users/{id}',                      [\App\Http\Controllers\Admin\UserController::class, 'destroy']);
 
         // Resume review
         Route::get   ('/resumes',                 [\App\Http\Controllers\Admin\ResumeController::class,         'index']);
