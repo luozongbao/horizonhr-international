@@ -141,11 +141,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('/announcements',      \App\Http\Controllers\Admin\AnnouncementController::class);
 
         // CMS Pages
-        Route::apiResource('/pages',              \App\Http\Controllers\Admin\PageController::class);
+        Route::get   ('/pages',              [\App\Http\Controllers\Admin\PageController::class, 'index']);
+        Route::post  ('/pages',              [\App\Http\Controllers\Admin\PageController::class, 'store']);
+        Route::get   ('/pages/{id}',         [\App\Http\Controllers\Admin\PageController::class, 'show']);
+        Route::put   ('/pages/{id}',         [\App\Http\Controllers\Admin\PageController::class, 'update']);
+        Route::delete('/pages/{id}',         [\App\Http\Controllers\Admin\PageController::class, 'destroy']);
 
         // CMS Posts / News
-        Route::apiResource('/posts',              \App\Http\Controllers\Admin\PostController::class);
-        Route::put   ('/posts/{id}/publish',      [\App\Http\Controllers\Admin\PostController::class,           'publish']);
+        Route::get   ('/posts',              [\App\Http\Controllers\Admin\PostController::class, 'index']);
+        Route::post  ('/posts',              [\App\Http\Controllers\Admin\PostController::class, 'store']);
+        Route::get   ('/posts/{id}',         [\App\Http\Controllers\Admin\PostController::class, 'show']);
+        Route::put   ('/posts/{id}',         [\App\Http\Controllers\Admin\PostController::class, 'update']);
+        Route::delete('/posts/{id}',         [\App\Http\Controllers\Admin\PostController::class, 'destroy']);
+        Route::post  ('/posts/{id}/publish', [\App\Http\Controllers\Admin\PostController::class, 'publish']);
+        Route::post  ('/posts/{id}/unpublish',[\App\Http\Controllers\Admin\PostController::class,'unpublish']);
 
         // Contact messages
         Route::get   ('/contacts',                [\App\Http\Controllers\Admin\ContactController::class,        'index']);
@@ -175,9 +184,12 @@ Route::prefix('public')->group(function () {
     Route::get('/talent',            [\App\Http\Controllers\Public\TalentController::class,  'index']);
     Route::get('/seminars',          [\App\Http\Controllers\Public\SeminarController::class, 'index']);
     Route::get('/seminars/{id}',     [\App\Http\Controllers\Public\SeminarController::class, 'show']);
-    Route::get('/news',              [\App\Http\Controllers\Public\NewsController::class,    'index']);
-    Route::get('/news/{slug}',       [\App\Http\Controllers\Public\NewsController::class,    'show']);
+    // Pages (CMS static pages)
+    Route::get('/pages',             [\App\Http\Controllers\Public\PageController::class,    'index']);
     Route::get('/pages/{slug}',      [\App\Http\Controllers\Public\PageController::class,    'show']);
+    // Posts (news / announcements)
+    Route::get('/posts',             [\App\Http\Controllers\Public\PostController::class,    'index']);
+    Route::get('/posts/{id}',        [\App\Http\Controllers\Public\PostController::class,    'show']);
     Route::post('/contact',          [\App\Http\Controllers\Public\ContactController::class, 'store']);
     Route::get('/settings',          [\App\Http\Controllers\Public\SettingsController::class,'publicConfig']);
 });
