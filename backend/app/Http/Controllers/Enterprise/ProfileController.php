@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Enterprise;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Enterprise\UpdateEnterpriseProfileRequest;
+use App\Services\OssService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
+    public function __construct(private readonly OssService $oss) {}
     /**
      * GET /api/enterprise/profile
      */
@@ -57,8 +56,7 @@ class ProfileController extends Controller
 
     /**
      * POST /api/enterprise/profile/logo
-     * Accept images up to 2 MB; resize to max 400×400 preserving aspect ratio.
-     * TASK-016: replace Storage::disk('public') with OssService::upload()
+     * Accept images up to 2 MB; resize to max 800×400 preserving aspect ratio, stored as PNG.
      */
     public function uploadLogo(Request $request): JsonResponse
     {
@@ -68,28 +66,19 @@ class ProfileController extends Controller
 
         $enterprise = $request->user()->enterprise;
 
-        $image = Image::make($request->file('logo'));
-        $image->resize(400, 400, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-
-        $filename = Str::uuid() . '.jpg';
-        $path     = "logos/{$enterprise->id}/{$filename}";
-
-        // Delete old logo if stored on public disk
-        if ($enterprise->logo) {
-            $oldPath = ltrim(parse_url($enterprise->logo, PHP_URL_PATH), '/storage/');
-            if ($oldPath && Storage::disk('public')->exists($oldPath)) {
-                Storage::disk('public')->delete($oldPath);
-            }
+        // Delete old logo if we have its storage key
+        if ($enterprise->logo_key) {
+            $this->oss->delete($enterprise->logo_key);
         }
 
-        // TASK-016: swap Storage::disk('public') for OssService::upload()
-        Storage::disk('public')->put($path, $image->encode('jpg', 85)->getEncoded());
-        $url = Storage::disk('public')->url($path);
+        $key = $this->oss->uploadLogo(
+            $request->file('logo'),
+            "logos/enterprises/{$enterprise->id}"
+        );
 
-        $enterprise->update(['logo' => $url]);
+        $url = $this->oss->publicUrl($key);
+
+        $enterprise->update(['logo' => $url, 'logo_key' => $key]);
 
         return response()->json([
             'success' => true,

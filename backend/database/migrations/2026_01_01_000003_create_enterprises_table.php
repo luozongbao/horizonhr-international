@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('company_name', 500);
             $table->string('industry', 200)->nullable();
             $table->string('logo', 500)->nullable();
+            $table->string('logo_key', 500)->nullable(); // OSS storage key for deletion
             $table->enum('scale', ['small', 'medium', 'large', 'enterprise'])->nullable();
             $table->text('description')->nullable();
             $table->string('website', 500)->nullable();

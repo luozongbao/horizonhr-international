@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('nationality', 100)->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('avatar', 500)->nullable();
+            $table->string('avatar_key', 500)->nullable(); // OSS storage key for deletion
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->text('address')->nullable();

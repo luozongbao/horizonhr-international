@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateSettingsRequest;
 use App\Models\Setting;
+use App\Services\OssService;
 use App\Services\SettingsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class SettingsController extends Controller
 {
-    public function __construct(private readonly SettingsService $settingsService) {}
+    public function __construct(
+        private readonly SettingsService $settingsService,
+        private readonly OssService $oss,
+    ) {}
 
     /**
      * Return ALL settings grouped by `group`.
@@ -65,7 +67,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Upload site logo; update `logo` setting; clear cache.
+     * Upload site logo (max 2 MB); resize to max 800×400, stored as PNG.
      */
     public function uploadLogo(Request $request): JsonResponse
     {
@@ -73,9 +75,11 @@ class SettingsController extends Controller
             'logo' => ['required', 'image', 'max:2048'],
         ]);
 
-        $url = $this->storeAsset($request->file('logo'), 'logos');
+        $key = $this->oss->uploadLogo($request->file('logo'), 'assets/logos');
+        $url = $this->oss->publicUrl($key);
 
         Setting::set('logo', $url);
+        Setting::set('logo_key', $key);
         $this->settingsService->clearCache();
 
         return response()->json([
@@ -85,7 +89,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Upload site favicon (.ico or .png); update `favicon` setting; clear cache.
+     * Upload site favicon (.ico or .png, max 2 MB); no resizing.
      */
     public function uploadFavicon(Request $request): JsonResponse
     {
@@ -93,27 +97,16 @@ class SettingsController extends Controller
             'favicon' => ['required', 'file', 'max:2048', 'mimes:ico,png'],
         ]);
 
-        $url = $this->storeAsset($request->file('favicon'), 'favicons');
+        $key = $this->oss->upload($request->file('favicon'), 'assets/favicons');
+        $url = $this->oss->publicUrl($key);
 
         Setting::set('favicon', $url);
+        Setting::set('favicon_key', $key);
         $this->settingsService->clearCache();
 
         return response()->json([
             'success' => true,
             'data'    => ['url' => $url],
         ]);
-    }
-
-    /**
-     * Store an uploaded file under `public` disk and return its public URL.
-     * When OSS integration is available (TASK-016), swap Storage::disk('public')
-     * with OssService::upload() here.
-     */
-    private function storeAsset(\Illuminate\Http\UploadedFile $file, string $directory): string
-    {
-        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-        $path     = $file->storeAs("assets/{$directory}", $filename, 'public');
-
-        return Storage::disk('public')->url($path);
     }
 }

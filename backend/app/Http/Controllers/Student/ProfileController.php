@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Student\UpdateStudentProfileRequest;
+use App\Services\OssService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
+    public function __construct(private readonly OssService $oss) {}
     /**
      * GET /api/student/profile
      * Return own student profile merged with user data.
@@ -58,8 +57,7 @@ class ProfileController extends Controller
 
     /**
      * POST /api/student/profile/avatar
-     * Accept image/*, max 2MB, resize to max 500×500.
-     * TASK-016: swap Storage::disk('public') for OssService::upload().
+     * Accept image/*, max 2MB, resize to max 500×500 JPEG.
      */
     public function uploadAvatar(Request $request): JsonResponse
     {
@@ -70,20 +68,19 @@ class ProfileController extends Controller
         $user    = $request->user()->load('student');
         $student = $user->student;
 
-        $img      = Image::make($request->file('avatar'))->fit(500, 500);
-        $filename = Str::uuid() . '.jpg';
-        $path     = "avatars/{$student->id}/{$filename}";
-
-        Storage::disk('public')->put($path, $img->encode('jpg', 85));
-
-        // Delete old avatar
-        if ($student->avatar) {
-            $oldPath = ltrim(parse_url($student->avatar, PHP_URL_PATH), '/storage/');
-            Storage::disk('public')->delete($oldPath);
+        // Delete old avatar if tracked by key
+        if ($student->avatar_key) {
+            $this->oss->delete($student->avatar_key);
         }
 
-        $url = Storage::disk('public')->url($path);
-        $student->update(['avatar' => $url]);
+        $key = $this->oss->uploadAvatar(
+            $request->file('avatar'),
+            "avatars/students/{$student->id}"
+        );
+
+        $url = $this->oss->publicUrl($key);
+
+        $student->update(['avatar' => $url, 'avatar_key' => $key]);
 
         return response()->json([
             'success' => true,
