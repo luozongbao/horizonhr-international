@@ -22,20 +22,25 @@ Route::get('/health', fn () => response()->json(['status' => 'ok', 'service' => 
 
 /*
 |--------------------------------------------------------------------------
-| Authentication (public — no token required)
+| Authentication
 |--------------------------------------------------------------------------
 */
 Route::prefix('auth')->group(function () {
-    Route::post('/login',                   [\App\Http\Controllers\Auth\LoginController::class,           'login']);
-    Route::post('/register/student',        [\App\Http\Controllers\Auth\RegisterController::class,        'registerStudent']);
-    Route::post('/register/enterprise',     [\App\Http\Controllers\Auth\RegisterController::class,        'registerEnterprise']);
-    Route::post('/password/forgot',         [\App\Http\Controllers\Auth\PasswordController::class,        'forgot']);
-    Route::post('/password/reset',          [\App\Http\Controllers\Auth\PasswordController::class,        'reset']);
-    Route::get('/email/verify/{id}/{hash}', [\App\Http\Controllers\Auth\VerificationController::class,    'verify'])->name('verification.verify');
+    // Public auth endpoints — rate-limited to 5 requests/minute per IP
+    Route::middleware('throttle:5,1')->group(function () {
+        Route::post('register',        [\App\Http\Controllers\Auth\AuthController::class, 'register']);
+        Route::post('login',           [\App\Http\Controllers\Auth\AuthController::class, 'login']);
+        Route::post('forgot-password', [\App\Http\Controllers\Auth\AuthController::class, 'forgotPassword']);
+        Route::post('reset-password',  [\App\Http\Controllers\Auth\AuthController::class, 'resetPassword']);
+        Route::post('confirm-email',   [\App\Http\Controllers\Auth\AuthController::class, 'confirmEmail']);
+    });
 
-    // Social OAuth
-    Route::get('/oauth/{provider}',         [\App\Http\Controllers\Auth\OAuthController::class, 'redirect']);
-    Route::get('/oauth/{provider}/callback',[\App\Http\Controllers\Auth\OAuthController::class, 'callback']);
+    // Protected auth endpoints (require valid Sanctum token)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout',  [\App\Http\Controllers\Auth\AuthController::class, 'logout']);
+        Route::post('refresh', [\App\Http\Controllers\Auth\AuthController::class, 'refresh']);
+        Route::get ('me',      [\App\Http\Controllers\Auth\AuthController::class, 'me']);
+    });
 });
 
 /*
@@ -44,9 +49,6 @@ Route::prefix('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth:sanctum')->group(function () {
-
-    Route::get('/user',     fn (Request $request) => $request->user());
-    Route::post('/logout',  [\App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
     /*
     |------------------------------------------------------------------

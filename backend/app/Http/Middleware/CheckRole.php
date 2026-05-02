@@ -10,8 +10,16 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        if (!$request->user() || !in_array($request->user()->role, $roles)) {
-            return response()->json(['message' => 'Forbidden.'], 403);
+        $user = $request->user();
+
+        if (! $user || ! in_array($user->role, $roles)) {
+            return response()->json([
+                'success' => false,
+                'error'   => [
+                    'code'    => 'FORBIDDEN',
+                    'message' => 'You do not have permission to access this resource.',
+                ],
+            ], 403);
         }
 
         return $next($request);
