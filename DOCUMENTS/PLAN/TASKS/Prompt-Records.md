@@ -145,3 +145,12 @@ Implement DOCUMENTS/PLAN/TASKS/025-FRONTEND-TALENT-CORPORATE.md
 
 Learn this project Requirements in DOCUMENTS/REQUIREMENTS-EN.md and its Designs in DOCUMENTS/DESIGNS to understand the over view of the project then continue to Implement DOCUMENTS/PLAN/TASKS/026-FRONTEND-NEWS-CONTACT.md
 
+---
+
+Implement DOCUMENTS/PLAN/TASKS/027-FRONTEND-SEMINAR-PUBLIC.md
+
+---
+
+Implement DOCUMENTS/PLAN/TASKS/028-FRONTEND-STUDENT-DASHBOARD-PROFILE.md
+
+---
