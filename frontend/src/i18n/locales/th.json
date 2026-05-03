@@ -504,5 +504,17 @@
       "permissionDenied": "ถูกปฏิเสธสิทธิ์กล้อง/ไมโครโฟน กรุณาอนุญาตการเข้าถึง",
       "enterRoom": "เข้าห้องสัมภาษณ์"
     }
+  },
+  "studentSeminars": {
+    "browse": "ดูสัมมนา",
+    "myRegistrations": "การลงทะเบียนของฉัน",
+    "noRegistrations": "คุณยังไม่ได้ลงทะเบียนสัมมนาใดๆ",
+    "registered": "ลงทะเบียนแล้ว",
+    "register": "ลงทะเบียน",
+    "cancelRegistration": "ยกเลิกการลงทะเบียน",
+    "cancelConfirm": "ยืนยันการยกเลิกการลงทะเบียนสัมมนานี้?",
+    "watch": "ดู",
+    "live": "สด",
+    "pageTitle": "สัมมนา"
   }
 }

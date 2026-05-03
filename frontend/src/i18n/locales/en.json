@@ -504,5 +504,17 @@
       "permissionDenied": "Camera/microphone permission denied. Please allow access.",
       "enterRoom": "Enter Room"
     }
+  },
+  "studentSeminars": {
+    "browse": "Browse Seminars",
+    "myRegistrations": "My Registrations",
+    "noRegistrations": "You haven't registered for any seminars yet.",
+    "registered": "Registered",
+    "register": "Register",
+    "cancelRegistration": "Cancel Registration",
+    "cancelConfirm": "Cancel your registration for this seminar?",
+    "watch": "Watch",
+    "live": "LIVE",
+    "pageTitle": "Seminars"
   }
 }
