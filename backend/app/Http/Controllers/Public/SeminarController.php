@@ -243,4 +243,56 @@ class SeminarController extends Controller
 
         return response()->json(['success' => true, 'data' => $message], 201);
     }
+
+    // ──────────────────────────────────────────────────────────────────
+    // watch
+    // ──────────────────────────────────────────────────────────────────
+
+    /**
+     * GET /api/public/seminars/{id}/watch
+     *
+     * Returns live pull URLs while the seminar is live, or the recording URL
+     * once it has been processed. Requires the seminar to be live or ended.
+     */
+    public function watch(int $id): JsonResponse
+    {
+        $seminar = Seminar::with('recording')->findOrFail($id);
+
+        if ($seminar->status === 'live') {
+            $pullUrls = app(\App\Services\TrtcLiveService::class)
+                ->getPullUrls($seminar->stream_key ?? '');
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'type'      => 'live',
+                    'pull_urls' => $pullUrls,
+                ],
+            ]);
+        }
+
+        if ($seminar->status === 'ended') {
+            if (!$seminar->recording) {
+                return response()->json([
+                    'success' => false,
+                    'error'   => ['code' => 'RECORDING_NOT_READY', 'message' => 'The recording is still being processed. Please check back shortly.'],
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'type'        => 'recording',
+                    'video_url'   => $seminar->recording->video_url,
+                    'duration_sec'=> $seminar->recording->duration_sec,
+                ],
+            ]);
+        }
+
+        // status = 'scheduled' or 'cancelled'
+        return response()->json([
+            'success' => false,
+            'error'   => ['code' => 'SEMINAR_NOT_STARTED', 'message' => 'The seminar has not started yet.'],
+        ], 404);
+    }
 }

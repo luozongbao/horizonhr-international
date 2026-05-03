@@ -60,7 +60,11 @@ class SeminarController extends Controller
             ['status' => 'scheduled', 'reminder_sent' => false]
         ));
 
-        return response()->json(['success' => true, 'data' => $seminar], 201);
+        // Generate and persist the stream key immediately so it never changes
+        $streamKey = $this->trtcLive->generateStreamKey($seminar->id);
+        $seminar->update(['stream_key' => $streamKey]);
+
+        return response()->json(['success' => true, 'data' => $seminar->fresh()], 201);
     }
 
     // ──────────────────────────────────────────────────────────────────
@@ -121,7 +125,7 @@ class SeminarController extends Controller
 
     /**
      * POST /api/admin/seminars/{id}/go-live
-     * Set status=live, generate TRTC CSS push/pull URLs (TASK-019 stub).
+     * Set status=live and return fresh RTMP push + pull URLs.
      */
     public function goLive(int $id): JsonResponse
     {
@@ -134,20 +138,27 @@ class SeminarController extends Controller
             ], 422);
         }
 
-        // TASK-019: TrtcLiveService returns real push/play URLs
-        $streamConfig = $this->trtcLive->getStreamConfig($seminar);
+        // Ensure stream key exists (backfill in case it was created before TASK-019)
+        if (empty($seminar->stream_key)) {
+            $seminar->update(['stream_key' => $this->trtcLive->generateStreamKey($seminar->id)]);
+            $seminar = $seminar->fresh();
+        }
+
+        $streamKey = $seminar->stream_key;
+        $pushUrl   = $this->trtcLive->getPushUrl($streamKey);
+        $pullUrls  = $this->trtcLive->getPullUrls($streamKey);
 
         $seminar->update([
             'status'     => 'live',
-            'stream_url' => $streamConfig['stream_url'],
-            'stream_key' => $streamConfig['stream_key'],
+            'stream_url' => $pullUrls['hls'],
         ]);
 
         return response()->json([
             'success' => true,
             'data'    => [
-                'seminar'      => $seminar->fresh(),
-                'stream_config' => $streamConfig, // push_url returned to admin only
+                'seminar'   => $seminar->fresh(),
+                'push_url'  => $pushUrl,          // RTMP URL for OBS — admin-only
+                'pull_urls' => $pullUrls,          // HLS/FLV/RTMP for viewers
             ],
         ]);
     }
@@ -158,7 +169,7 @@ class SeminarController extends Controller
 
     /**
      * POST /api/admin/seminars/{id}/end-live
-     * Set status=ended, trigger recording creation via TRTC (TASK-019).
+     * Set status=ended. Recording arrives via webhook callback (POST /api/webhooks/trtc-live).
      */
     public function endLive(int $id): JsonResponse
     {
@@ -176,13 +187,10 @@ class SeminarController extends Controller
             'ended_at' => now(),
         ]);
 
-        // TASK-019: Stop stream + trigger cloud recording via TrtcLiveService
-        $this->trtcLive->endStream($seminar);
-
         return response()->json([
             'success' => true,
             'data'    => $seminar->fresh(),
-            'message' => 'Seminar ended. Recording will be available once processing is complete.',
+            'message' => 'Seminar ended. Recording will be available once Tencent CSS processing is complete.',
         ]);
     }
 }
