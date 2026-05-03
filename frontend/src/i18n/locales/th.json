@@ -516,5 +516,91 @@
     "watch": "ดู",
     "live": "สด",
     "pageTitle": "สัมมนา"
+  },
+  "enterprise": {
+    "dashboard": {
+      "pageTitle": "แดชบอร์ด",
+      "pendingBanner": "บัญชีของคุณกำลังรอการอนุมัติจากผู้ดูแล คุณไม่สามารถโพสต์งานได้จนกว่าจะได้รับการอนุมัติ",
+      "welcomeBack": "ยินดีต้อนรับ",
+      "recentApplications": "ใบสมัครล่าสุด",
+      "upcomingInterviews": "การสัมภาษณ์ที่จะมาถึง",
+      "myJobs": "ตำแหน่งงานของฉัน",
+      "stats": {
+        "activeJobs": "งานที่เปิดรับ",
+        "applications": "ใบสมัคร",
+        "interviews": "การสัมภาษณ์",
+        "talentViewed": "ผู้สมัครที่ดู"
+      }
+    },
+    "profile": {
+      "title": "โปรไฟล์บริษัท",
+      "uploadLogo": "อัปโหลดโลโก้",
+      "companyInfo": "ข้อมูลบริษัท",
+      "contactPerson": "ผู้ติดต่อ",
+      "companyName": "ชื่อบริษัท",
+      "industry": "อุตสาหกรรม",
+      "companySize": "ขนาดบริษัท",
+      "website": "เว็บไซต์",
+      "contactEmail": "อีเมลติดต่อ",
+      "contactPhone": "เบอร์โทรติดต่อ",
+      "foundedYear": "ปีที่ก่อตั้ง",
+      "description": "เกี่ยวกับบริษัท",
+      "officeLocations": "ที่ตั้งสำนักงาน",
+      "contactName": "ชื่อผู้ติดต่อ",
+      "contactPosition": "ตำแหน่งผู้ติดต่อ",
+      "saveSuccess": "อัปเดตโปรไฟล์เรียบร้อย",
+      "descriptionTabs": {
+        "en": "ภาษาอังกฤษ",
+        "zh_cn": "ภาษาจีน",
+        "th": "ภาษาไทย"
+      }
+    },
+    "jobs": {
+      "pageTitle": "ประกาศงาน",
+      "postNewJob": "โพสต์งานใหม่",
+      "editJob": "แก้ไขงาน",
+      "jobTitle": "ชื่อตำแหน่ง",
+      "jobType": "ประเภทงาน",
+      "location": "สถานที่ทำงาน",
+      "salaryRange": "เงินเดือน",
+      "notDisclosed": "ไม่ระบุ",
+      "deadline": "วันปิดรับสมัคร",
+      "saveAsDraft": "บันทึกแบบร่าง",
+      "publish": "เผยแพร่",
+      "unpublish": "ถอนออก",
+      "viewApplications": "ดูใบสมัคร",
+      "applications": "ใบสมัคร",
+      "deleteConfirm": "ลบประกาศงานนี้ใช่ไหม? ไม่สามารถเรียกคืนได้",
+      "noJobs": "ยังไม่มีประกาศงาน",
+      "description": "รายละเอียดงาน",
+      "requirements": "คุณสมบัติ",
+      "industry": "อุตสาหกรรม",
+      "allStatuses": "ทั้งหมด",
+      "status": {
+        "draft": "แบบร่าง",
+        "published": "เผยแพร่แล้ว",
+        "closed": "ปิดรับแล้ว"
+      },
+      "jobTypes": {
+        "full_time": "เต็มเวลา",
+        "part_time": "พาร์ทไทม์",
+        "internship": "ฝึกงาน",
+        "remote": "ทำงานระยะไกล"
+      }
+    },
+    "appReview": {
+      "title": "รายการใบสมัคร",
+      "studentName": "นักศึกษา",
+      "appliedDate": "วันที่สมัคร",
+      "status": "สถานะ",
+      "viewResume": "ดูเรซูเม่",
+      "noApplications": "ยังไม่มีใบสมัคร",
+      "statusOptions": {
+        "pending": "รอดำเนินการ",
+        "reviewed": "ตรวจสอบแล้ว",
+        "accepted": "รับแล้ว",
+        "rejected": "ปฏิเสธแล้ว"
+      }
+    }
   }
 }

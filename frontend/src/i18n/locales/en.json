@@ -516,5 +516,91 @@
     "watch": "Watch",
     "live": "LIVE",
     "pageTitle": "Seminars"
+  },
+  "enterprise": {
+    "dashboard": {
+      "pageTitle": "Dashboard",
+      "pendingBanner": "Your account is pending admin approval. You cannot post jobs until approved.",
+      "welcomeBack": "Welcome back",
+      "recentApplications": "Recent Applications",
+      "upcomingInterviews": "Upcoming Interviews",
+      "myJobs": "My Job Postings",
+      "stats": {
+        "activeJobs": "Active Jobs",
+        "applications": "Applications",
+        "interviews": "Interviews",
+        "talentViewed": "Talent Viewed"
+      }
+    },
+    "profile": {
+      "title": "Company Profile",
+      "uploadLogo": "Upload Logo",
+      "companyInfo": "Company Information",
+      "contactPerson": "Contact Person",
+      "companyName": "Company Name",
+      "industry": "Industry",
+      "companySize": "Company Size",
+      "website": "Website",
+      "contactEmail": "Contact Email",
+      "contactPhone": "Contact Phone",
+      "foundedYear": "Founded Year",
+      "description": "Company Description",
+      "officeLocations": "Office Locations",
+      "contactName": "Contact Name",
+      "contactPosition": "Contact Position",
+      "saveSuccess": "Profile updated successfully.",
+      "descriptionTabs": {
+        "en": "English",
+        "zh_cn": "Chinese",
+        "th": "Thai"
+      }
+    },
+    "jobs": {
+      "pageTitle": "Job Postings",
+      "postNewJob": "Post New Job",
+      "editJob": "Edit Job",
+      "jobTitle": "Job Title",
+      "jobType": "Job Type",
+      "location": "Location",
+      "salaryRange": "Salary Range",
+      "notDisclosed": "Not Disclosed",
+      "deadline": "Application Deadline",
+      "saveAsDraft": "Save as Draft",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "viewApplications": "View Applications",
+      "applications": "Applications",
+      "deleteConfirm": "Delete this job posting? This cannot be undone.",
+      "noJobs": "No job postings yet.",
+      "description": "Job Description",
+      "requirements": "Requirements",
+      "industry": "Industry",
+      "allStatuses": "All",
+      "status": {
+        "draft": "Draft",
+        "published": "Published",
+        "closed": "Closed"
+      },
+      "jobTypes": {
+        "full_time": "Full-time",
+        "part_time": "Part-time",
+        "internship": "Internship",
+        "remote": "Remote"
+      }
+    },
+    "appReview": {
+      "title": "Applications",
+      "studentName": "Student",
+      "appliedDate": "Applied",
+      "status": "Status",
+      "viewResume": "View Resume",
+      "noApplications": "No applications yet.",
+      "statusOptions": {
+        "pending": "Pending",
+        "reviewed": "Reviewed",
+        "accepted": "Accepted",
+        "rejected": "Rejected"
+      }
+    }
   }
 }

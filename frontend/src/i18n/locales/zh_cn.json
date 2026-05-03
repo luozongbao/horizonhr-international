@@ -516,5 +516,91 @@
     "watch": "观看",
     "live": "直播中",
     "pageTitle": "研讨会"
+  },
+  "enterprise": {
+    "dashboard": {
+      "pageTitle": "控制台",
+      "pendingBanner": "您的账号正在等待管理员审核，审核通过前无法发布职位。",
+      "welcomeBack": "欢迎回来",
+      "recentApplications": "最新申请",
+      "upcomingInterviews": "即将面试",
+      "myJobs": "我的职位",
+      "stats": {
+        "activeJobs": "在招职位",
+        "applications": "申请数量",
+        "interviews": "面试安排",
+        "talentViewed": "人才浏览"
+      }
+    },
+    "profile": {
+      "title": "公司资料",
+      "uploadLogo": "上传Logo",
+      "companyInfo": "公司信息",
+      "contactPerson": "联系人",
+      "companyName": "公司名称",
+      "industry": "行业",
+      "companySize": "公司规模",
+      "website": "官网地址",
+      "contactEmail": "联系邮箱",
+      "contactPhone": "联系电话",
+      "foundedYear": "成立年份",
+      "description": "公司简介",
+      "officeLocations": "办公地点",
+      "contactName": "联系人姓名",
+      "contactPosition": "联系人职位",
+      "saveSuccess": "资料已更新。",
+      "descriptionTabs": {
+        "en": "英文",
+        "zh_cn": "中文",
+        "th": "泰文"
+      }
+    },
+    "jobs": {
+      "pageTitle": "职位管理",
+      "postNewJob": "发布职位",
+      "editJob": "编辑职位",
+      "jobTitle": "职位名称",
+      "jobType": "职位类型",
+      "location": "工作地点",
+      "salaryRange": "薪资范围",
+      "notDisclosed": "薪资面议",
+      "deadline": "截止日期",
+      "saveAsDraft": "保存草稿",
+      "publish": "发布",
+      "unpublish": "下架",
+      "viewApplications": "查看申请",
+      "applications": "申请",
+      "deleteConfirm": "确认删除此职位？此操作无法撤销。",
+      "noJobs": "暂无职位。",
+      "description": "职位描述",
+      "requirements": "任职要求",
+      "industry": "行业",
+      "allStatuses": "全部",
+      "status": {
+        "draft": "草稿",
+        "published": "已发布",
+        "closed": "已关闭"
+      },
+      "jobTypes": {
+        "full_time": "全职",
+        "part_time": "兼职",
+        "internship": "实习",
+        "remote": "远程"
+      }
+    },
+    "appReview": {
+      "title": "申请列表",
+      "studentName": "学生",
+      "appliedDate": "申请日期",
+      "status": "状态",
+      "viewResume": "查看简历",
+      "noApplications": "暂无申请。",
+      "statusOptions": {
+        "pending": "待处理",
+        "reviewed": "已查看",
+        "accepted": "已录用",
+        "rejected": "已拒绝"
+      }
+    }
   }
 }
