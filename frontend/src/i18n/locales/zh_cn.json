@@ -471,5 +471,38 @@
     "noApplications": "您尚未申请任何职位。",
     "browseJobs": "浏览职位",
     "appliedOn": "申请日期"
+  },
+  "interviews": {
+    "pageTitle": "我的面试",
+    "allStatuses": "全部",
+    "status": {
+      "scheduled": "已预约",
+      "ongoing": "进行中",
+      "completed": "已完成",
+      "cancelled": "已取消"
+    },
+    "joinInterview": "加入面试",
+    "viewDetails": "查看详情",
+    "countdownIn": "{time}后",
+    "countdownNow": "即将开始",
+    "preparation": "面试准备事项",
+    "duration": "时长",
+    "interviewer": "面试官",
+    "scheduledAt": "预约时间",
+    "noInterviews": "暂无面试记录。",
+    "room": {
+      "title": "面试间",
+      "checkCamera": "摄像头检测",
+      "checkMic": "麦克风检测",
+      "readyToJoin": "准备就绪，进入面试",
+      "leaveRoom": "离开面试",
+      "leaveConfirm": "确定要离开面试吗？",
+      "waiting": "等待室",
+      "notStarted": "面试将于 {time} 开始",
+      "notAuthorized": "您没有权限加入此面试。",
+      "notFound": "未找到该面试。",
+      "permissionDenied": "摄像头/麦克风权限被拒绝，请允许访问。",
+      "enterRoom": "进入面试间"
+    }
   }
 }

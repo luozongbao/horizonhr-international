@@ -61,9 +61,17 @@ export const studentApi = {
   getApplications: (params?: { my?: boolean; per_page?: number }) =>
     api.get('/applications', { params: { my: true, ...params } }),
 
-  /** My interviews (upcoming) */
-  getInterviews: (params?: { my?: boolean; per_page?: number }) =>
+  /** My interviews list */
+  getInterviews: (params?: { status?: string; per_page?: number }) =>
     api.get('/interviews', { params: { my: true, ...params } }),
+
+  /** Single interview detail */
+  getInterview: (id: number) =>
+    api.get(`/interviews/${id}`),
+
+  /** Join interview — get TRTC credentials */
+  joinInterview: (id: number) =>
+    api.post(`/interviews/${id}/join`),
 
   /** My seminar registrations */
   getSeminarRegistrations: (params?: { per_page?: number }) =>

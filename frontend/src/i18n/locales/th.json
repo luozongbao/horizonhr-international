@@ -471,5 +471,38 @@
     "noApplications": "คุณยังไม่ได้สมัครงานใดๆ",
     "browseJobs": "ดูประกาศงาน",
     "appliedOn": "วันที่สมัคร"
+  },
+  "interviews": {
+    "pageTitle": "การสัมภาษณ์ของฉัน",
+    "allStatuses": "ทั้งหมด",
+    "status": {
+      "scheduled": "นัดหมายแล้ว",
+      "ongoing": "กำลังดำเนินการ",
+      "completed": "เสร็จสิ้น",
+      "cancelled": "ยกเลิกแล้ว"
+    },
+    "joinInterview": "เข้าร่วมสัมภาษณ์",
+    "viewDetails": "ดูรายละเอียด",
+    "countdownIn": "อีก {time}",
+    "countdownNow": "กำลังจะเริ่ม",
+    "preparation": "หมายเหตุการเตรียมตัวสัมภาษณ์",
+    "duration": "ระยะเวลา",
+    "interviewer": "ผู้สัมภาษณ์",
+    "scheduledAt": "นัดหมาย",
+    "noInterviews": "ไม่พบการสัมภาษณ์",
+    "room": {
+      "title": "ห้องสัมภาษณ์",
+      "checkCamera": "ตรวจสอบกล้อง",
+      "checkMic": "ตรวจสอบไมโครโฟน",
+      "readyToJoin": "พร้อมเข้าร่วม",
+      "leaveRoom": "ออกจากการสัมภาษณ์",
+      "leaveConfirm": "แน่ใจหรือไม่ว่าต้องการออกจากการสัมภาษณ์?",
+      "waiting": "ห้องรอ",
+      "notStarted": "การสัมภาษณ์เริ่มเวลา {time}",
+      "notAuthorized": "คุณไม่มีสิทธิ์เข้าร่วมการสัมภาษณ์นี้",
+      "notFound": "ไม่พบการสัมภาษณ์",
+      "permissionDenied": "ถูกปฏิเสธสิทธิ์กล้อง/ไมโครโฟน กรุณาอนุญาตการเข้าถึง",
+      "enterRoom": "เข้าห้องสัมภาษณ์"
+    }
   }
 }

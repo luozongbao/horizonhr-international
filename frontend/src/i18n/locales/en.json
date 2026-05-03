@@ -471,5 +471,38 @@
     "noApplications": "You haven't applied to any jobs yet.",
     "browseJobs": "Browse Jobs",
     "appliedOn": "Applied"
+  },
+  "interviews": {
+    "pageTitle": "My Interviews",
+    "allStatuses": "All",
+    "status": {
+      "scheduled": "Scheduled",
+      "ongoing": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "joinInterview": "Join Interview",
+    "viewDetails": "View Details",
+    "countdownIn": "In {time}",
+    "countdownNow": "Starting now",
+    "preparation": "Interview Preparation Notes",
+    "duration": "Duration",
+    "interviewer": "Interviewer",
+    "scheduledAt": "Scheduled",
+    "noInterviews": "No interviews found.",
+    "room": {
+      "title": "Interview Room",
+      "checkCamera": "Camera Check",
+      "checkMic": "Microphone Check",
+      "readyToJoin": "Ready to Join",
+      "leaveRoom": "Leave Interview",
+      "leaveConfirm": "Are you sure you want to leave the interview?",
+      "waiting": "Waiting room",
+      "notStarted": "Interview starts at {time}",
+      "notAuthorized": "You are not authorized to join this interview.",
+      "notFound": "Interview not found.",
+      "permissionDenied": "Camera/microphone permission denied. Please allow access.",
+      "enterRoom": "Enter Room"
+    }
   }
 }
