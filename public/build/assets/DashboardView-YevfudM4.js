@@ -1,0 +1,1 @@
+import{I as e,p as t}from"./runtime-core.esm-bundler-C6LkvM2N.js";import{t as n}from"./index-DK-cwQOh.js";var r={};function i(n,r){return e(),t(`div`)}var a=n(r,[[`render`,i]]);export{a as default};

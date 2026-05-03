@@ -80,6 +80,11 @@
       "draft": "Draft"
     }
   },
+  "lang": {
+    "en": "English",
+    "zh_cn": "中文",
+    "th": "ภาษาไทย"
+  },
   "footer": {
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",

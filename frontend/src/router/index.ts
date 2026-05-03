@@ -5,7 +5,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior: () => ({ top: 0 }),
   routes: [
-    // ─── Public ────────────────────────────────────────────────────────────
+    // ─── Public (DefaultLayout) ─────────────────────────────────────────────
     {
       path: '/',
       component: () => import('@/views/public/HomeView.vue'),
@@ -17,7 +17,8 @@ const router = createRouter({
       meta: { layout: 'public' },
     },
     {
-      path: '/study',
+      path: '/study-in-china',
+      alias: '/study',
       component: () => import('@/views/public/StudyView.vue'),
       meta: { layout: 'public' },
     },
@@ -29,16 +30,6 @@ const router = createRouter({
     {
       path: '/corporate',
       component: () => import('@/views/public/CorporateView.vue'),
-      meta: { layout: 'public' },
-    },
-    {
-      path: '/seminars',
-      component: () => import('@/views/public/SeminarsView.vue'),
-      meta: { layout: 'public' },
-    },
-    {
-      path: '/seminars/:id',
-      component: () => import('@/views/public/SeminarDetailView.vue'),
       meta: { layout: 'public' },
     },
     {
@@ -57,12 +48,27 @@ const router = createRouter({
       meta: { layout: 'public' },
     },
     {
+      path: '/seminars',
+      component: () => import('@/views/public/SeminarsView.vue'),
+      meta: { layout: 'public' },
+    },
+    {
+      path: '/seminars/:id',
+      component: () => import('@/views/public/SeminarDetailView.vue'),
+      meta: { layout: 'public' },
+    },
+    {
+      path: '/seminars/:id/watch',
+      component: () => import('@/views/public/SeminarWatchView.vue'),
+      meta: { layout: 'public' },
+    },
+    {
       path: '/pages/:slug',
       component: () => import('@/views/public/CmsPageView.vue'),
       meta: { layout: 'public' },
     },
 
-    // ─── Auth ──────────────────────────────────────────────────────────────
+    // ─── Auth (AuthLayout, guestOnly) ───────────────────────────────────────
     {
       path: '/login',
       component: () => import('@/views/auth/LoginView.vue'),
@@ -79,17 +85,28 @@ const router = createRouter({
       meta: { layout: 'auth', guestOnly: true },
     },
     {
+      path: '/email/verify/:token',
+      alias: '/email/confirmed',
+      component: () => import('@/views/auth/EmailVerifyView.vue'),
+      meta: { layout: 'auth' },
+    },
+    {
       path: '/password/forgot',
       component: () => import('@/views/auth/ForgotPasswordView.vue'),
       meta: { layout: 'auth' },
     },
     {
-      path: '/email/confirmed',
-      component: () => import('@/views/auth/EmailConfirmedView.vue'),
+      path: '/password/reset/:token',
+      component: () => import('@/views/auth/ResetPasswordView.vue'),
+      meta: { layout: 'auth' },
+    },
+    {
+      path: '/oauth/callback',
+      component: () => import('@/views/auth/OAuthCallbackView.vue'),
       meta: { layout: 'auth' },
     },
 
-    // ─── Student Portal ────────────────────────────────────────────────────
+    // ─── Student Portal (StudentLayout, requiresAuth + role=student) ────────
     {
       path: '/student',
       redirect: '/student/dashboard',
@@ -121,6 +138,11 @@ const router = createRouter({
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
+          path: 'interviews/:id',
+          component: () => import('@/views/student/InterviewRoomView.vue'),
+          meta: { layout: 'student', requiresAuth: true, role: 'student' },
+        },
+        {
           path: 'seminars',
           component: () => import('@/views/student/SeminarsView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
@@ -128,7 +150,7 @@ const router = createRouter({
       ],
     },
 
-    // ─── Enterprise Portal ─────────────────────────────────────────────────
+    // ─── Enterprise Portal (EnterpriseLayout, requiresAuth + role=enterprise) ─
     {
       path: '/enterprise',
       redirect: '/enterprise/dashboard',
@@ -159,10 +181,15 @@ const router = createRouter({
           component: () => import('@/views/enterprise/InterviewsView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
+        {
+          path: 'interviews/:id',
+          component: () => import('@/views/enterprise/InterviewRoomView.vue'),
+          meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
+        },
       ],
     },
 
-    // ─── Admin Panel ───────────────────────────────────────────────────────
+    // ─── Admin Panel (AdminLayout, requiresAuth + role=admin) ───────────────
     {
       path: '/admin',
       redirect: '/admin/dashboard',
@@ -226,7 +253,7 @@ const router = createRouter({
       ],
     },
 
-    // ─── Fallback ──────────────────────────────────────────────────────────
+    // ─── Catch-all ──────────────────────────────────────────────────────────
     {
       path: '/:pathMatch(.*)*',
       component: () => import('@/views/NotFoundView.vue'),
@@ -235,7 +262,7 @@ const router = createRouter({
   ],
 })
 
-// Navigation guard
+// ── Navigation guard ───────────────────────────────────────────────────────
 router.beforeEach(async (to) => {
   const auth = useAuthStore()
 
