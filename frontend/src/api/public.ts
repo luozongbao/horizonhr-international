@@ -63,6 +63,24 @@ export const publicApi = {
   getSeminars: (params?: SeminarParams) =>
     api.get('/seminars', { params }),
 
+  getSeminar: (id: number) =>
+    api.get(`/seminars/${id}`),
+
+  getSeminarWatch: (id: number) =>
+    api.get(`/seminars/${id}/watch`),
+
+  registerSeminar: (id: number) =>
+    api.post(`/seminars/${id}/register`),
+
+  unregisterSeminar: (id: number) =>
+    api.delete(`/seminars/${id}/unregister`),
+
+  getSeminarDanmu: (id: number, afterId?: number) =>
+    api.get(`/seminars/${id}/danmu`, { params: afterId ? { after: afterId } : {} }),
+
+  sendSeminarDanmu: (id: number, message: string) =>
+    api.post(`/seminars/${id}/danmu`, { message }),
+
   getPosts: (params?: PostParams) =>
     api.get('/posts', { params }),
 

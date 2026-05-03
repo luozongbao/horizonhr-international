@@ -322,5 +322,38 @@
     "officeInfo": "Office Information",
     "getInTouch": "Get in Touch",
     "followUs": "Follow Us"
+  },
+  "seminar": {
+    "pageTitle": "Seminar Center",
+    "searchPlaceholder": "Search seminars...",
+    "allStatuses": "All",
+    "status": {
+      "scheduled": "Upcoming",
+      "live": "Live Now",
+      "ended": "Recorded"
+    },
+    "register": "Register",
+    "registered": "Registered",
+    "cancelRegistration": "Cancel Registration",
+    "watchLive": "Watch Live",
+    "watchRecording": "Watch Recording",
+    "viewerCount": "{count} watching",
+    "danmuPlaceholder": "Send a comment...",
+    "danmuSend": "Send",
+    "loginToComment": "Login to send comments",
+    "loginToRegister": "Login to register",
+    "playbackSpeed": "Speed",
+    "noRecording": "Recording not yet available",
+    "speaker": "Speaker",
+    "startTime": "Start Time",
+    "duration": "Duration",
+    "language": "Language",
+    "registeredCount": "{count} registered",
+    "backToSeminars": "Back to Seminars",
+    "noSeminars": "No seminars found",
+    "registrationSuccess": "You are registered! Check your email for a reminder.",
+    "registrationCancelled": "Registration cancelled.",
+    "liveNow": "LIVE",
+    "minutes": "min"
   }
 }

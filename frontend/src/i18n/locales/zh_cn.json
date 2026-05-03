@@ -322,5 +322,38 @@
     "officeInfo": "办公室信息",
     "getInTouch": "联系方式",
     "followUs": "关注我们"
+  },
+  "seminar": {
+    "pageTitle": "研讨会中心",
+    "searchPlaceholder": "搜索研讨会...",
+    "allStatuses": "全部",
+    "status": {
+      "scheduled": "即将开始",
+      "live": "直播中",
+      "ended": "已录播"
+    },
+    "register": "报名",
+    "registered": "已报名",
+    "cancelRegistration": "取消报名",
+    "watchLive": "观看直播",
+    "watchRecording": "观看录播",
+    "viewerCount": "{count}人观看",
+    "danmuPlaceholder": "发送弹幕...",
+    "danmuSend": "发送",
+    "loginToComment": "登录后发送弹幕",
+    "loginToRegister": "登录后报名",
+    "playbackSpeed": "倍速",
+    "noRecording": "录播暂未开放",
+    "speaker": "主讲人",
+    "startTime": "开始时间",
+    "duration": "时长",
+    "language": "语言",
+    "registeredCount": "{count}人已报名",
+    "backToSeminars": "返回研讨会列表",
+    "noSeminars": "暂无研讨会",
+    "registrationSuccess": "报名成功！我们将通过邮件提醒您。",
+    "registrationCancelled": "已取消报名。",
+    "liveNow": "直播",
+    "minutes": "分钟"
   }
 }

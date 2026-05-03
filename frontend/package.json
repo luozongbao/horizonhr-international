@@ -12,10 +12,12 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "@types/dompurify": "^3.0.5",
+    "@types/hls.js": "^0.13.3",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.15.2",
     "dompurify": "^3.4.2",
     "element-plus": "^2.13.7",
+    "hls.js": "^1.6.16",
     "pinia": "^3.0.4",
     "unplugin-auto-import": "^21.0.0",
     "unplugin-vue-components": "^32.0.0",

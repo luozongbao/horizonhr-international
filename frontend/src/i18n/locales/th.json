@@ -322,5 +322,38 @@
     "officeInfo": "ข้อมูลสำนักงาน",
     "getInTouch": "ช่องทางติดต่อ",
     "followUs": "ติดตามเรา"
+  },
+  "seminar": {
+    "pageTitle": "ศูนย์สัมมนา",
+    "searchPlaceholder": "ค้นหาสัมมนา...",
+    "allStatuses": "ทั้งหมด",
+    "status": {
+      "scheduled": "กำลังจะมา",
+      "live": "กำลังถ่ายทอดสด",
+      "ended": "บันทึกแล้ว"
+    },
+    "register": "ลงทะเบียน",
+    "registered": "ลงทะเบียนแล้ว",
+    "cancelRegistration": "ยกเลิกการลงทะเบียน",
+    "watchLive": "ดูถ่ายทอดสด",
+    "watchRecording": "ดูการบันทึก",
+    "viewerCount": "{count} คนกำลังดู",
+    "danmuPlaceholder": "ส่งความคิดเห็น...",
+    "danmuSend": "ส่ง",
+    "loginToComment": "เข้าสู่ระบบเพื่อส่งความคิดเห็น",
+    "loginToRegister": "เข้าสู่ระบบเพื่อลงทะเบียน",
+    "playbackSpeed": "ความเร็ว",
+    "noRecording": "ยังไม่มีการบันทึก",
+    "speaker": "วิทยากร",
+    "startTime": "เวลาเริ่มต้น",
+    "duration": "ระยะเวลา",
+    "language": "ภาษา",
+    "registeredCount": "{count} คนลงทะเบียน",
+    "backToSeminars": "กลับไปยังรายการสัมมนา",
+    "noSeminars": "ไม่พบสัมมนา",
+    "registrationSuccess": "ลงทะเบียนสำเร็จ! เราจะแจ้งเตือนคุณทางอีเมล",
+    "registrationCancelled": "ยกเลิกการลงทะเบียนแล้ว",
+    "liveNow": "สด",
+    "minutes": "นาที"
   }
 }
