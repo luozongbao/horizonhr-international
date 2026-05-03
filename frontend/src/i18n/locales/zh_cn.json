@@ -140,5 +140,55 @@
     "terms": "服务条款",
     "sitemap": "网站地图",
     "copyright": "版权所有 © 2026 湖北豪睿国际人才服务有限公司"
+  },
+  "home": {
+    "heroTitle": "连接东南亚青年与中国高校",
+    "heroSubtitle": "专业的招聘服务，连接东南亚人才与中国高校及企业",
+    "studyChina": "留学中国",
+    "services": "我们的服务",
+    "employment": "就业",
+    "talentPool": "人才库",
+    "learnMore": "了解更多",
+    "register": "报名",
+    "readMore": "阅读更多",
+    "viewAll": "查看全部",
+    "viewAllSeminars": "查看全部研讨会",
+    "viewAllNews": "查看全部新闻",
+    "stats": {
+      "universities": "合作院校",
+      "students": "学生安置",
+      "jobs": "就业机会"
+    },
+    "featureCards": {
+      "study": "留学中国",
+      "studyDesc": "中国大学申请",
+      "talent": "优秀学生",
+      "talentDesc": "人才库 500+ 档案",
+      "corporate": "企业合作",
+      "corporateDesc": "加入我们 50+ 合作伙伴",
+      "seminar": "研讨会中心",
+      "seminarDesc": "在线观看"
+    },
+    "sections": {
+      "whyChooseUs": "为什么选择我们",
+      "upcomingSeminars": "即将举办的研讨会",
+      "latestNews": "最新资讯",
+      "partnerUniversities": "合作院校"
+    },
+    "advantages": {
+      "channels": "稳定的东南亚渠道",
+      "channelsDesc": "10余年丰富经验",
+      "partners": "丰富的高校合作资源",
+      "partnersDesc": "50余所中国高校合作伙伴",
+      "recruitment": "精准招聘",
+      "recruitmentDesc": "中国企业一站式服务",
+      "service": "全闭环服务",
+      "serviceDesc": "端到端解决方案"
+    },
+    "cta": {
+      "title": "开启您在中国的旅程",
+      "registerStudent": "学生注册",
+      "corporate": "企业合作"
+    }
   }
 }

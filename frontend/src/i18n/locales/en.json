@@ -140,5 +140,55 @@
     "terms": "Terms of Service",
     "sitemap": "Site Map",
     "copyright": "Copyright © 2026 Hubei Horizon International. All Rights Reserved."
+  },
+  "home": {
+    "heroTitle": "Connect Southeast Asian Youth with Chinese Universities",
+    "heroSubtitle": "Professional recruitment services connecting Southeast Asian talent with Chinese universities and enterprises",
+    "studyChina": "Study in China",
+    "services": "Our Services",
+    "employment": "Employment",
+    "talentPool": "Talent Pool",
+    "learnMore": "Learn More",
+    "register": "Register",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "viewAllSeminars": "View All Seminars",
+    "viewAllNews": "View All News",
+    "stats": {
+      "universities": "Partner Universities",
+      "students": "Students Placed",
+      "jobs": "Job Opportunities"
+    },
+    "featureCards": {
+      "study": "Study in China",
+      "studyDesc": "Chinese University Applications",
+      "talent": "Outstanding Students",
+      "talentDesc": "Talent Pool 500+ Profiles",
+      "corporate": "Corporate Cooperation",
+      "corporateDesc": "Join Us 50+ Partners",
+      "seminar": "Seminar Center",
+      "seminarDesc": "Live Watch"
+    },
+    "sections": {
+      "whyChooseUs": "Why Choose Us",
+      "upcomingSeminars": "Upcoming Seminars",
+      "latestNews": "Latest News",
+      "partnerUniversities": "Partner Universities"
+    },
+    "advantages": {
+      "channels": "Stable SE Asia Channels",
+      "channelsDesc": "10+ Years of Experience",
+      "partners": "Rich University Partnerships",
+      "partnersDesc": "50+ Partners Across China",
+      "recruitment": "Targeted Recruitment",
+      "recruitmentDesc": "Chinese Enterprises One-Stop",
+      "service": "Full Closed-loop Service",
+      "serviceDesc": "End-to-End Solutions"
+    },
+    "cta": {
+      "title": "Start Your Journey in China",
+      "registerStudent": "Register as Student",
+      "corporate": "Corporate Cooperation"
+    }
   }
 }
