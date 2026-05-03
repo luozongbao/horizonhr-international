@@ -14,6 +14,7 @@ export interface RegisterStudentPayload {
   email: string
   password: string
   password_confirmation: string
+  nationality?: string
   pdpa_consent: boolean
 }
 
@@ -23,6 +24,9 @@ export interface RegisterEnterprisePayload {
   email: string
   password: string
   password_confirmation: string
+  industry?: string
+  company_size?: string
+  description?: string
   pdpa_consent: boolean
 }
 

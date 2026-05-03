@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useLanguageStore, type SupportedLocale } from '@/stores/language'
 
+const props = withDefaults(defineProps<{ dark?: boolean }>(), { dark: false })
+
 const languageStore = useLanguageStore()
 
 function select(lang: SupportedLocale) {
@@ -10,7 +12,7 @@ function select(lang: SupportedLocale) {
 
 <template>
   <el-dropdown trigger="click" @command="select">
-    <button class="lang-trigger">
+    <button class="lang-trigger" :class="{ 'lang-dark': props.dark }">
       <el-icon><Globe /></el-icon>
       <span class="lang-label">{{ languageStore.currentLocaleLabel }}</span>
       <el-icon size="12"><ArrowDown /></el-icon>
@@ -48,6 +50,14 @@ function select(lang: SupportedLocale) {
 .lang-trigger:hover {
   border-color: #003366;
   color: #003366;
+}
+.lang-trigger.lang-dark {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.85);
+}
+.lang-trigger.lang-dark:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
 }
 .lang-label {
   max-width: 80px;
