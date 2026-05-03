@@ -7,18 +7,20 @@ use App\Models\Application;
 use App\Models\Job;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\EmailService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
 class SendApplicationReceivedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 3;
+    public string $queue   = 'emails';
+    public int    $tries   = 3;
+    public array  $backoff = [30, 60, 120];
 
     public function __construct(
         protected Application $application,
@@ -26,16 +28,22 @@ class SendApplicationReceivedJob implements ShouldQueue
         protected Student     $student,
     ) {}
 
-    public function handle(): void
+    public function handle(EmailService $emailService): void
     {
-        // Notify the enterprise contact email (the enterprise user's email)
         $enterpriseUser = User::where('id', $this->job->enterprise->user_id)->first();
         if (!$enterpriseUser) {
             return;
         }
 
-        Mail::to($enterpriseUser->email)->send(
-            new JobApplicationReceivedMail($this->application, $this->job, $this->student)
+        $name = $this->job->enterprise->contact_name
+            ?? $this->job->enterprise->company_name
+            ?? '';
+
+        $emailService->send(
+            new JobApplicationReceivedMail($this->application, $this->job, $this->student),
+            $enterpriseUser->email,
+            $name,
         );
     }
 }
+

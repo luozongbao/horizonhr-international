@@ -19,6 +19,7 @@ class InterviewResultMail extends Mailable
         public readonly Interview       $interview,
         public readonly InterviewRecord $record,
         public readonly Student         $student,
+        public readonly string          $lang = 'en',
     ) {}
 
     public function envelope(): Envelope
@@ -35,10 +36,11 @@ class InterviewResultMail extends Mailable
         return new Content(
             view: 'emails.interview-result',
             with: [
-                'interview'   => $this->interview,
-                'record'      => $this->record,
-                'student'     => $this->student,
+                'interview'    => $this->interview,
+                'record'       => $this->record,
+                'student'      => $this->student,
                 'dashboardUrl' => $dashboardUrl,
+                'lang'         => $this->lang,
             ],
         );
     }

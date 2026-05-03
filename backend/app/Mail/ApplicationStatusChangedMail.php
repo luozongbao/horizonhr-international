@@ -17,6 +17,7 @@ class ApplicationStatusChangedMail extends Mailable
     public function __construct(
         public readonly Application $application,
         public readonly Job         $job,
+        public readonly string      $lang = 'en',
     ) {}
 
     public function envelope(): Envelope
@@ -37,6 +38,7 @@ class ApplicationStatusChangedMail extends Mailable
                 'job'             => $this->job,
                 'enterprise'      => $this->job->enterprise,
                 'applicationsUrl' => $applicationsUrl,
+                'lang'            => $this->lang,
             ],
         );
     }

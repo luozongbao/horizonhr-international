@@ -5,29 +5,33 @@ namespace App\Jobs;
 use App\Mail\ContactNotificationMail;
 use App\Models\Contact;
 use App\Models\Setting;
+use App\Services\EmailService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
 class SendContactNotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 3;
+    public string $queue   = 'emails';
+    public int    $tries   = 3;
+    public array  $backoff = [30, 60, 120];
 
     public function __construct(protected Contact $contact) {}
 
-    public function handle(): void
+    public function handle(EmailService $emailService): void
     {
         $adminEmail = Setting::where('key', 'contact_email')->value('value');
-
         if (!$adminEmail) {
-            return; // No contact email configured — skip silently
+            return;
         }
 
-        Mail::to($adminEmail)->send(new ContactNotificationMail($this->contact));
+        $emailService->send(
+            new ContactNotificationMail($this->contact),
+            $adminEmail,
+        );
     }
 }

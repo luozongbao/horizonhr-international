@@ -18,6 +18,7 @@ class InterviewInvitationMail extends Mailable
         public readonly Interview $interview,
         public readonly Student   $student,
         public readonly string    $joinUrl,
+        public readonly string    $lang = 'en',
     ) {}
 
     public function envelope(): Envelope
@@ -33,6 +34,7 @@ class InterviewInvitationMail extends Mailable
                 'interview' => $this->interview,
                 'student'   => $this->student,
                 'joinUrl'   => $this->joinUrl,
+                'lang'      => $this->lang,
             ],
         );
     }

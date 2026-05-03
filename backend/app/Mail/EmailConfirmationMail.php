@@ -16,6 +16,7 @@ class EmailConfirmationMail extends Mailable
     public function __construct(
         public readonly User   $user,
         public readonly string $token,
+        public readonly string $lang = 'en',
     ) {}
 
     public function envelope(): Envelope
@@ -34,6 +35,7 @@ class EmailConfirmationMail extends Mailable
             with: [
                 'user' => $this->user,
                 'link' => $link,
+                'lang' => $this->lang,
             ],
         );
     }

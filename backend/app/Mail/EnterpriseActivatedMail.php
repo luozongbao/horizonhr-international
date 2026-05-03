@@ -13,7 +13,7 @@ class EnterpriseActivatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public readonly User $user) {}
+    public function __construct(public readonly User $user, public readonly string $lang = 'en') {}
 
     public function envelope(): Envelope
     {
@@ -29,9 +29,10 @@ class EnterpriseActivatedMail extends Mailable
         return new Content(
             view: 'emails.enterprise-activated',
             with: [
-                'user'          => $this->user,
-                'enterprise'    => $enterprise,
-                'dashboardUrl'  => $dashboardUrl,
+                'user'         => $this->user,
+                'enterprise'   => $enterprise,
+                'dashboardUrl' => $dashboardUrl,
+                'lang'         => $this->lang,
             ],
         );
     }

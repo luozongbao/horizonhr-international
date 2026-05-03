@@ -86,6 +86,15 @@ services:
     networks:
       - hrint
 
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: hrint-mailpit
+    ports:
+      - "8025:8025"   # Web UI — http://localhost:8025
+      - "1025:1025"   # SMTP
+    networks:
+      - hrint
+
 volumes:
   mariadb_data:
   redis_data:

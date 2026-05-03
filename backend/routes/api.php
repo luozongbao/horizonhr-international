@@ -22,6 +22,13 @@ Route::get('/health', fn () => response()->json(['status' => 'ok', 'service' => 
 
 /*
 |--------------------------------------------------------------------------
+| Webhooks (no authentication — verified by signature inside controller)
+|--------------------------------------------------------------------------
+*/
+Route::post('/webhooks/trtc-live', [\App\Http\Controllers\Webhook\TrtcLiveWebhookController::class, 'handle']);
+
+/*
+|--------------------------------------------------------------------------
 | Authentication
 |--------------------------------------------------------------------------
 */
@@ -169,6 +176,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::delete('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'destroy']);
         Route::post  ('/seminars/{id}/go-live',   [\App\Http\Controllers\Admin\SeminarController::class,        'goLive']);
         Route::post  ('/seminars/{id}/end-live',  [\App\Http\Controllers\Admin\SeminarController::class,        'endLive']);
+        Route::get   ('/seminars/{id}/live-urls', [\App\Http\Controllers\Admin\SeminarLiveController::class,    'getLiveUrls']);
 
         // Announcements
         Route::apiResource('/announcements',      \App\Http\Controllers\Admin\AnnouncementController::class);
@@ -244,6 +252,7 @@ Route::prefix('public')->group(function () {
     Route::get ('/seminars/{id}',               [\App\Http\Controllers\Public\SeminarController::class, 'show']);
     Route::post('/seminars/{id}/register',      [\App\Http\Controllers\Public\SeminarController::class, 'register']);
     Route::get ('/seminars/{id}/recording',     [\App\Http\Controllers\Public\SeminarController::class, 'recording']);
+    Route::get ('/seminars/{id}/watch',         [\App\Http\Controllers\Public\SeminarController::class, 'watch']);
     Route::get ('/seminars/{id}/danmu',         [\App\Http\Controllers\Public\SeminarController::class, 'getDanmu']);
     Route::post('/seminars/{id}/danmu',         [\App\Http\Controllers\Public\SeminarController::class, 'sendDanmu']);
     // Pages (CMS static pages)

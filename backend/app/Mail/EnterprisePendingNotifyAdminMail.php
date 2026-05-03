@@ -13,7 +13,7 @@ class EnterprisePendingNotifyAdminMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public readonly User $user) {}
+    public function __construct(public readonly User $user, public readonly string $lang = 'en') {}
 
     public function envelope(): Envelope
     {
@@ -29,9 +29,10 @@ class EnterprisePendingNotifyAdminMail extends Mailable
         return new Content(
             view: 'emails.enterprise-pending-notify-admin',
             with: [
-                'user'          => $this->user,
-                'enterprise'    => $enterprise,
-                'adminReviewUrl'=> $adminReviewUrl,
+                'user'           => $this->user,
+                'enterprise'     => $enterprise,
+                'adminReviewUrl' => $adminReviewUrl,
+                'lang'           => $this->lang,
             ],
         );
     }

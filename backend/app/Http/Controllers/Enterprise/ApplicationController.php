@@ -72,7 +72,7 @@ class ApplicationController extends Controller
         $resume     = $application->resume;
         $talentCard = $student?->talentCard;
 
-        // TASK-016: replace with presigned OSS URL
+        // Returns presigned URL (OSS) or plain URL (local fallback) via ResumeService
         $resumeUrl = $resume ? $this->resumeService->fileUrl($resume) : null;
 
         return response()->json([

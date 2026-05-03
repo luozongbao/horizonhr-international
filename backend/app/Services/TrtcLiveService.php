@@ -3,55 +3,106 @@
 namespace App\Services;
 
 use App\Models\Seminar;
+use Illuminate\Support\Str;
 
 /**
- * Stub service for Tencent CSS / TRTC CDN live-streaming integration.
+ * Tencent CSS (Cloud Streaming Services) live-streaming service.
  *
- * TASK-019: Replace stub methods with real Tencent CSS API calls.
- * Docs: https://www.tencentcloud.com/document/product/267
+ * Handles RTMP push URL and HLS/FLV/RTMP pull URL generation for seminars.
+ * Authentication uses Tencent's txSecret algorithm:
+ *   txSecret = MD5(authKey + streamId + txTime)
+ *   txTime   = strtoupper(dechex(expire_unix_timestamp))
+ *
+ * Reference: DOCUMENTS/TRTC_Integration.md §4–5
  */
 class TrtcLiveService
 {
-    /**
-     * Generate RTMP push URL and playback URL for a seminar.
-     *
-     * TASK-019: Call Tencent CSS CreateLivePushStream API, derive stream URLs.
-     * Returns stub config until TASK-019 is implemented.
-     *
-     * @param  Seminar  $seminar
-     * @return array{push_url: string, stream_url: string, stream_key: string}
-     */
-    public function getStreamConfig(Seminar $seminar): array
-    {
-        // TASK-019: Replace with real Tencent CSS push URL generation.
-        // Expected implementation:
-        //   $appId    = config('services.tencent.css.app_id');
-        //   $domain   = config('services.tencent.css.push_domain');
-        //   $streamId = 'seminar-' . $seminar->id;
-        //   $txTime   = dechex(time() + 7200); // 2h validity
-        //   $txSecret = md5(config('services.tencent.css.push_key') . $streamId . $txTime);
-        //   $pushUrl  = "rtmp://{$domain}/live/{$streamId}?txSecret={$txSecret}&txTime={$txTime}";
-        //   $pullUrl  = "https://{$domain}/live/{$streamId}.m3u8";
+    // ──────────────────────────────────────────────────────────────────
+    // Public API
+    // ──────────────────────────────────────────────────────────────────
 
-        return [
-            'push_url'   => 'rtmp://stub-push.example.com/live/seminar-' . $seminar->id . '?TASK-019',
-            'stream_url' => 'https://stub-cdn.example.com/live/seminar-' . $seminar->id . '.m3u8?TASK-019',
-            'stream_key' => 'stub_stream_key_TASK-019',
-        ];
+    /**
+     * Generate a unique stream key for a seminar.
+     * Format: seminar_{seminarId}_{random8chars}
+     */
+    public function generateStreamKey(int $seminarId): string
+    {
+        return 'seminar_' . $seminarId . '_' . Str::lower(Str::random(8));
     }
 
     /**
-     * End the live stream and trigger cloud recording.
+     * Generate authenticated RTMP push URL for OBS/encoder.
      *
-     * TASK-019: Call Tencent CSS ForbidLivePushStream API; start cloud recording via TRTC API.
-     * Recording completion triggers a webhook callback from Tencent CSS — handle in TASK-019.
-     *
-     * @param  Seminar  $seminar
-     * @return void
+     * @param  string  $streamKey     Stream key (e.g. "seminar_42_abc12345")
+     * @param  int     $expireSeconds URL validity window in seconds (default: 2 h)
+     * @return string                 Signed RTMP push URL
      */
-    public function endStream(Seminar $seminar): void
+    public function getPushUrl(string $streamKey, int $expireSeconds = 7200): string
     {
-        // TASK-019: Forbid push stream + start recording
-        // config('services.tencent.css.*') credentials needed.
+        $pushDomain = config('trtc.push_domain', '');
+        $appName    = config('trtc.app_name', 'live');
+        $pushKey    = config('trtc.push_key', '');
+
+        if (empty($pushDomain) || empty($pushKey)) {
+            return 'rtmp://mock-push.example.com/' . $appName . '/' . $streamKey . '?MOCK=no_credentials';
+        }
+
+        $expireAt  = time() + $expireSeconds;
+        $txTime    = strtoupper(dechex($expireAt));
+        $txSecret  = $this->generateTxSecret($streamKey, $expireAt, $pushKey);
+
+        return "rtmp://{$pushDomain}/{$appName}/{$streamKey}?txSecret={$txSecret}&txTime={$txTime}";
+    }
+
+    /**
+     * Generate pull URLs for viewers (HLS, FLV, RTMP).
+     *
+     * @param  string  $streamKey     Stream key
+     * @param  int     $expireSeconds URL validity window (default: 4 h for viewers)
+     * @return array{hls: string, flv: string, rtmp: string}
+     */
+    public function getPullUrls(string $streamKey, int $expireSeconds = 14400): array
+    {
+        $playDomain = config('trtc.play_domain', '');
+        $appName    = config('trtc.app_name', 'live');
+        $playKey    = config('trtc.play_key', '');
+
+        if (empty($playDomain) || empty($playKey)) {
+            return [
+                'hls'  => 'https://mock-play.example.com/' . $appName . '/' . $streamKey . '.m3u8?MOCK=no_credentials',
+                'flv'  => 'https://mock-play.example.com/' . $appName . '/' . $streamKey . '.flv?MOCK=no_credentials',
+                'rtmp' => 'rtmp://mock-play.example.com/' . $appName . '/' . $streamKey . '?MOCK=no_credentials',
+            ];
+        }
+
+        $expireAt = time() + $expireSeconds;
+        $txTime   = strtoupper(dechex($expireAt));
+        $txSecret = $this->generateTxSecret($streamKey, $expireAt, $playKey);
+        $auth     = "txSecret={$txSecret}&txTime={$txTime}";
+
+        return [
+            'hls'  => "https://{$playDomain}/{$appName}/{$streamKey}.m3u8?{$auth}",
+            'flv'  => "https://{$playDomain}/{$appName}/{$streamKey}.flv?{$auth}",
+            'rtmp' => "rtmp://{$playDomain}/{$appName}/{$streamKey}?{$auth}",
+        ];
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // Private helpers
+    // ──────────────────────────────────────────────────────────────────
+
+    /**
+     * Compute Tencent txSecret:
+     *   txSecret = MD5(authKey + streamId + txTime_hex_uppercase)
+     *
+     * @param  string  $streamKey   Stream identifier
+     * @param  int     $expireTime  Unix timestamp of expiry
+     * @param  string  $authKey     Push or play authentication key
+     * @return string               Lowercase hex MD5 string
+     */
+    private function generateTxSecret(string $streamKey, int $expireTime, string $authKey): string
+    {
+        $txTime = strtoupper(dechex($expireTime));
+        return md5($authKey . $streamKey . $txTime);
     }
 }
