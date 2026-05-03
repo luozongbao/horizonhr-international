@@ -297,5 +297,30 @@
     "benefit3Desc": "从招募到入职，我们全程处理",
     "benefit4": "双语支持",
     "benefit4Desc": "我们的团队支持中文和东南亚语言"
+  },
+  "news": {
+    "pageTitle": "新闻资讯",
+    "readMore": "阅读更多",
+    "publishedOn": "发布于",
+    "relatedPosts": "相关文章",
+    "backToNews": "返回新闻列表",
+    "noResults": "暂无相关文章",
+    "allCategories": "全部分类",
+    "searchPlaceholder": "搜索文章..."
+  },
+  "contact": {
+    "pageTitle": "联系我们",
+    "name": "您的姓名",
+    "email": "电子邮箱",
+    "phone": "电话号码",
+    "subject": "主题",
+    "message": "留言内容",
+    "messagePlaceholder": "请告诉我们如何帮助您...",
+    "send": "发送消息",
+    "success": "感谢您的留言！我们将尽快回复您。",
+    "tooManyRequests": "提交次数过多，请一小时后再试。",
+    "officeInfo": "办公室信息",
+    "getInTouch": "联系方式",
+    "followUs": "关注我们"
   }
 }

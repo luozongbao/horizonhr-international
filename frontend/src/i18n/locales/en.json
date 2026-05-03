@@ -297,5 +297,30 @@
     "benefit3Desc": "From sourcing to onboarding, we handle the entire process",
     "benefit4": "Bilingual Support",
     "benefit4Desc": "Our team supports both Chinese and Southeast Asian languages"
+  },
+  "news": {
+    "pageTitle": "News & Updates",
+    "readMore": "Read More",
+    "publishedOn": "Published on",
+    "relatedPosts": "Related Posts",
+    "backToNews": "Back to News",
+    "noResults": "No articles found",
+    "allCategories": "All Categories",
+    "searchPlaceholder": "Search articles..."
+  },
+  "contact": {
+    "pageTitle": "Contact Us",
+    "name": "Your Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "subject": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Tell us how we can help you...",
+    "send": "Send Message",
+    "success": "Thank you! We'll get back to you shortly.",
+    "tooManyRequests": "Too many submissions. Please try again in an hour.",
+    "officeInfo": "Office Information",
+    "getInTouch": "Get in Touch",
+    "followUs": "Follow Us"
   }
 }

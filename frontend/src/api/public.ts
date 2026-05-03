@@ -66,6 +66,12 @@ export const publicApi = {
   getPosts: (params?: PostParams) =>
     api.get('/posts', { params }),
 
+  getPost: (slug: string) =>
+    api.get(`/posts/${slug}`),
+
+  getContactPage: () =>
+    api.get('/pages/contact'),
+
   getResumes: (params?: ResumeParams) =>
     api.get('/resumes', { params }),
 
