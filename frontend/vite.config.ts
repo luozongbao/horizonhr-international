@@ -27,6 +27,7 @@ export default defineConfig({
     },
   },
   server: {
+    host: '0.0.0.0',
     port: 5173,
     proxy: {
       '/api': {
@@ -34,6 +35,11 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  build: {
+    outDir: '../public/build',
+    emptyOutDir: true,
+    manifest: true,
   },
 })
 
