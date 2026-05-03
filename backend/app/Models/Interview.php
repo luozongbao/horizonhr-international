@@ -11,13 +11,14 @@ class Interview extends Model
 
     protected $fillable = [
         'creator_id', 'enterprise_id', 'student_id', 'job_id', 'title',
-        'scheduled_at', 'duration', 'room_id', 'room_token', 'status', 'reminder_sent',
+        'scheduled_at', 'duration', 'room_id', 'trtc_room_id', 'room_token', 'status', 'reminder_sent',
     ];
 
     protected $casts = [
         'scheduled_at'  => 'datetime',
         'reminder_sent' => 'boolean',
         'duration'      => 'integer',
+        'trtc_room_id'  => 'integer',
     ];
 
     public function creator()

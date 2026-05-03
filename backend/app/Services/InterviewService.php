@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 class InterviewService
 {
+    public function __construct(private readonly TrtcService $trtcService) {}
     // ──────────────────────────────────────────────────────────────────
     // Public API
     // ──────────────────────────────────────────────────────────────────
@@ -42,8 +43,9 @@ class InterviewService
         ]);
 
         // Re-generate token now that we have the real interview id
-        $roomToken = $this->generateRoomToken($interview->id, $student->id);
-        $interview->update(['room_token' => $roomToken]);
+        $roomToken  = $this->generateRoomToken($interview->id, $student->id);
+        $trtcRoomId = $this->trtcService->getRoomId($interview->id);
+        $interview->update(['room_token' => $roomToken, 'trtc_room_id' => $trtcRoomId]);
 
         $joinUrl = $this->buildJoinUrl($roomToken);
 
@@ -65,19 +67,28 @@ class InterviewService
     /**
      * Return TRTC join config for the interview room.
      *
-     * TASK-018: replace stub with real TRTCService::generateUserSig()
+     * @param  Interview  $interview
+     * @param  string     $participantRole     'student' | 'enterprise' | 'admin'
+     * @param  int        $participantUserId   User.id of the joining participant
      */
-    public function generateJoinConfig(Interview $interview, string $participantRole): array
+    public function generateJoinConfig(Interview $interview, string $participantRole, int $participantUserId): array
     {
+        $trtcUserId = match ($participantRole) {
+            'student'    => 'student_' . $participantUserId,
+            'enterprise' => 'enterprise_' . $participantUserId,
+            default      => 'admin_' . $participantUserId,
+        };
+
+        $expire    = (int) config('trtc.expire', 86400);
+        $userSig   = $this->trtcService->generateUserSig($trtcUserId, $expire);
+        $expiresAt = now()->addSeconds($expire)->toIso8601String();
+
         return [
-            'room_id'      => $interview->room_id,
-            'trtc_config'  => [
-                // TASK-018: compute real UserSig with TRTC SDK key
-                'sdk_app_id'   => (int) config('services.trtc.sdk_app_id', 0),
-                'user_id'      => $participantRole . '_' . $interview->id,
-                'user_sig'     => 'stub_TASK-018',
-            ],
-            'websocket_url' => null, // TASK-018: provide TRTC WebSocket URL if needed
+            'sdk_app_id' => (int) config('trtc.sdk_app_id', 0),
+            'room_id'    => (int) $interview->trtc_room_id,
+            'user_id'    => $trtcUserId,
+            'user_sig'   => $userSig,
+            'expires_at' => $expiresAt,
         ];
     }
 

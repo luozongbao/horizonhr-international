@@ -185,7 +185,9 @@ class InterviewController extends Controller
             ], 422);
         }
 
-        $participantRole = 'student';
+        $participantRole   = 'student';
+        $participantId     = null;   // model-specific id (Student.id or User.id)
+        $participantUserId = null;   // always User.id — used for TRTC user_id
 
         // Determine auth path and participant role
         if ($request->attributes->get('auth_via_room_token')) {
@@ -197,19 +199,23 @@ class InterviewController extends Controller
                     'error'   => ['code' => 'INVALID_ROOM_TOKEN', 'message' => 'Token does not match this interview.'],
                 ], 401);
             }
-            $participantId   = $payload['student_id'];
-            $participantRole = 'student';
+            $participantId     = $payload['student_id'];
+            $participantRole   = 'student';
+            // Resolve User.id from the interview's student relationship
+            $participantUserId = $interview->student?->user_id ?? $participantId;
         } else {
             // Bearer token auth
             $user = $request->user();
             if (!$this->canAccessInterview($user, $interview)) {
                 return $this->forbidden();
             }
-            $participantId   = $user->id;
-            $participantRole = $user->role;
+            $participantId     = $user->id;
+            $participantRole   = $user->role;
+            $participantUserId = $user->id;
         }
 
-        // Auto-transition scheduled → in_progress if within 5-min window
+        // Auto-transition scheduled → in_progress when first participant joins
+        // (also guards against joining too early via 5-min window)
         if (
             $interview->status === 'scheduled'
             && now()->greaterThanOrEqualTo($interview->scheduled_at->subMinutes(5))
@@ -223,7 +229,11 @@ class InterviewController extends Controller
             ['joined_at' => now()]
         );
 
-        $config = $this->interviewService->generateJoinConfig($interview->fresh(), $participantRole);
+        $config = $this->interviewService->generateJoinConfig(
+            $interview->fresh(),
+            $participantRole,
+            (int) $participantUserId,
+        );
 
         return response()->json(['success' => true, 'data' => $config]);
     }

@@ -17,12 +17,17 @@ class SeminarReminderMail extends Mailable
     public function __construct(
         public readonly Seminar             $seminar,
         public readonly SeminarRegistration $registration,
+        public readonly string              $lang = 'en',
     ) {}
 
     public function envelope(): Envelope
     {
+        $title = ($this->lang === 'zh_cn')
+            ? ($this->seminar->title_zh_cn ?? $this->seminar->title_en)
+            : ($this->seminar->title_en ?? $this->seminar->title_zh_cn);
+
         return new Envelope(
-            subject: 'Seminar Reminder: ' . ($this->seminar->title_en ?? $this->seminar->title_zh_cn),
+            subject: 'Seminar Reminder: ' . $title,
         );
     }
 
@@ -42,6 +47,7 @@ class SeminarReminderMail extends Mailable
                 'seminarMonth'      => $this->seminar->starts_at->format('M'),
                 'seminarTime'       => $this->seminar->starts_at->format('H:i'),
                 'watchUrl'          => rtrim(config('app.frontend_url'), '/') . '/seminars/' . $this->seminar->id,
+                'lang'              => $this->lang,
             ],
         );
     }

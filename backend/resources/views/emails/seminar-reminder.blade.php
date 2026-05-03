@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ $lang ?? 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +50,11 @@
                                             </td>
                                             <td valign="middle">
                                                 <h3 style="margin:0 0 8px;font-size:22px;color:#003366;font-weight:600;">
-                                                    {{ $seminar->title_en ?? $seminar->title_zh_cn }}
+                                                    @if(($lang ?? 'en') === 'zh_cn')
+                                                        {{ $seminar->title_zh_cn ?? $seminar->title_en }}
+                                                    @else
+                                                        {{ $seminar->title_en ?? $seminar->title_zh_cn }}
+                                                    @endif
                                                 </h3>
                                                 <p style="margin:0;font-size:14px;color:#6C757D;">
                                                     🕐 {{ $seminarTime }}&nbsp;&nbsp;|&nbsp;&nbsp;📍 Online

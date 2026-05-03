@@ -19,6 +19,7 @@ class JobApplicationReceivedMail extends Mailable
         public readonly Application $application,
         public readonly Job         $job,
         public readonly Student     $student,
+        public readonly string      $lang = 'en',
     ) {}
 
     public function envelope(): Envelope
@@ -38,6 +39,7 @@ class JobApplicationReceivedMail extends Mailable
                 'job'             => $this->job,
                 'student'         => $this->student,
                 'applicationsUrl' => $applicationsUrl,
+                'lang'            => $this->lang,
             ],
         );
     }
