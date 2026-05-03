@@ -423,5 +423,53 @@
     "registrationCancelled": "Registration cancelled.",
     "liveNow": "LIVE",
     "minutes": "min"
+  },
+  "jobs": {
+    "pageTitle": "Job Opportunities",
+    "searchPlaceholder": "Search job title, keyword...",
+    "filterLocation": "Location",
+    "filterType": "Job Type",
+    "filterIndustry": "Industry",
+    "search": "Search",
+    "allTypes": "All Types",
+    "allIndustries": "All Industries",
+    "jobTypes": {
+      "full_time": "Full-time",
+      "part_time": "Part-time",
+      "internship": "Internship",
+      "remote": "Remote"
+    },
+    "postedOn": "Posted",
+    "salary": "Salary",
+    "notDisclosed": "Negotiable",
+    "applyNow": "Apply Now",
+    "alreadyApplied": "Already Applied",
+    "loginToApply": "Login to Apply",
+    "noResumeWarning": "Please upload and get your resume approved before applying.",
+    "applyConfirm": "Apply for {jobTitle} at {company}?",
+    "applySuccess": "Application submitted successfully!",
+    "noJobs": "No job openings found.",
+    "selectJob": "Select a job to view details",
+    "requirements": "Requirements",
+    "description": "Job Description",
+    "companyInfo": "About the Company"
+  },
+  "applications": {
+    "pageTitle": "My Applications",
+    "allStatuses": "All",
+    "status": {
+      "pending": "Pending",
+      "reviewed": "Reviewed",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "viewJob": "View Job",
+    "withdraw": "Withdraw",
+    "withdrawConfirm": "Are you sure you want to withdraw this application?",
+    "withdrawSuccess": "Application withdrawn.",
+    "noApplications": "You haven't applied to any jobs yet.",
+    "browseJobs": "Browse Jobs",
+    "appliedOn": "Applied"
   }
 }

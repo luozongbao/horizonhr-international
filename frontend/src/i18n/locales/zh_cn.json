@@ -423,5 +423,53 @@
     "registrationCancelled": "已取消报名。",
     "liveNow": "直播",
     "minutes": "分钟"
+  },
+  "jobs": {
+    "pageTitle": "就业机会",
+    "searchPlaceholder": "搜索职位、关键词...",
+    "filterLocation": "地点",
+    "filterType": "就业类型",
+    "filterIndustry": "行业",
+    "search": "搜索",
+    "allTypes": "全部类型",
+    "allIndustries": "全部行业",
+    "jobTypes": {
+      "full_time": "全职",
+      "part_time": "兼职",
+      "internship": "实习",
+      "remote": "远程办公"
+    },
+    "postedOn": "发布日期",
+    "salary": "薪资",
+    "notDisclosed": "面议",
+    "applyNow": "立即申请",
+    "alreadyApplied": "已申请",
+    "loginToApply": "登录后申请",
+    "noResumeWarning": "请先上传简历并通过审核再申请。",
+    "applyConfirm": "确认申请 {company} 的 {jobTitle} 职位？",
+    "applySuccess": "申请成功提交！",
+    "noJobs": "未找到匹配的职位。",
+    "selectJob": "选择一个职位查看详情",
+    "requirements": "任职要求",
+    "description": "职位描述",
+    "companyInfo": "公司介绍"
+  },
+  "applications": {
+    "pageTitle": "我的申请",
+    "allStatuses": "全部",
+    "status": {
+      "pending": "待审核",
+      "reviewed": "已查看",
+      "accepted": "已录取",
+      "rejected": "未录取",
+      "withdrawn": "已撤回"
+    },
+    "viewJob": "查看职位",
+    "withdraw": "撤回申请",
+    "withdrawConfirm": "确定要撤回该申请吗？",
+    "withdrawSuccess": "申请已撤回。",
+    "noApplications": "您尚未申请任何职位。",
+    "browseJobs": "浏览职位",
+    "appliedOn": "申请日期"
   }
 }

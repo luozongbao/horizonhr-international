@@ -63,6 +63,11 @@ const router = createRouter({
       meta: { layout: 'public' },
     },
     {
+      path: '/jobs',
+      component: () => import('@/views/public/JobsView.vue'),
+      meta: { layout: 'public' },
+    },
+    {
       path: '/pages/:slug',
       component: () => import('@/views/public/CmsPageView.vue'),
       meta: { layout: 'public' },

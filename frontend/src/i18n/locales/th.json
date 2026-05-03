@@ -423,5 +423,53 @@
     "registrationCancelled": "ยกเลิกการลงทะเบียนแล้ว",
     "liveNow": "สด",
     "minutes": "นาที"
+  },
+  "jobs": {
+    "pageTitle": "โอกาสงาน",
+    "searchPlaceholder": "ค้นหาตำแหน่งงาน, คำสำคัญ...",
+    "filterLocation": "สถานที่",
+    "filterType": "ประเภทงาน",
+    "filterIndustry": "อุตสาหกรรม",
+    "search": "ค้นหา",
+    "allTypes": "ทุกประเภท",
+    "allIndustries": "ทุกอุตสาหกรรม",
+    "jobTypes": {
+      "full_time": "เต็มเวลา",
+      "part_time": "นอกเวลา",
+      "internship": "ฝึกงาน",
+      "remote": "ทำงานทางไกล"
+    },
+    "postedOn": "ลงประกาศ",
+    "salary": "เงินเดือน",
+    "notDisclosed": "ตามตกลง",
+    "applyNow": "สมัครเดี๋ยวนี้",
+    "alreadyApplied": "สมัครแล้ว",
+    "loginToApply": "เข้าสู่ระบบเพื่อสมัคร",
+    "noResumeWarning": "กรุณาอัปโหลดเรซูเม่และรอคำอนุมัติก่อนสมัคร",
+    "applyConfirm": "ยืนยันสมัครตำแหน่ง {jobTitle} ที่ {company}?",
+    "applySuccess": "ยื่นใบสมัครสำเร็จแล้ว!",
+    "noJobs": "ไม่พบตำแหน่งงานที่ตรงกับ",
+    "selectJob": "เลือกงานเพื่อดูรายละเอียด",
+    "requirements": "คุณสมบัติ",
+    "description": "รายละเอียดงาน",
+    "companyInfo": "เกี่ยวกับบริษัท"
+  },
+  "applications": {
+    "pageTitle": "ใบสมัครของฉัน",
+    "allStatuses": "ทั้งหมด",
+    "status": {
+      "pending": "รอดำเนินการ",
+      "reviewed": "ตรวจสอบแล้ว",
+      "accepted": "ได้รับเลือก",
+      "rejected": "ไม่ผ่าน",
+      "withdrawn": "ถอนแล้ว"
+    },
+    "viewJob": "ดูตำแหน่ง",
+    "withdraw": "ถอนใบสมัคร",
+    "withdrawConfirm": "แน่ใจหรือไม่ว่าต้องการถอนใบสมัครนี้?",
+    "withdrawSuccess": "ถอนใบสมัครเรียบร้อยแล้ว",
+    "noApplications": "คุณยังไม่ได้สมัครงานใดๆ",
+    "browseJobs": "ดูประกาศงาน",
+    "appliedOn": "วันที่สมัคร"
   }
 }
