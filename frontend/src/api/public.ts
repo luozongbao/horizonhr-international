@@ -23,6 +23,24 @@ export interface PostParams {
   category?: string
 }
 
+export interface ResumeParams {
+  per_page?: number
+  page?: number
+  search?: string
+  nationality?: string
+  education_level?: string
+  availability?: string
+}
+
+export interface ContactPayload {
+  name: string
+  email: string
+  phone?: string
+  company_name?: string
+  subject: string
+  message: string
+}
+
 export const publicApi = {
   getHomePage: () =>
     api.get('/pages/home'),
@@ -32,6 +50,9 @@ export const publicApi = {
 
   getStudyPage: () =>
     api.get('/pages/study-in-china'),
+
+  getCorporatePage: () =>
+    api.get('/pages/corporate'),
 
   getUniversities: (params?: UniversityParams) =>
     api.get('/universities', { params }),
@@ -44,4 +65,13 @@ export const publicApi = {
 
   getPosts: (params?: PostParams) =>
     api.get('/posts', { params }),
+
+  getResumes: (params?: ResumeParams) =>
+    api.get('/resumes', { params }),
+
+  getResume: (id: number) =>
+    api.get(`/resumes/${id}`),
+
+  submitContact: (data: ContactPayload) =>
+    api.post('/contact', data),
 }

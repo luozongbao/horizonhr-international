@@ -1,1 +1,0 @@
-import{r as e}from"./index-xwY6Hrq7.js";var t={getHomePage:()=>e.get(`/pages/home`),getAboutPage:()=>e.get(`/pages/about`),getStudyPage:()=>e.get(`/pages/study-in-china`),getUniversities:t=>e.get(`/universities`,{params:t}),getUniversity:t=>e.get(`/universities/${t}`),getSeminars:t=>e.get(`/seminars`,{params:t}),getPosts:t=>e.get(`/posts`,{params:t})};export{t};
