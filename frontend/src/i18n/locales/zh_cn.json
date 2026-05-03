@@ -190,5 +190,51 @@
       "registerStudent": "学生注册",
       "corporate": "企业合作"
     }
+  },
+  "about": {
+    "pageTitle": "关于我们",
+    "mission": "我们的使命",
+    "vision": "我们的愿景",
+    "ourStory": "我们的故事",
+    "ourTeam": "我们的团队",
+    "partners": "合作伙伴",
+    "defaultMission": "连接东南亚青年与中国优质高校，为中国企业输送优秀的本地人才。",
+    "defaultVision": "成为连接东南亚人才与中国教育及经济机遇的领先平台。",
+    "defaultStory": "湖北豪睿国际人才服务有限公司以架起东南亚与中国人才桥梁为愿景而创立。凭借10余年的丰富经验，我们已建立起强大的高校和企业合作网络。",
+    "joinUs": "加入我们的网络",
+    "contactUs": "联系我们"
+  },
+  "studyInChina": {
+    "pageTitle": "留学中国",
+    "searchPlaceholder": "搜索大学...",
+    "filterRegion": "地区",
+    "filterProgram": "项目类型",
+    "allRegions": "所有地区",
+    "allPrograms": "所有项目",
+    "programs": {
+      "bachelor": "本科",
+      "master": "硕士",
+      "phd": "博士",
+      "language": "语言课程"
+    },
+    "viewDetails": "查看详情",
+    "website": "访问官网",
+    "location": "地点",
+    "majors": "可选专业",
+    "whyTitle": "为什么选择在中国学习？",
+    "why": {
+      "tuition": "学费实惠",
+      "tuitionDesc": "以远低于西方大学的费用享受世界级教育",
+      "culture": "丰富的文化与语言",
+      "cultureDesc": "沉浸于世界最古老、最丰富的文化之中",
+      "hsk": "HSK语言支持",
+      "hskDesc": "从初级到高级HSK的全程语言培训",
+      "career": "职业发展机会",
+      "careerDesc": "进入中国蓬勃发展的就业市场和国际企业"
+    },
+    "introTitle": "您进入中国高校的通道",
+    "noUniversities": "未找到大学",
+    "universityDetail": "大学详情",
+    "close": "关闭"
   }
 }

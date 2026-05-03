@@ -190,5 +190,51 @@
       "registerStudent": "Register as Student",
       "corporate": "Corporate Cooperation"
     }
+  },
+  "about": {
+    "pageTitle": "About Us",
+    "mission": "Our Mission",
+    "vision": "Our Vision",
+    "ourStory": "Our Story",
+    "ourTeam": "Our Team",
+    "partners": "Our Partners",
+    "defaultMission": "To connect Southeast Asian youth with quality Chinese universities and deliver skilled local talent to Chinese enterprises.",
+    "defaultVision": "To become the leading platform bridging Southeast Asian talent with China's educational and economic opportunities.",
+    "defaultStory": "Hubei Horizon International Talent Service Co., Ltd. was founded with a vision to bridge the talent gap between Southeast Asia and China. With over 10 years of experience, we have built a robust network of university and enterprise partners.",
+    "joinUs": "Join Our Network",
+    "contactUs": "Contact Us"
+  },
+  "studyInChina": {
+    "pageTitle": "Study in China",
+    "searchPlaceholder": "Search universities...",
+    "filterRegion": "Region",
+    "filterProgram": "Program Type",
+    "allRegions": "All Regions",
+    "allPrograms": "All Programs",
+    "programs": {
+      "bachelor": "Bachelor's",
+      "master": "Master's",
+      "phd": "PhD",
+      "language": "Language Program"
+    },
+    "viewDetails": "View Details",
+    "website": "Visit Website",
+    "location": "Location",
+    "majors": "Available Majors",
+    "whyTitle": "Why Study in China?",
+    "why": {
+      "tuition": "Affordable Tuition",
+      "tuitionDesc": "World-class education at a fraction of Western university costs",
+      "culture": "Rich Culture & Language",
+      "cultureDesc": "Immerse yourself in one of the world's oldest and richest cultures",
+      "hsk": "HSK Language Support",
+      "hskDesc": "Full language training from beginner to advanced HSK levels",
+      "career": "Career Opportunities",
+      "careerDesc": "Access to China's booming job market and international companies"
+    },
+    "introTitle": "Your Gateway to Chinese Universities",
+    "noUniversities": "No universities found",
+    "universityDetail": "University Details",
+    "close": "Close"
   }
 }
