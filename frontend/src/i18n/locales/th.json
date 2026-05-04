@@ -832,5 +832,59 @@
         "draft": "แบบร่าง"
       }
     }
+  },
+  "adminSettings": {
+    "pageTitle": "การตั้งค่าระบบ",
+    "tabs": {
+      "general": "ทั่วไป",
+      "smtp": "อีเมล (SMTP)",
+      "oauth": "Social OAuth",
+      "uploads": "อัปโหลดไฟล์"
+    },
+    "siteName": "ชื่อเว็บไซต์",
+    "logo": "โลโก้เว็บไซต์",
+    "favicon": "ไอคอนเว็บไซต์",
+    "contactEmail": "อีเมลติดต่อ",
+    "contactPhone": "เบอร์โทรศัพท์",
+    "address": "ที่อยู่",
+    "socialLinks": "ลิงก์โซเชียล",
+    "smtpHost": "SMTP Host",
+    "smtpPort": "SMTP Port",
+    "encryption": "การเข้ารหัส",
+    "smtpUsername": "ชื่อผู้ใช้",
+    "smtpPassword": "รหัสผ่าน",
+    "fromAddress": "ที่อยู่ผู้ส่ง",
+    "fromName": "ชื่อผู้ส่ง",
+    "testSmtp": "ทดสอบ SMTP",
+    "smtpTestSuccess": "เชื่อมต่อ SMTP สำเร็จ!",
+    "smtpTestFailed": "เชื่อมต่อ SMTP ล้มเหลว",
+    "maxResumeSize": "ขนาดไฟล์เรซูเม่สูงสุด (MB)",
+    "maxAvatarSize": "ขนาดไฟล์อวตารสูงสุด (MB)",
+    "allowedResumeTypes": "ประเภทไฟล์เรซูเม่ที่อนุญาต",
+    "allowedAvatarTypes": "ประเภทไฟล์อวตารที่อนุญาต",
+    "saveSuccess": "บันทึกการตั้งค่าแล้ว",
+    "saving": "กำลังบันทึก...",
+    "uploadLogo": "อัปโหลดโลโก้",
+    "uploadFavicon": "อัปโหลดไอคอน",
+    "wechatQr": "QR Code WeChat"
+  },
+  "adminLanguages": {
+    "pageTitle": "จัดการภาษา",
+    "languages": "ภาษา",
+    "translations": "คีย์แปลภาษา",
+    "enable": "เปิดใช้งาน",
+    "disable": "ปิดใช้งาน",
+    "setDefault": "ตั้งเป็นค่าเริ่มต้น",
+    "isDefault": "ค่าเริ่มต้น",
+    "exportJson": "ส่งออก JSON",
+    "importJson": "นำเข้า JSON",
+    "key": "คีย์แปลภาษา",
+    "value": "ค่า",
+    "searchKey": "ค้นหาคีย์...",
+    "selectLanguage": "เลือกภาษา",
+    "noKeys": "ไม่พบคีย์แปลภาษา",
+    "saveKeySuccess": "บันทึกคีย์แปลภาษาแล้ว",
+    "importSuccess": "นำเข้าการแปลภาษาแล้ว",
+    "updateSuccess": "อัปเดตภาษาแล้ว"
   }
 }

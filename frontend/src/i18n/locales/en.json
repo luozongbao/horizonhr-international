@@ -833,5 +833,59 @@
         "draft": "Draft"
       }
     }
+  },
+  "adminSettings": {
+    "pageTitle": "System Settings",
+    "tabs": {
+      "general": "General",
+      "smtp": "Email (SMTP)",
+      "oauth": "Social OAuth",
+      "uploads": "File Uploads"
+    },
+    "siteName": "Site Name",
+    "logo": "Site Logo",
+    "favicon": "Favicon",
+    "contactEmail": "Contact Email",
+    "contactPhone": "Contact Phone",
+    "address": "Address",
+    "socialLinks": "Social Links",
+    "smtpHost": "SMTP Host",
+    "smtpPort": "SMTP Port",
+    "encryption": "Encryption",
+    "smtpUsername": "Username",
+    "smtpPassword": "Password",
+    "fromAddress": "From Address",
+    "fromName": "From Name",
+    "testSmtp": "Test SMTP",
+    "smtpTestSuccess": "SMTP connection successful!",
+    "smtpTestFailed": "SMTP connection failed",
+    "maxResumeSize": "Max Resume File Size (MB)",
+    "maxAvatarSize": "Max Avatar File Size (MB)",
+    "allowedResumeTypes": "Allowed Resume Types",
+    "allowedAvatarTypes": "Allowed Avatar Types",
+    "saveSuccess": "Settings saved.",
+    "saving": "Saving...",
+    "uploadLogo": "Upload Logo",
+    "uploadFavicon": "Upload Favicon",
+    "wechatQr": "WeChat QR Image"
+  },
+  "adminLanguages": {
+    "pageTitle": "Language Management",
+    "languages": "Languages",
+    "translations": "Translations",
+    "enable": "Enable",
+    "disable": "Disable",
+    "setDefault": "Set as Default",
+    "isDefault": "Default",
+    "exportJson": "Export JSON",
+    "importJson": "Import JSON",
+    "key": "Translation Key",
+    "value": "Value",
+    "searchKey": "Search key...",
+    "selectLanguage": "Select Language",
+    "noKeys": "No translation keys found.",
+    "saveKeySuccess": "Translation key saved.",
+    "importSuccess": "Translations imported.",
+    "updateSuccess": "Language updated."
   }
 }

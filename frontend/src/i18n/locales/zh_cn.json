@@ -832,5 +832,59 @@
         "draft": "草稿"
       }
     }
+  },
+  "adminSettings": {
+    "pageTitle": "系统设置",
+    "tabs": {
+      "general": "常规",
+      "smtp": "邮件（SMTP）",
+      "oauth": "社交登录",
+      "uploads": "文件上传"
+    },
+    "siteName": "站点名称",
+    "logo": "站点Logo",
+    "favicon": "网站图标",
+    "contactEmail": "联系邮箱",
+    "contactPhone": "联系电话",
+    "address": "地址",
+    "socialLinks": "社交链接",
+    "smtpHost": "SMTP 主机",
+    "smtpPort": "SMTP 端口",
+    "encryption": "加密方式",
+    "smtpUsername": "用户名",
+    "smtpPassword": "密码",
+    "fromAddress": "发件地址",
+    "fromName": "发件人名称",
+    "testSmtp": "测试 SMTP",
+    "smtpTestSuccess": "SMTP 连接成功！",
+    "smtpTestFailed": "SMTP 连接失败",
+    "maxResumeSize": "简历最大文件大小（MB）",
+    "maxAvatarSize": "头像最大文件大小（MB）",
+    "allowedResumeTypes": "允许的简历类型",
+    "allowedAvatarTypes": "允许的头像类型",
+    "saveSuccess": "设置已保存。",
+    "saving": "保存中...",
+    "uploadLogo": "上传 Logo",
+    "uploadFavicon": "上传图标",
+    "wechatQr": "微信二维码"
+  },
+  "adminLanguages": {
+    "pageTitle": "语言管理",
+    "languages": "语言",
+    "translations": "翻译键",
+    "enable": "启用",
+    "disable": "禁用",
+    "setDefault": "设为默认",
+    "isDefault": "默认",
+    "exportJson": "导出 JSON",
+    "importJson": "导入 JSON",
+    "key": "翻译键",
+    "value": "值",
+    "searchKey": "搜索翻译键...",
+    "selectLanguage": "选择语言",
+    "noKeys": "未找到翻译键。",
+    "saveKeySuccess": "翻译键已保存。",
+    "importSuccess": "翻译已导入。",
+    "updateSuccess": "语言已更新。"
   }
 }

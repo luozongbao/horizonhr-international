@@ -219,6 +219,66 @@ export const adminApi = {
     api.post('/admin/media/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }),
+
+  // ─── Settings ──────────────────────────────────────────────────────────────
+
+  /** Get all settings */
+  getSettings: () =>
+    api.get('/admin/settings'),
+
+  /** Update settings (bulk key-value map) */
+  updateSettings: (data: Record<string, unknown>) =>
+    api.put('/admin/settings', data),
+
+  /** Upload site logo */
+  uploadLogo: (formData: FormData) =>
+    api.post('/admin/settings/upload-logo', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+
+  /** Upload favicon */
+  uploadFavicon: (formData: FormData) =>
+    api.post('/admin/settings/upload-favicon', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+
+  /** Test SMTP connection */
+  testSmtp: () =>
+    api.post('/admin/settings/test-smtp'),
+
+  // ─── Languages ─────────────────────────────────────────────────────────────
+
+  /** List all languages */
+  getLanguages: () =>
+    api.get('/admin/languages'),
+
+  /** Update a language (enable/disable, set default) */
+  updateLanguage: (id: number, data: { is_enabled?: boolean; is_default?: boolean }) =>
+    api.put(`/admin/languages/${id}`, data),
+
+  // ─── Translations ──────────────────────────────────────────────────────────
+
+  /** Get translation keys for a given language code */
+  getTranslations: (lang: string) =>
+    api.get('/admin/translations', { params: { lang } }),
+
+  /** Update translation keys */
+  updateTranslations: (data: { lang: string; translations: Record<string, string> }) =>
+    api.put('/admin/translations', data),
+
+  /** Import translations from a JSON file */
+  importTranslations: (lang: string, formData: FormData) =>
+    api.post('/admin/translations/import', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      params: { lang },
+    }),
+
+  /** Export translations as a JSON download (returns blob) */
+  exportTranslations: (lang: string) =>
+    api.get('/admin/translations/export', {
+      params: { lang },
+      responseType: 'blob',
+    }),
 }
 
 export default adminApi
