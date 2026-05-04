@@ -211,4 +211,36 @@ Implement DOCUMENTS/PLAN/TASKS/042-SEO-I18N-PERFORMANCE.md
 
 ---
 
-Implement DOCUMENTS/PLAN/TASKS/043-DEPLOYMENT.md
+Implement DOCUMENTS/PLAN/TASKS/043-DEPLOYMENT.md และหลังจาก online ได้แล้ว update README.md ให้เป็นไปตามจริง
+
+---
+
+ตอนนี้ Implement หมดทุก Task แล้ว ช่วย deploy ทำให้ Project ออนไลน์หน่อยครับเพราะผมอยากเข้าไปเทสระบบและทดลองใช้งานหน่อย
+
+---
+
+ช่วยปรับ App URL, Front End Url ให้ใช้ IP: 10,11.12.30 แทน localhost ครับ
+
+---
+
+ตอนนี้ทุกใบงานเสร็จแล้ว ช่วย Review Requirements ใน DOCUMENTS/REQUIREMENTS-EN.md, DOCUMENTS/PLAN/PLAN.md เป็นหลัก และตรวจสอบเนื้อหาจากเอกสารอื่น ๆ ด้วยเช่น  
+
+- DOCUMENTS/DESIGNS/API_DOCUMENTATION.md
+- DOCUMENTS/DESIGNS/DESIGN_SYSTEM.md
+- DOCUMENTS/DESIGNS/MOCKUP_SETTINGS_MULTI_LANGUAGE.md
+- DOCUMENTS/DESIGNS/SYSTEM_DESIGN.md
+
+หลังจากนั้น ช่วยเขียนเอกสารเป็น Issue Task Documents สำหรับ AI ให้เข้ามาทำการเทสระบบทั้ง FE/BE ใน DOCUMENTS/PLAN/TASKS/###-[TESTTASK].md แต่ละ Issue Task Document ควรที่จะ
+- ชัดเจนทั้ง Description, Reference, Test Step, Test Features, Acceptance Criteria
+- นำไปสู่ผลลัพธ์ความสำเร็จของโปรเจคที่เป็นไปตาม REQUIREMENTS และเอกสาร DESIGN ต่าง ๆ
+- มีเอกสารอ้างอิงให้ AI สามารถตรวจสอบและทำความเข้าใจโปรเจคได้ 
+- เรียงลำดับเรื่องของ Prerequisites การทำงานลำดับก่อนหลังให้ชัดเจนและถูกต้องด้วย
+- 1 ใบงาน (TASK) AI ควรให้ AI สามารถดำเนินการได้ตั้งแต่ต้นจนจบโดยไม่ Context Overflow 
+
+เนื้อหาอาจจะเริ่มตั้งแต่ การเริ่ม deploy project (For test) ก่อนและอัพเดตเอกสาร README.md แล้วจึงเริ่มเขียนใบงานเทสฟีเจอร์และ Workflow Flow ต่าง ๆ ที่ควรต้องใช้งานได้ ทำงานได้ ส่วนไหน ที่ต้องให้ Human Test กรุณาระบบในชื่อใบงาน และมี Test Step ให้ชัดเจน เพื่อผมจะได้ช่วกันเทสให้โปรเจคสำเร็จได้
+
+---
+
+
+
+---
