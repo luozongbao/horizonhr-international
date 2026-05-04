@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 | Health Check
 |--------------------------------------------------------------------------
 */
-Route::get('/health', fn () => response()->json(['status' => 'ok', 'service' => 'HRINT API']));
+Route::get('/health', [\App\Http\Controllers\HealthController::class, 'check']);
 
 /*
 |--------------------------------------------------------------------------
