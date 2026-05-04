@@ -4,6 +4,9 @@ FROM php:8.2-fpm-alpine
 RUN apk add --no-cache \
     git \
     curl \
+    autoconf \
+    g++ \
+    make \
     libpng-dev \
     libjpeg-turbo-dev \
     libwebp-dev \
