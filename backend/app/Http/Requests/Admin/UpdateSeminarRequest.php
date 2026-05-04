@@ -32,6 +32,7 @@ class UpdateSeminarRequest extends FormRequest
             'permission'      => ['sometimes', 'in:public,registered'],
             'starts_at'       => ['sometimes', 'date', 'after:now'],
             'duration_min'    => ['nullable', 'integer', 'min:1', 'max:1440'],
+            'status'          => ['sometimes', 'in:scheduled,cancelled'],
         ];
     }
 

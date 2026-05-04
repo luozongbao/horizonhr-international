@@ -120,6 +120,32 @@ class SeminarController extends Controller
     }
 
     // ──────────────────────────────────────────────────────────────────
+    // registrations
+    // ──────────────────────────────────────────────────────────────────
+
+    /**
+     * GET /api/admin/seminars/{id}/registrations
+     */
+    public function registrations(Request $request, int $id): JsonResponse
+    {
+        $seminar = Seminar::findOrFail($id);
+        $perPage = min((int) ($request->query('per_page', 50)), 200);
+
+        $paginated = $seminar->registrations()->orderBy('registered_at', 'asc')->paginate($perPage);
+
+        return response()->json([
+            'success' => true,
+            'data'    => $paginated->items(),
+            'meta'    => [
+                'current_page' => $paginated->currentPage(),
+                'per_page'     => $paginated->perPage(),
+                'total'        => $paginated->total(),
+                'last_page'    => $paginated->lastPage(),
+            ],
+        ]);
+    }
+
+    // ──────────────────────────────────────────────────────────────────
     // goLive
     // ──────────────────────────────────────────────────────────────────
 

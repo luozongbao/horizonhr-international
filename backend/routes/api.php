@@ -176,6 +176,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'show']);
         Route::put   ('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'update']);
         Route::delete('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'destroy']);
+        Route::get   ('/seminars/{id}/registrations', [\App\Http\Controllers\Admin\SeminarController::class,   'registrations']);
         Route::post  ('/seminars/{id}/go-live',   [\App\Http\Controllers\Admin\SeminarController::class,        'goLive']);
         Route::post  ('/seminars/{id}/end-live',  [\App\Http\Controllers\Admin\SeminarController::class,        'endLive']);
         Route::get   ('/seminars/{id}/live-urls', [\App\Http\Controllers\Admin\SeminarLiveController::class,    'getLiveUrls']);
