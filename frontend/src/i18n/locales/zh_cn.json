@@ -742,5 +742,62 @@
     "fileName": "文件名",
     "fileSize": "文件大小",
     "uploadDate": "上传时间"
+  },
+  "adminInterviews": {
+    "pageTitle": "面试管理",
+    "cancelInterview": "取消面试",
+    "cancelConfirm": "确定取消此面试？参与者将收到通知。",
+    "cancelSuccess": "面试已取消。",
+    "viewDetails": "查看详情",
+    "noInterviews": "未找到面试。",
+    "student": "学生",
+    "enterprise": "企业",
+    "job": "职位",
+    "scheduledTime": "预定时间",
+    "duration": "时长",
+    "participants": "参与者",
+    "trtcRoomId": "TRTC 房间ID",
+    "result": "面试结果",
+    "status": {
+      "scheduled": "已安排",
+      "ongoing": "进行中",
+      "completed": "已完成",
+      "cancelled": "已取消"
+    }
+  },
+  "adminSeminars": {
+    "pageTitle": "研讨会管理",
+    "createSeminar": "新建研讨会",
+    "editSeminar": "编辑研讨会",
+    "liveControls": "直播控制",
+    "pushUrl": "OBS 推流地址",
+    "pullUrl": "HLS 拉流地址（观看）",
+    "copyUrl": "复制地址",
+    "urlCopied": "地址已复制",
+    "obsInstructions": "将推流地址粘贴到 OBS Studio 设置 > 推流 > 自定义",
+    "viewRecording": "查看录制",
+    "scheduledAt": "预定日期时间",
+    "maxRegistrations": "最大报名人数（0=不限）",
+    "titleLabel": "标题",
+    "descriptionLabel": "详细描述",
+    "speakerName": "演讲者姓名",
+    "speakerTitle": "演讲者职称",
+    "speakerBio": "演讲者简介",
+    "speakerPhoto": "演讲者照片",
+    "thumbnail": "封面图（16:9 推荐）",
+    "durationMin": "时长（分钟）",
+    "language": "语言",
+    "registeredCount": "已报名",
+    "noSeminars": "未找到研讨会。",
+    "createSuccess": "研讨会已创建。",
+    "updateSuccess": "研讨会已更新。",
+    "deleteSuccess": "研讨会已删除。",
+    "deleteConfirm": "确定删除该研讨会？此操作无法撤销。",
+    "refreshUrls": "刷新地址",
+    "status": {
+      "scheduled": "已安排",
+      "live": "直播中",
+      "ended": "已结束"
+    }
   }
 }

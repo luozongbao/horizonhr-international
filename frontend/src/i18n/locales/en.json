@@ -743,5 +743,62 @@
     "fileName": "File Name",
     "fileSize": "File Size",
     "uploadDate": "Upload Date"
+  },
+  "adminInterviews": {
+    "pageTitle": "Interview Management",
+    "cancelInterview": "Cancel Interview",
+    "cancelConfirm": "Cancel this interview? Participants will be notified.",
+    "cancelSuccess": "Interview cancelled.",
+    "viewDetails": "View Details",
+    "noInterviews": "No interviews found.",
+    "student": "Student",
+    "enterprise": "Enterprise",
+    "job": "Job",
+    "scheduledTime": "Scheduled Time",
+    "duration": "Duration",
+    "participants": "Participants",
+    "trtcRoomId": "TRTC Room ID",
+    "result": "Result",
+    "status": {
+      "scheduled": "Scheduled",
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "adminSeminars": {
+    "pageTitle": "Seminar Management",
+    "createSeminar": "Create Seminar",
+    "editSeminar": "Edit Seminar",
+    "liveControls": "Live Controls",
+    "pushUrl": "OBS Push URL",
+    "pullUrl": "HLS Pull URL (Viewer)",
+    "copyUrl": "Copy URL",
+    "urlCopied": "URL copied to clipboard",
+    "obsInstructions": "Paste the Push URL into OBS Studio under Settings > Stream > Custom",
+    "viewRecording": "View Recording",
+    "scheduledAt": "Scheduled Date & Time",
+    "maxRegistrations": "Max Registrations (0 = unlimited)",
+    "titleLabel": "Title",
+    "descriptionLabel": "Description",
+    "speakerName": "Speaker Name",
+    "speakerTitle": "Speaker Title",
+    "speakerBio": "Speaker Bio",
+    "speakerPhoto": "Speaker Photo",
+    "thumbnail": "Thumbnail (16:9 recommended)",
+    "durationMin": "Duration (minutes)",
+    "language": "Language",
+    "registeredCount": "Registered",
+    "noSeminars": "No seminars found.",
+    "createSuccess": "Seminar created.",
+    "updateSuccess": "Seminar updated.",
+    "deleteSuccess": "Seminar deleted.",
+    "deleteConfirm": "Delete this seminar? This action cannot be undone.",
+    "refreshUrls": "Refresh URLs",
+    "status": {
+      "scheduled": "Scheduled",
+      "live": "Live",
+      "ended": "Ended"
+    }
   }
 }

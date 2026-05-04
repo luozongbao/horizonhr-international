@@ -742,5 +742,62 @@
     "fileName": "ชื่อไฟล์",
     "fileSize": "ขนาดไฟล์",
     "uploadDate": "วันที่อัปโหลด"
+  },
+  "adminInterviews": {
+    "pageTitle": "จัดการการสัมภาษณ์",
+    "cancelInterview": "ยกเลิกการสัมภาษณ์",
+    "cancelConfirm": "ยกเลิกการสัมภาษณ์นี้? ผู้เข้าร่วมจะได้รับการแจ้ง",
+    "cancelSuccess": "ยกเลิกการสัมภาษณ์แล้ว",
+    "viewDetails": "ดูรายละเอียด",
+    "noInterviews": "ไม่พบการสัมภาษณ์",
+    "student": "นักศึกษา",
+    "enterprise": "องค์กร",
+    "job": "ตำแหน่งงาน",
+    "scheduledTime": "เวลานัด",
+    "duration": "ระยะเวลา",
+    "participants": "ผู้เข้าร่วม",
+    "trtcRoomId": "TRTC Room ID",
+    "result": "ผลการสัมภาษณ์",
+    "status": {
+      "scheduled": "นัดหมายแล้ว",
+      "ongoing": "กำลังดำเนินการ",
+      "completed": "เสร็จสิ้น",
+      "cancelled": "ยกเลิก"
+    }
+  },
+  "adminSeminars": {
+    "pageTitle": "จัดการสัมมนา",
+    "createSeminar": "สร้างสัมมนา",
+    "editSeminar": "แก้ไขสัมมนา",
+    "liveControls": "ควบคุมสด",
+    "pushUrl": "OBS Push URL",
+    "pullUrl": "HLS Pull URL (ผู้ชม)",
+    "copyUrl": "คัดลอก URL",
+    "urlCopied": "คัดลอก URL แล้ว",
+    "obsInstructions": "วาง Push URL ใน OBS Studio ที่ Settings > Stream > Custom",
+    "viewRecording": "ดูการบันทึก",
+    "scheduledAt": "วันและเวลาที่นัด",
+    "maxRegistrations": "จำนวนผู้ลงทะเบียนสูงสุด (0 = ไม่จำกัด)",
+    "titleLabel": "ชื่อ",
+    "descriptionLabel": "รายละเอียด",
+    "speakerName": "ชื่อวิทยากร",
+    "speakerTitle": "ตำแหน่งวิทยากร",
+    "speakerBio": "ประวัติวิทยากร",
+    "speakerPhoto": "รูปวิทยากร",
+    "thumbnail": "ภาพหน้าปก (16:9 แนะนำ)",
+    "durationMin": "ระยะเวลา (นาที)",
+    "language": "ภาษา",
+    "registeredCount": "ลงทะเบียน",
+    "noSeminars": "ไม่พบสัมมนา",
+    "createSuccess": "สร้างสัมมนาสำเร็จ",
+    "updateSuccess": "อัปเดตสัมมนาสำเร็จ",
+    "deleteSuccess": "ลบสัมมนาแล้ว",
+    "deleteConfirm": "ลบสัมมนานี้? ไม่สามารถย้อนกลับได้",
+    "refreshUrls": "รีเฟรช URL",
+    "status": {
+      "scheduled": "นัดหมาย",
+      "live": "สด",
+      "ended": "สิ้นสุด"
+    }
   }
 }
