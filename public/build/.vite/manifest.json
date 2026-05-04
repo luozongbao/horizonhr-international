@@ -1,0 +1,687 @@
+{
+  "__plugin-vue_export-helper-BtB5cseq.js": {
+    "file": "assets/_plugin-vue_export-helper-BtB5cseq.js",
+    "name": "_plugin-vue_export-helper"
+  },
+  "_auth-D0Tml2Bz.js": {
+    "file": "assets/auth-D0Tml2Bz.js",
+    "name": "auth",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_css-1VqXTqcb.css": {
+    "file": "assets/css-1VqXTqcb.css",
+    "src": "_css-1VqXTqcb.css"
+  },
+  "_css-B0_1wuTg.css": {
+    "file": "assets/css-B0_1wuTg.css",
+    "src": "_css-B0_1wuTg.css"
+  },
+  "_css-B6UgayC7.css": {
+    "file": "assets/css-B6UgayC7.css",
+    "src": "_css-B6UgayC7.css"
+  },
+  "_css-BJaCXrqZ.css": {
+    "file": "assets/css-BJaCXrqZ.css",
+    "src": "_css-BJaCXrqZ.css"
+  },
+  "_css-BRBereKE.js": {
+    "file": "assets/css-BRBereKE.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-uOk5l6u0.css"
+    ]
+  },
+  "_css-BYK-QXC5.js": {
+    "file": "assets/css-BYK-QXC5.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-CzNtyWdF.css"
+    ]
+  },
+  "_css-CBEgjuv-.js": {
+    "file": "assets/css-CBEgjuv-.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-BJaCXrqZ.css"
+    ]
+  },
+  "_css-CvA3cEPd.js": {
+    "file": "assets/css-CvA3cEPd.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-B0_1wuTg.css"
+    ]
+  },
+  "_css-CzNtyWdF.css": {
+    "file": "assets/css-CzNtyWdF.css",
+    "src": "_css-CzNtyWdF.css"
+  },
+  "_css-D8T7q7tv.js": {
+    "file": "assets/css-D8T7q7tv.js",
+    "name": "css",
+    "imports": [
+      "index.html",
+      "_css-CBEgjuv-.js",
+      "_css-BRBereKE.js"
+    ],
+    "css": [
+      "assets/css-1VqXTqcb.css"
+    ]
+  },
+  "_css-DLVi5yeU.css": {
+    "file": "assets/css-DLVi5yeU.css",
+    "src": "_css-DLVi5yeU.css"
+  },
+  "_css-DcY8ttdD.js": {
+    "file": "assets/css-DcY8ttdD.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-DLVi5yeU.css"
+    ]
+  },
+  "_css-FnkI1NCc.js": {
+    "file": "assets/css-FnkI1NCc.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-B6UgayC7.css"
+    ]
+  },
+  "_css-S7fQQ3B8.css": {
+    "file": "assets/css-S7fQQ3B8.css",
+    "src": "_css-S7fQQ3B8.css"
+  },
+  "_css-uOk5l6u0.css": {
+    "file": "assets/css-uOk5l6u0.css",
+    "src": "_css-uOk5l6u0.css"
+  },
+  "_css-yer7ggjt.js": {
+    "file": "assets/css-yer7ggjt.js",
+    "name": "css",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/css-S7fQQ3B8.css"
+    ]
+  },
+  "_public-XDSQWPbQ.js": {
+    "file": "assets/public-XDSQWPbQ.js",
+    "name": "public",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_useSanitize-DtXpQrAb.js": {
+    "file": "assets/useSanitize-DtXpQrAb.js",
+    "name": "useSanitize"
+  },
+  "index.html": {
+    "file": "assets/index-DoI18e5x.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ],
+    "dynamicImports": [
+      "src/views/public/HomeView.vue",
+      "src/views/public/AboutView.vue",
+      "src/views/public/StudyView.vue",
+      "src/views/public/TalentPoolView.vue",
+      "src/views/public/CorporateView.vue",
+      "src/views/public/NewsView.vue",
+      "src/views/public/NewsDetailView.vue",
+      "src/views/public/ContactView.vue",
+      "src/views/public/SeminarsView.vue",
+      "src/views/public/SeminarDetailView.vue",
+      "src/views/public/SeminarWatchView.vue",
+      "src/views/public/CmsPageView.vue",
+      "src/views/auth/LoginView.vue",
+      "src/views/auth/RegisterStudentView.vue",
+      "src/views/auth/RegisterEnterpriseView.vue",
+      "src/views/auth/EmailVerifyView.vue",
+      "src/views/auth/ForgotPasswordView.vue",
+      "src/views/auth/ResetPasswordView.vue",
+      "src/views/auth/OAuthCallbackView.vue",
+      "src/views/student/DashboardView.vue",
+      "src/views/student/ProfileView.vue",
+      "src/views/student/ResumeView.vue",
+      "src/views/student/ApplicationsView.vue",
+      "src/views/student/InterviewsView.vue",
+      "src/views/student/InterviewRoomView.vue",
+      "src/views/student/SeminarsView.vue",
+      "src/views/enterprise/DashboardView.vue",
+      "src/views/enterprise/ProfileView.vue",
+      "src/views/enterprise/JobsView.vue",
+      "src/views/enterprise/TalentView.vue",
+      "src/views/enterprise/InterviewsView.vue",
+      "src/views/enterprise/InterviewRoomView.vue",
+      "src/views/admin/DashboardView.vue",
+      "src/views/admin/UsersView.vue",
+      "src/views/admin/ResumesView.vue",
+      "src/views/admin/InterviewsView.vue",
+      "src/views/admin/SeminarsView.vue",
+      "src/views/admin/AnnouncementsView.vue",
+      "src/views/admin/CmsPagesView.vue",
+      "src/views/admin/CmsPostsView.vue",
+      "src/views/admin/ContactsView.vue",
+      "src/views/admin/SettingsView.vue",
+      "src/views/admin/LanguagesView.vue",
+      "src/views/NotFoundView.vue"
+    ],
+    "css": [
+      "assets/index-C6lvb9nK.css"
+    ]
+  },
+  "src/views/NotFoundView.vue": {
+    "file": "assets/NotFoundView-BWeXMj7C.js",
+    "name": "NotFoundView",
+    "src": "src/views/NotFoundView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/AnnouncementsView.vue": {
+    "file": "assets/AnnouncementsView-CZBlzQwr.js",
+    "name": "AnnouncementsView",
+    "src": "src/views/admin/AnnouncementsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/CmsPagesView.vue": {
+    "file": "assets/CmsPagesView-BUwAlxWL.js",
+    "name": "CmsPagesView",
+    "src": "src/views/admin/CmsPagesView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/CmsPostsView.vue": {
+    "file": "assets/CmsPostsView-Bfc2ZcNt.js",
+    "name": "CmsPostsView",
+    "src": "src/views/admin/CmsPostsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/ContactsView.vue": {
+    "file": "assets/ContactsView-B_AOfpvw.js",
+    "name": "ContactsView",
+    "src": "src/views/admin/ContactsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/DashboardView.vue": {
+    "file": "assets/DashboardView-CxqZe7Wv.js",
+    "name": "DashboardView",
+    "src": "src/views/admin/DashboardView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/InterviewsView.vue": {
+    "file": "assets/InterviewsView-Dl_MF7hY.js",
+    "name": "InterviewsView",
+    "src": "src/views/admin/InterviewsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/LanguagesView.vue": {
+    "file": "assets/LanguagesView-DxAxg8Un.js",
+    "name": "LanguagesView",
+    "src": "src/views/admin/LanguagesView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/ResumesView.vue": {
+    "file": "assets/ResumesView-0Bdn493X.js",
+    "name": "ResumesView",
+    "src": "src/views/admin/ResumesView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/SeminarsView.vue": {
+    "file": "assets/SeminarsView-DyXV5eDM.js",
+    "name": "SeminarsView",
+    "src": "src/views/admin/SeminarsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/SettingsView.vue": {
+    "file": "assets/SettingsView-DAsAdUQF.js",
+    "name": "SettingsView",
+    "src": "src/views/admin/SettingsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/admin/UsersView.vue": {
+    "file": "assets/UsersView-C80jtXqv.js",
+    "name": "UsersView",
+    "src": "src/views/admin/UsersView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/auth/EmailVerifyView.vue": {
+    "file": "assets/EmailVerifyView-CpYazAEv.js",
+    "name": "EmailVerifyView",
+    "src": "src/views/auth/EmailVerifyView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_auth-D0Tml2Bz.js"
+    ],
+    "css": [
+      "assets/EmailVerifyView-BypSm7Mm.css"
+    ]
+  },
+  "src/views/auth/ForgotPasswordView.vue": {
+    "file": "assets/ForgotPasswordView-lIJU-9it.js",
+    "name": "ForgotPasswordView",
+    "src": "src/views/auth/ForgotPasswordView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_css-DcY8ttdD.js",
+      "_css-CBEgjuv-.js",
+      "_auth-D0Tml2Bz.js"
+    ],
+    "css": [
+      "assets/ForgotPasswordView-CQj5L6gA.css"
+    ]
+  },
+  "src/views/auth/LoginView.vue": {
+    "file": "assets/LoginView-DMMmjxoW.js",
+    "name": "LoginView",
+    "src": "src/views/auth/LoginView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_css-FnkI1NCc.js",
+      "_css-BYK-QXC5.js",
+      "_css-DcY8ttdD.js",
+      "_css-CBEgjuv-.js",
+      "_auth-D0Tml2Bz.js"
+    ],
+    "css": [
+      "assets/LoginView-CtQ7eEwu.css"
+    ]
+  },
+  "src/views/auth/OAuthCallbackView.vue": {
+    "file": "assets/OAuthCallbackView-C_pxbhJb.js",
+    "name": "OAuthCallbackView",
+    "src": "src/views/auth/OAuthCallbackView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html"
+    ],
+    "css": [
+      "assets/OAuthCallbackView-CVS0aGXr.css"
+    ]
+  },
+  "src/views/auth/RegisterEnterpriseView.vue": {
+    "file": "assets/RegisterEnterpriseView-d-Tv6FWK.js",
+    "name": "RegisterEnterpriseView",
+    "src": "src/views/auth/RegisterEnterpriseView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_css-BYK-QXC5.js",
+      "_css-DcY8ttdD.js",
+      "_css-CBEgjuv-.js",
+      "_css-BRBereKE.js",
+      "_auth-D0Tml2Bz.js"
+    ],
+    "css": [
+      "assets/RegisterEnterpriseView-hhSZss-L.css"
+    ]
+  },
+  "src/views/auth/RegisterStudentView.vue": {
+    "file": "assets/RegisterStudentView-CsBKZeJC.js",
+    "name": "RegisterStudentView",
+    "src": "src/views/auth/RegisterStudentView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_css-BYK-QXC5.js",
+      "_css-DcY8ttdD.js",
+      "_css-CBEgjuv-.js",
+      "_css-BRBereKE.js",
+      "_auth-D0Tml2Bz.js"
+    ],
+    "css": [
+      "assets/RegisterStudentView-f33iKaBl.css"
+    ]
+  },
+  "src/views/auth/ResetPasswordView.vue": {
+    "file": "assets/ResetPasswordView-wzBCfODr.js",
+    "name": "ResetPasswordView",
+    "src": "src/views/auth/ResetPasswordView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_css-DcY8ttdD.js",
+      "_css-CBEgjuv-.js",
+      "_auth-D0Tml2Bz.js"
+    ],
+    "css": [
+      "assets/ResetPasswordView-CYAvlkWn.css"
+    ]
+  },
+  "src/views/enterprise/DashboardView.vue": {
+    "file": "assets/DashboardView-Dt0iX_Zi.js",
+    "name": "DashboardView",
+    "src": "src/views/enterprise/DashboardView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/enterprise/InterviewRoomView.vue": {
+    "file": "assets/InterviewRoomView-DI7hDvwv.js",
+    "name": "InterviewRoomView",
+    "src": "src/views/enterprise/InterviewRoomView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/enterprise/InterviewsView.vue": {
+    "file": "assets/InterviewsView-DRxNklgF.js",
+    "name": "InterviewsView",
+    "src": "src/views/enterprise/InterviewsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/enterprise/JobsView.vue": {
+    "file": "assets/JobsView-C0jPVflI.js",
+    "name": "JobsView",
+    "src": "src/views/enterprise/JobsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/enterprise/ProfileView.vue": {
+    "file": "assets/ProfileView-B8rRYlXg.js",
+    "name": "ProfileView",
+    "src": "src/views/enterprise/ProfileView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/enterprise/TalentView.vue": {
+    "file": "assets/TalentView-9ULcOtdo.js",
+    "name": "TalentView",
+    "src": "src/views/enterprise/TalentView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/AboutView.vue": {
+    "file": "assets/AboutView-CB_3hZj4.js",
+    "name": "AboutView",
+    "src": "src/views/public/AboutView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_useSanitize-DtXpQrAb.js",
+      "_css-CvA3cEPd.js",
+      "_public-XDSQWPbQ.js"
+    ],
+    "css": [
+      "assets/AboutView-ac55DvD2.css"
+    ]
+  },
+  "src/views/public/CmsPageView.vue": {
+    "file": "assets/CmsPageView-HjEENHoX.js",
+    "name": "CmsPageView",
+    "src": "src/views/public/CmsPageView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/ContactView.vue": {
+    "file": "assets/ContactView-DQcyb2k1.js",
+    "name": "ContactView",
+    "src": "src/views/public/ContactView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/CorporateView.vue": {
+    "file": "assets/CorporateView-CJXWSwFF.js",
+    "name": "CorporateView",
+    "src": "src/views/public/CorporateView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_useSanitize-DtXpQrAb.js",
+      "_css-FnkI1NCc.js",
+      "_css-DcY8ttdD.js",
+      "_css-CBEgjuv-.js",
+      "_public-XDSQWPbQ.js"
+    ],
+    "css": [
+      "assets/CorporateView-C54H7WeP.css"
+    ]
+  },
+  "src/views/public/HomeView.vue": {
+    "file": "assets/HomeView-4zXhlks_.js",
+    "name": "HomeView",
+    "src": "src/views/public/HomeView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_css-yer7ggjt.js",
+      "_css-CvA3cEPd.js",
+      "_public-XDSQWPbQ.js"
+    ],
+    "css": [
+      "assets/HomeView-iiceqL0E.css"
+    ]
+  },
+  "src/views/public/NewsDetailView.vue": {
+    "file": "assets/NewsDetailView-DJxcUNmZ.js",
+    "name": "NewsDetailView",
+    "src": "src/views/public/NewsDetailView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/NewsView.vue": {
+    "file": "assets/NewsView-DP8oistj.js",
+    "name": "NewsView",
+    "src": "src/views/public/NewsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/SeminarDetailView.vue": {
+    "file": "assets/SeminarDetailView-B_wjAKM0.js",
+    "name": "SeminarDetailView",
+    "src": "src/views/public/SeminarDetailView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/SeminarWatchView.vue": {
+    "file": "assets/SeminarWatchView-yvT88yzV.js",
+    "name": "SeminarWatchView",
+    "src": "src/views/public/SeminarWatchView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/SeminarsView.vue": {
+    "file": "assets/SeminarsView-Dq8SYMmk.js",
+    "name": "SeminarsView",
+    "src": "src/views/public/SeminarsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/public/StudyView.vue": {
+    "file": "assets/StudyView-DigWoc-h.js",
+    "name": "StudyView",
+    "src": "src/views/public/StudyView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_useSanitize-DtXpQrAb.js",
+      "_css-D8T7q7tv.js",
+      "_css-yer7ggjt.js",
+      "_css-CBEgjuv-.js",
+      "_css-BRBereKE.js",
+      "_css-CvA3cEPd.js",
+      "_public-XDSQWPbQ.js"
+    ],
+    "css": [
+      "assets/StudyView-Bv_MUx3Q.css"
+    ]
+  },
+  "src/views/public/TalentPoolView.vue": {
+    "file": "assets/TalentPoolView-BxA5cuQx.js",
+    "name": "TalentPoolView",
+    "src": "src/views/public/TalentPoolView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js",
+      "index.html",
+      "_useSanitize-DtXpQrAb.js",
+      "_css-D8T7q7tv.js",
+      "_css-yer7ggjt.js",
+      "_css-CBEgjuv-.js",
+      "_css-BRBereKE.js",
+      "_css-CvA3cEPd.js",
+      "_public-XDSQWPbQ.js"
+    ],
+    "css": [
+      "assets/TalentPoolView-DeioqnIt.css"
+    ]
+  },
+  "src/views/student/ApplicationsView.vue": {
+    "file": "assets/ApplicationsView-CGkb2oRd.js",
+    "name": "ApplicationsView",
+    "src": "src/views/student/ApplicationsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/student/DashboardView.vue": {
+    "file": "assets/DashboardView-DsX_xxih.js",
+    "name": "DashboardView",
+    "src": "src/views/student/DashboardView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/student/InterviewRoomView.vue": {
+    "file": "assets/InterviewRoomView-YWlu4Iq9.js",
+    "name": "InterviewRoomView",
+    "src": "src/views/student/InterviewRoomView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/student/InterviewsView.vue": {
+    "file": "assets/InterviewsView-DGBALh6f.js",
+    "name": "InterviewsView",
+    "src": "src/views/student/InterviewsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/student/ProfileView.vue": {
+    "file": "assets/ProfileView-B0KWB7YY.js",
+    "name": "ProfileView",
+    "src": "src/views/student/ProfileView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/student/ResumeView.vue": {
+    "file": "assets/ResumeView-DHeUwbj9.js",
+    "name": "ResumeView",
+    "src": "src/views/student/ResumeView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  },
+  "src/views/student/SeminarsView.vue": {
+    "file": "assets/SeminarsView-Dt_yTMWU.js",
+    "name": "SeminarsView",
+    "src": "src/views/student/SeminarsView.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-BtB5cseq.js"
+    ]
+  }
+}

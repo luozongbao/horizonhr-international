@@ -1,26 +1,159 @@
 version: '3.9'
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Production compose — standalone (not an override of docker-compose.yml)
+# Usage:
+#   docker compose -f docker-compose.prod.yml up -d
+#
+# Prerequisites:
+#   1. Copy .env.production.example → .env and fill all values.
+#   2. Build the production image: docker compose -f docker-compose.prod.yml build
+#   3. If using SSL: place fullchain.pem + privkey.pem in ./docker/ssl/
+#      or set NGINX_SSL_CERT / NGINX_SSL_KEY env vars.
+# ──────────────────────────────────────────────────────────────────────────────
+
 services:
+
+  # ── nginx ─────────────────────────────────────────────────────────────────
   nginx:
-    volumes:
-      - ./docker/nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
-      - ./backend:/var/www/backend:ro
-      - ./frontend/dist:/var/www/frontend:ro
+    image: nginx:1.25-alpine
+    container_name: hrint-nginx
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - static_files:/var/www/public:ro
+      - ssl_certs:/etc/ssl/certs:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - hrint
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  backend:
-    environment:
-      - APP_ENV=production
-      - APP_DEBUG=false
+  # ── PHP-FPM application ────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: hrint-app:latest
+    container_name: hrint-app
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - storage_data:/var/www/backend/storage
+      - static_files:/var/www/public
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - hrint
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm -t 2>/dev/null && echo ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  frontend:
-    command: sh -c "npm install && npm run build"
-    # In production, static files are served by nginx — this service exits after build.
+  # ── Queue worker ───────────────────────────────────────────────────────────
+  queue:
+    image: hrint-app:latest
+    container_name: hrint-queue
+    restart: unless-stopped
+    command: php artisan queue:work --queue=emails,default --sleep=3 --tries=3 --max-time=3600
+    working_dir: /var/www/backend
+    env_file: .env
+    volumes:
+      - storage_data:/var/www/backend/storage
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - hrint
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
+  # ── MariaDB ────────────────────────────────────────────────────────────────
   mariadb:
-    ports: []  # Do not expose MariaDB port externally in production
+    image: mariadb:10.11
+    container_name: hrint-mariadb
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-horizon_international}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --innodb-buffer-pool-size=256M
+    networks:
+      - hrint
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ── Redis ──────────────────────────────────────────────────────────────────
   redis:
-    ports: []  # Do not expose Redis port externally in production
+    image: redis:7-alpine
+    container_name: hrint-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - hrint
+    deploy:
+      resources:
+        limits:
+          memory: 192M
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
+  storage_data:
+    driver: local
+  static_files:
+    driver: local
+  ssl_certs:
+    driver: local
+
+networks:
+  hrint:
+    driver: bridge
+

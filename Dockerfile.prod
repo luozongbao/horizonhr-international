@@ -1,0 +1,91 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Stage 1: Build frontend (Vue 3 + Vite)
+# ──────────────────────────────────────────────────────────────────────────────
+FROM node:20-alpine AS frontend-builder
+
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci --prefer-offline
+
+COPY frontend/ ./
+# Outputs to ../public/build (relative to frontend/) → /app/public/build
+RUN npm run build
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Stage 2: Production PHP-FPM image
+# ──────────────────────────────────────────────────────────────────────────────
+FROM php:8.2-fpm-alpine
+
+# System dependencies
+RUN apk add --no-cache \
+    git \
+    curl \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    freetype-dev \
+    zip \
+    libzip-dev \
+    oniguruma-dev \
+    icu-dev \
+    linux-headers \
+    shadow
+
+# PHP extensions (same as dev image)
+RUN docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
+    && docker-php-ext-install -j$(nproc) \
+        pdo_mysql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        zip \
+        intl \
+        opcache
+
+# Redis extension via PECL
+RUN pecl install redis && docker-php-ext-enable redis
+
+# OPcache production tuning
+RUN { \
+    echo 'opcache.enable=1'; \
+    echo 'opcache.memory_consumption=128'; \
+    echo 'opcache.interned_strings_buffer=16'; \
+    echo 'opcache.max_accelerated_files=10000'; \
+    echo 'opcache.revalidate_freq=60'; \
+    echo 'opcache.validate_timestamps=0'; \
+    echo 'opcache.fast_shutdown=1'; \
+} > /usr/local/etc/php/conf.d/opcache.ini
+
+# Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Create non-root app user
+RUN groupadd -g 1000 appgroup && useradd -u 1000 -g appgroup -s /bin/sh -m appuser
+
+WORKDIR /var/www
+
+# Copy backend application code
+COPY backend/ backend/
+
+# Copy built frontend assets (placed at /var/www/public/build for nginx to serve)
+COPY --from=frontend-builder /app/public/build public/build/
+
+# Install PHP dependencies (production, no dev packages)
+WORKDIR /var/www/backend
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+# Set permissions
+RUN chown -R appuser:appgroup /var/www/backend/storage \
+    && chown -R appuser:appgroup /var/www/backend/bootstrap/cache \
+    && chmod -R 775 /var/www/backend/storage \
+    && chmod -R 775 /var/www/backend/bootstrap/cache
+
+USER appuser
+
+EXPOSE 9000
+CMD ["php-fpm"]

@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -20,6 +21,8 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
       dts: 'src/auto-imports.d.ts',
     }),
+    // Bundle size visualizer — generates bundle-stats.html after `npm run build`
+    visualizer({ filename: 'bundle-stats.html', gzipSize: true, brotliSize: true }),
   ],
   resolve: {
     alias: {
@@ -27,6 +30,7 @@ export default defineConfig({
     },
   },
   server: {
+    host: '0.0.0.0',
     port: 5173,
     proxy: {
       '/api': {
@@ -34,6 +38,11 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  build: {
+    outDir: '../public/build',
+    emptyOutDir: true,
+    manifest: true,
   },
 })
 
