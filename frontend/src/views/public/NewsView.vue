@@ -2,11 +2,14 @@
 import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 
-/* ─── Types ──────────────────────────────────── */
-interface Post {
+usePageMeta({
+  title: t('news.pageTitle'),
+  description: t('news.pageDesc'),
+})
   id: number
   slug: string
   title: string

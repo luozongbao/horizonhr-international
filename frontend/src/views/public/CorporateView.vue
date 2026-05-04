@@ -4,9 +4,15 @@ import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
 import { useSanitize } from '@/composables/useSanitize'
 import type { ContactPayload } from '@/api/public'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 const { sanitize } = useSanitize()
+
+usePageMeta({
+  title: t('corporate.pageTitle'),
+  description: t('corporate.pageDesc'),
+})
 
 /* ─── CMS ─────────────────────────────────────────── */
 interface CmsPage {
@@ -101,7 +107,7 @@ async function handleSubmit() {
     form.value = { company_name: '', name: '', email: '', phone: '', message: '' }
   } catch (err: unknown) {
     const e = err as { response?: { data?: { message?: string } } }
-    submitError.value = e?.response?.data?.message ?? 'Submission failed. Please try again.'
+    submitError.value = e?.response?.data?.message ?? t('corporate.submitFailed')
   } finally {
     submitting.value = false
   }

@@ -3,8 +3,14 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
 import type { ContactPayload } from '@/api/public'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
+
+usePageMeta({
+  title: t('contact.pageTitle'),
+  description: t('contact.pageDesc'),
+})
 
 /* ─── CMS contact info ───────────────────────── */
 interface ContactMeta {
@@ -58,7 +64,7 @@ const formRules = {
   subject: [{ required: true, message: 'Subject is required', trigger: 'blur' }],
   message: [
     { required: true, message: 'Message is required', trigger: 'blur' },
-    { max: 2000, message: 'Message cannot exceed 2000 characters', trigger: 'blur' },
+    { max: 2000, message: t('contact.messageMaxLength'), trigger: 'blur' },
   ],
 }
 
@@ -138,7 +144,7 @@ onMounted(fetchContactPage)
             <div v-if="asArray(contactInfo?.phone).length" class="info-card">
               <div class="info-icon">&#128222;</div>
               <div class="info-body">
-                <h3 class="info-label">Phone</h3>
+                <h3 class="info-label">{{ t('contact.infoPhone') }}</h3>
                 <p v-for="ph in asArray(contactInfo?.phone)" :key="ph" class="info-value">
                   <a :href="`tel:${ph}`">{{ ph }}</a>
                 </p>
@@ -147,7 +153,7 @@ onMounted(fetchContactPage)
             <div v-else class="info-card">
               <div class="info-icon">&#128222;</div>
               <div class="info-body">
-                <h3 class="info-label">Phone</h3>
+                <h3 class="info-label">{{ t('contact.infoPhone') }}</h3>
                 <p class="info-value">+86 xxx xxxx xxxx</p>
               </div>
             </div>
@@ -156,7 +162,7 @@ onMounted(fetchContactPage)
             <div v-if="asArray(contactInfo?.email).length" class="info-card">
               <div class="info-icon">&#128140;</div>
               <div class="info-body">
-                <h3 class="info-label">Email</h3>
+                <h3 class="info-label">{{ t('contact.infoEmail') }}</h3>
                 <p v-for="em in asArray(contactInfo?.email)" :key="em" class="info-value">
                   <a :href="`mailto:${em}`">{{ em }}</a>
                 </p>
@@ -165,7 +171,7 @@ onMounted(fetchContactPage)
             <div v-else class="info-card">
               <div class="info-icon">&#128140;</div>
               <div class="info-body">
-                <h3 class="info-label">Email</h3>
+                <h3 class="info-label">{{ t('contact.infoEmail') }}</h3>
                 <p class="info-value">info@horizon-international.com</p>
               </div>
             </div>
@@ -174,7 +180,7 @@ onMounted(fetchContactPage)
             <div class="info-card">
               <div class="info-icon">&#128205;</div>
               <div class="info-body">
-                <h3 class="info-label">Address</h3>
+                <h3 class="info-label">{{ t('contact.infoAddress') }}</h3>
                 <p class="info-value">{{ contactInfo?.address ?? 'Hubei, China' }}</p>
               </div>
             </div>
@@ -183,7 +189,7 @@ onMounted(fetchContactPage)
             <div v-if="contactInfo?.office_hours" class="info-card">
               <div class="info-icon">&#128336;</div>
               <div class="info-body">
-                <h3 class="info-label">Office Hours</h3>
+                <h3 class="info-label">{{ t('contact.infoOfficeHours') }}</h3>
                 <p class="info-value">{{ contactInfo.office_hours }}</p>
               </div>
             </div>

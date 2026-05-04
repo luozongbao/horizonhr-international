@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
 import { useAuthStore } from '@/stores/auth'
 import { useSanitize } from '@/composables/useSanitize'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -45,6 +46,12 @@ const isRegistered = ref(false)
 const registering = ref(false)
 const actionMsg = ref('')
 const actionError = ref('')
+
+usePageMeta({
+  title: computed(() => seminar.value?.title ?? t('seminar.pageTitle')),
+  description: computed(() => seminar.value?.description),
+  image: computed(() => seminar.value?.thumbnail_url),
+})
 
 /* ─── Fetch ──────────────────────────────────── */
 async function fetchSeminar() {

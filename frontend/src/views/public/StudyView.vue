@@ -3,9 +3,15 @@ import { ref, watch, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
 import { useSanitize } from '@/composables/useSanitize'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 const { sanitize } = useSanitize()
+
+usePageMeta({
+  title: t('studyInChina.pageTitle'),
+  description: t('studyInChina.pageDesc'),
+})
 
 /* ─── Types ─────────────────────────────────────────── */
 interface CmsPage {

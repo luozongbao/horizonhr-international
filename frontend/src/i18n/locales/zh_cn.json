@@ -169,11 +169,148 @@
     }
   },
   "enterprise": {
-    "dashboard": "控制台",
-    "profile": "公司资料",
-    "jobs": "职位发布",
-    "talent": "人才搜索",
-    "interviews": "面试管理"
+    "dashboard": {
+      "pageTitle": "控制台",
+      "pendingBanner": "您的账号正在等待管理员审核，审核通过前无法发布职位。",
+      "welcomeBack": "欢迎回来",
+      "recentApplications": "最新申请",
+      "upcomingInterviews": "即将面试",
+      "myJobs": "我的职位",
+      "stats": {
+        "activeJobs": "在招职位",
+        "applications": "申请数量",
+        "interviews": "面试安排",
+        "talentViewed": "人才浏览"
+      }
+    },
+    "profile": {
+      "title": "公司资料",
+      "uploadLogo": "上传Logo",
+      "companyInfo": "公司信息",
+      "contactPerson": "联系人",
+      "companyName": "公司名称",
+      "industry": "行业",
+      "companySize": "公司规模",
+      "website": "官网地址",
+      "contactEmail": "联系邮箱",
+      "contactPhone": "联系电话",
+      "foundedYear": "成立年份",
+      "description": "公司简介",
+      "officeLocations": "办公地点",
+      "contactName": "联系人姓名",
+      "contactPosition": "联系人职位",
+      "saveSuccess": "资料已更新。",
+      "descriptionTabs": {
+        "en": "英文",
+        "zh_cn": "中文",
+        "th": "泰文"
+      }
+    },
+    "jobs": {
+      "pageTitle": "职位管理",
+      "postNewJob": "发布职位",
+      "editJob": "编辑职位",
+      "jobTitle": "职位名称",
+      "jobType": "职位类型",
+      "location": "工作地点",
+      "salaryRange": "薪资范围",
+      "notDisclosed": "薪资面议",
+      "deadline": "截止日期",
+      "saveAsDraft": "保存草稿",
+      "publish": "发布",
+      "unpublish": "下架",
+      "viewApplications": "查看申请",
+      "applications": "申请",
+      "deleteConfirm": "确认删除此职位？此操作无法撤销。",
+      "noJobs": "暂无职位。",
+      "description": "职位描述",
+      "requirements": "任职要求",
+      "industry": "行业",
+      "allStatuses": "全部",
+      "status": {
+        "draft": "草稿",
+        "published": "已发布",
+        "closed": "已关闭"
+      },
+      "jobTypes": {
+        "full_time": "全职",
+        "part_time": "兼职",
+        "internship": "实习",
+        "remote": "远程"
+      }
+    },
+    "appReview": {
+      "title": "申请列表",
+      "studentName": "学生",
+      "appliedDate": "申请日期",
+      "status": "状态",
+      "viewResume": "查看简历",
+      "noApplications": "暂无申请。",
+      "statusOptions": {
+        "pending": "待处理",
+        "reviewed": "已查看",
+        "accepted": "已录用",
+        "rejected": "已拒绝"
+      }
+    },
+    "talent": {
+      "pageTitle": "人才搜索",
+      "searchPlaceholder": "搜索姓名、技能、学校或专业...",
+      "filterNationality": "国籍",
+      "filterEducation": "学历",
+      "filterLanguage": "语言",
+      "filterAvailability": "求职类型",
+      "allNationalities": "全部",
+      "allEducation": "全部学历",
+      "allLanguages": "全部语言",
+      "allAvailability": "全部",
+      "resultsFound": "找到 {count} 位人才",
+      "viewResume": "查看简历",
+      "inviteInterview": "邀请面试",
+      "scheduleInterview": "安排面试",
+      "downloadResume": "下载PDF",
+      "noResults": "未找到符合条件的候选人"
+    },
+    "interviews": {
+      "pageTitle": "面试管理",
+      "scheduleNew": "安排新面试",
+      "title": "面试标题",
+      "studentName": "学生",
+      "scheduledAt": "面试时间",
+      "duration": "时长",
+      "durationOptions": {
+        "30": "30分钟",
+        "45": "45分钟",
+        "60": "1小时",
+        "90": "1.5小时"
+      },
+      "interviewer": "面试官姓名",
+      "notes": "候选人备注",
+      "result": "面试结果",
+      "resultOptions": {
+        "pass": "通过",
+        "fail": "未通过",
+        "pending": "待定"
+      },
+      "resultNotes": "结果备注",
+      "markComplete": "标记完成",
+      "cancel": "取消面试",
+      "cancelConfirm": "确定要取消此面试吗？",
+      "joinInterview": "进入面试",
+      "edit": "编辑面试",
+      "allStatuses": "全部",
+      "noInterviews": "暂无面试记录。",
+      "status": {
+        "scheduled": "已安排",
+        "ongoing": "进行中",
+        "completed": "已完成",
+        "cancelled": "已取消"
+      },
+      "scheduleSuccess": "面试安排成功。",
+      "updateSuccess": "面试更新成功。",
+      "cancelSuccess": "面试已取消。",
+      "completeSuccess": "面试已标记为完成。"
+    }
   },
   "admin": {
     "dashboard": "控制台",
@@ -274,7 +411,11 @@
       "title": "开启您在中国的旅程",
       "registerStudent": "学生注册",
       "corporate": "企业合作"
-    }
+    },
+    "slide2Title": "在中国找到您的职业",
+    "slide2Desc": "数千个领先中国企业的工作机会",
+    "slide3Title": "直播在线研讨会",
+    "slide3Desc": "通过我们的研讨会平台与大学和雇主建立联系"
   },
   "about": {
     "pageTitle": "关于我们",
@@ -287,7 +428,12 @@
     "defaultVision": "成为连接东南亚人才与中国教育及经济机遇的领先平台。",
     "defaultStory": "湖北豪睿国际人才服务有限公司以架起东南亚与中国人才桥梁为愿景而创立。凭借10余年的丰富经验，我们已建立起强大的高校和企业合作网络。",
     "joinUs": "加入我们的网络",
-    "contactUs": "联系我们"
+    "contactUs": "联系我们",
+    "tagProfessional": "专业",
+    "tagInternational": "国际化",
+    "tagReliable": "可靠",
+    "tagClosedLoop": "闭环服务",
+    "pageDesc": "了解更多关于华域国际的信息，了解我们的使命，以及我们如何将东南亚人才与中国大学和企业联系起来。"
   },
   "studyInChina": {
     "pageTitle": "留学中国",
@@ -320,7 +466,8 @@
     "introTitle": "您进入中国高校的通道",
     "noUniversities": "未找到大学",
     "universityDetail": "大学详情",
-    "close": "关闭"
+    "close": "关闭",
+    "pageDesc": "在华域国际的支持下，探索在中国顶尖大学学习的机会。"
   },
   "talent": {
     "pageTitle": "人才库",
@@ -381,7 +528,9 @@
     "benefit3": "全流程服务",
     "benefit3Desc": "从招募到入职，我们全程处理",
     "benefit4": "双语支持",
-    "benefit4Desc": "我们的团队支持中文和东南亚语言"
+    "benefit4Desc": "我们的团队支持中文和东南亚语言",
+    "submitFailed": "提交失败，请重试。",
+    "pageDesc": "与华域国际合作，为您的企业获取东南亚人才。"
   },
   "news": {
     "pageTitle": "新闻资讯",
@@ -391,7 +540,8 @@
     "backToNews": "返回新闻列表",
     "noResults": "暂无相关文章",
     "allCategories": "全部分类",
-    "searchPlaceholder": "搜索文章..."
+    "searchPlaceholder": "搜索文章...",
+    "pageDesc": "了解华域国际的最新新闻和动态。"
   },
   "contact": {
     "pageTitle": "联系我们",
@@ -406,7 +556,13 @@
     "tooManyRequests": "提交次数过多，请一小时后再试。",
     "officeInfo": "办公室信息",
     "getInTouch": "联系方式",
-    "followUs": "关注我们"
+    "followUs": "关注我们",
+    "infoPhone": "电话",
+    "infoEmail": "邮箱",
+    "infoAddress": "地址",
+    "infoOfficeHours": "办公时间",
+    "messageMaxLength": "留言不能超过2000个字符",
+    "pageDesc": "联系华域国际团队，咨询在华留学或企业合作相关问题。"
   },
   "seminar": {
     "pageTitle": "研讨会中心",
@@ -439,7 +595,8 @@
     "registrationSuccess": "报名成功！我们将通过邮件提醒您。",
     "registrationCancelled": "已取消报名。",
     "liveNow": "直播",
-    "minutes": "分钟"
+    "minutes": "分钟",
+    "pageDesc": "加入我们的直播研讨会，与大学和雇主建立联系。"
   },
   "seminarWatch": {
     "streamNotStarted": "直播尚未开始，请稍等...",
@@ -491,7 +648,12 @@
     "selectJob": "选择一个职位查看详情",
     "requirements": "任职要求",
     "description": "职位描述",
-    "companyInfo": "公司介绍"
+    "companyInfo": "公司介绍",
+    "industry": "行业",
+    "companySize": "公司规模",
+    "onlyStudentsApply": "只有学生可以申请工作。",
+    "applyFailed": "申请提交失败。",
+    "pageDesc": "为东南亚人才浏览中国领先企业的职位机会。"
   },
   "applications": {
     "pageTitle": "我的申请",
@@ -570,149 +732,6 @@
     "watch": "观看",
     "live": "直播中",
     "pageTitle": "研讨会"
-  },
-  "enterprise": {
-    "dashboard": {
-      "pageTitle": "控制台",
-      "pendingBanner": "您的账号正在等待管理员审核，审核通过前无法发布职位。",
-      "welcomeBack": "欢迎回来",
-      "recentApplications": "最新申请",
-      "upcomingInterviews": "即将面试",
-      "myJobs": "我的职位",
-      "stats": {
-        "activeJobs": "在招职位",
-        "applications": "申请数量",
-        "interviews": "面试安排",
-        "talentViewed": "人才浏览"
-      }
-    },
-    "profile": {
-      "title": "公司资料",
-      "uploadLogo": "上传Logo",
-      "companyInfo": "公司信息",
-      "contactPerson": "联系人",
-      "companyName": "公司名称",
-      "industry": "行业",
-      "companySize": "公司规模",
-      "website": "官网地址",
-      "contactEmail": "联系邮箱",
-      "contactPhone": "联系电话",
-      "foundedYear": "成立年份",
-      "description": "公司简介",
-      "officeLocations": "办公地点",
-      "contactName": "联系人姓名",
-      "contactPosition": "联系人职位",
-      "saveSuccess": "资料已更新。",
-      "descriptionTabs": {
-        "en": "英文",
-        "zh_cn": "中文",
-        "th": "泰文"
-      }
-    },
-    "jobs": {
-      "pageTitle": "职位管理",
-      "postNewJob": "发布职位",
-      "editJob": "编辑职位",
-      "jobTitle": "职位名称",
-      "jobType": "职位类型",
-      "location": "工作地点",
-      "salaryRange": "薪资范围",
-      "notDisclosed": "薪资面议",
-      "deadline": "截止日期",
-      "saveAsDraft": "保存草稿",
-      "publish": "发布",
-      "unpublish": "下架",
-      "viewApplications": "查看申请",
-      "applications": "申请",
-      "deleteConfirm": "确认删除此职位？此操作无法撤销。",
-      "noJobs": "暂无职位。",
-      "description": "职位描述",
-      "requirements": "任职要求",
-      "industry": "行业",
-      "allStatuses": "全部",
-      "status": {
-        "draft": "草稿",
-        "published": "已发布",
-        "closed": "已关闭"
-      },
-      "jobTypes": {
-        "full_time": "全职",
-        "part_time": "兼职",
-        "internship": "实习",
-        "remote": "远程"
-      }
-    },
-    "appReview": {
-      "title": "申请列表",
-      "studentName": "学生",
-      "appliedDate": "申请日期",
-      "status": "状态",
-      "viewResume": "查看简历",
-      "noApplications": "暂无申请。",
-      "statusOptions": {
-        "pending": "待处理",
-        "reviewed": "已查看",
-        "accepted": "已录用",
-        "rejected": "已拒绝"
-      }    },
-    "talent": {
-      "pageTitle": "人才搜索",
-      "searchPlaceholder": "搜索姓名、技能、学校或专业...",
-      "filterNationality": "国籍",
-      "filterEducation": "学历",
-      "filterLanguage": "语言",
-      "filterAvailability": "求职类型",
-      "allNationalities": "全部",
-      "allEducation": "全部学历",
-      "allLanguages": "全部语言",
-      "allAvailability": "全部",
-      "resultsFound": "找到 {count} 位人才",
-      "viewResume": "查看简历",
-      "inviteInterview": "邀请面试",
-      "scheduleInterview": "安排面试",
-      "downloadResume": "下载PDF",
-      "noResults": "未找到符合条件的候选人"
-    },
-    "interviews": {
-      "pageTitle": "面试管理",
-      "scheduleNew": "安排新面试",
-      "title": "面试标题",
-      "studentName": "学生",
-      "scheduledAt": "面试时间",
-      "duration": "时长",
-      "durationOptions": {
-        "30": "30分钟",
-        "45": "45分钟",
-        "60": "1小时",
-        "90": "1.5小时"
-      },
-      "interviewer": "面试官姓名",
-      "notes": "候选人备注",
-      "result": "面试结果",
-      "resultOptions": {
-        "pass": "通过",
-        "fail": "未通过",
-        "pending": "待定"
-      },
-      "resultNotes": "结果备注",
-      "markComplete": "标记完成",
-      "cancel": "取消面试",
-      "cancelConfirm": "确定要取消此面试吗？",
-      "joinInterview": "进入面试",
-      "edit": "编辑面试",
-      "allStatuses": "全部",
-      "noInterviews": "暂无面试记录。",
-      "status": {
-        "scheduled": "已安排",
-        "ongoing": "进行中",
-        "completed": "已完成",
-        "cancelled": "已取消"
-      },
-      "scheduleSuccess": "面试安排成功。",
-      "updateSuccess": "面试更新成功。",
-      "cancelSuccess": "面试已取消。",
-      "completeSuccess": "面试已标记为完成。"
-    }
   },
   "adminDashboard": {
     "title": "管理控制台",

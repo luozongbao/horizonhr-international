@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
 import { useSanitize } from '@/composables/useSanitize'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -27,6 +28,13 @@ const post = ref<Post | null>(null)
 const related = ref<Post[]>([])
 const loading = ref(true)
 const error = ref(false)
+
+usePageMeta({
+  title: computed(() => post.value?.title ?? t('news.pageTitle')),
+  description: computed(() => post.value?.excerpt),
+  image: computed(() => post.value?.thumbnail_url),
+  type: 'article',
+})
 
 /* ─── Fetch ──────────────────────────────────── */
 async function fetchPost(slug: string) {

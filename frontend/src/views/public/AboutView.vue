@@ -3,9 +3,15 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
 import { useSanitize } from '@/composables/useSanitize'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 const { sanitize } = useSanitize()
+
+usePageMeta({
+  title: t('about.pageTitle'),
+  description: t('about.pageDesc'),
+})
 
 interface CmsPage {
   title?: string
@@ -102,10 +108,10 @@ function getMeta(key: string, fallback: string): string {
               ></div>
               <p v-else class="story-text">{{ t('about.defaultStory') }}</p>
               <div class="story-tags">
-                <span class="tag">Professional</span>
-                <span class="tag">International</span>
-                <span class="tag">Reliable</span>
-                <span class="tag">Closed-loop</span>
+                <span class="tag">{{ t('about.tagProfessional') }}</span>
+                <span class="tag">{{ t('about.tagInternational') }}</span>
+                <span class="tag">{{ t('about.tagReliable') }}</span>
+                <span class="tag">{{ t('about.tagClosedLoop') }}</span>
               </div>
               <div class="story-actions">
                 <router-link to="/contact">

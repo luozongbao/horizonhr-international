@@ -2,8 +2,14 @@
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { publicApi } from '@/api/public'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
+
+usePageMeta({
+  title: t('nav.home'),
+  description: t('home.heroSubtitle'),
+})
 
 interface Seminar {
   id: number
@@ -50,14 +56,14 @@ const slides = ref<Slide[]>([
     cta_url: '/study',
   },
   {
-    headline: 'Find Your Career in China',
-    sub_headline: 'Thousands of job opportunities at leading Chinese enterprises',
+    headline: t('home.slide2Title'),
+    sub_headline: t('home.slide2Desc'),
     cta_text: t('home.talentPool'),
     cta_url: '/talent',
   },
   {
-    headline: 'Live Online Seminars',
-    sub_headline: 'Connect with universities and employers through our seminar platform',
+    headline: t('home.slide3Title'),
+    sub_headline: t('home.slide3Desc'),
     cta_text: t('nav.seminars'),
     cta_url: '/seminars',
   },

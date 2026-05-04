@@ -7,11 +7,17 @@ import { useAuthStore } from '@/stores/auth'
 import jobsApi from '@/api/jobs'
 import studentApi from '@/api/student'
 import { useSanitize } from '@/composables/useSanitize'
+import { usePageMeta } from '@/composables/usePageMeta'
 
 const { t } = useI18n()
 const router = useRouter()
 const auth = useAuthStore()
 const { sanitize } = useSanitize()
+
+usePageMeta({
+  title: t('jobs.pageTitle'),
+  description: t('jobs.pageDesc'),
+})
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Job {
@@ -171,7 +177,7 @@ async function apply(job: Job) {
   }
 
   if (!auth.isStudent) {
-    ElMessage.warning('Only students can apply for jobs.')
+    ElMessage.warning(t('jobs.onlyStudentsApply'))
     return
   }
 
@@ -184,7 +190,7 @@ async function apply(job: Job) {
     await ElMessageBox.confirm(
       t('jobs.applyConfirm', { jobTitle: job.title, company: job.company_name }),
       t('jobs.applyNow'),
-      { type: 'info', confirmButtonText: t('jobs.applyNow'), cancelButtonText: 'Cancel' },
+      { type: 'info', confirmButtonText: t('jobs.applyNow'), cancelButtonText: t('common.cancel') },
     )
   } catch {
     return
@@ -201,7 +207,7 @@ async function apply(job: Job) {
     ElMessage.success(t('jobs.applySuccess'))
   } catch (e: unknown) {
     const err = e as { response?: { data?: { message?: string } } }
-    ElMessage.error(err.response?.data?.message ?? 'Failed to submit application.')
+    ElMessage.error(err.response?.data?.message ?? t('jobs.applyFailed'))
   } finally {
     applyingJobId.value = null
   }
@@ -419,11 +425,11 @@ const canApply = computed(() => {
               <h3 class="section-heading">{{ t('jobs.companyInfo') }}</h3>
               <div class="company-info-grid">
                 <div v-if="selectedJob.industry" class="info-item">
-                  <span class="info-label">Industry</span>
+                  <span class="info-label">{{ t('jobs.industry') }}</span>
                   <span class="info-value">{{ selectedJob.industry }}</span>
                 </div>
                 <div v-if="selectedJob.company_size" class="info-item">
-                  <span class="info-label">Company Size</span>
+                  <span class="info-label">{{ t('jobs.companySize') }}</span>
                   <span class="info-value">{{ selectedJob.company_size }}</span>
                 </div>
               </div>

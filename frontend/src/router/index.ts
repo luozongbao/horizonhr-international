@@ -119,37 +119,37 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-          component: () => import('@/views/student/DashboardView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/DashboardView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
           path: 'profile',
-          component: () => import('@/views/student/ProfileView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/ProfileView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
           path: 'resume',
-          component: () => import('@/views/student/ResumeView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/ResumeView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
           path: 'applications',
-          component: () => import('@/views/student/ApplicationsView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/ApplicationsView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
           path: 'interviews',
-          component: () => import('@/views/student/InterviewsView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/InterviewsView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
           path: 'interviews/:id',
-          component: () => import('@/views/student/InterviewRoomView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/InterviewRoomView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
         {
           path: 'seminars',
-          component: () => import('@/views/student/SeminarsView.vue'),
+          component: () => import(/* webpackChunkName: "student" */ '@/views/student/SeminarsView.vue'),
           meta: { layout: 'student', requiresAuth: true, role: 'student' },
         },
       ],
@@ -163,32 +163,32 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-          component: () => import('@/views/enterprise/DashboardView.vue'),
+          component: () => import(/* webpackChunkName: "enterprise" */ '@/views/enterprise/DashboardView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
         {
           path: 'profile',
-          component: () => import('@/views/enterprise/ProfileView.vue'),
+          component: () => import(/* webpackChunkName: "enterprise" */ '@/views/enterprise/ProfileView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
         {
           path: 'jobs',
-          component: () => import('@/views/enterprise/JobsView.vue'),
+          component: () => import(/* webpackChunkName: "enterprise" */ '@/views/enterprise/JobsView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
         {
           path: 'talent',
-          component: () => import('@/views/enterprise/TalentView.vue'),
+          component: () => import(/* webpackChunkName: "enterprise" */ '@/views/enterprise/TalentView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
         {
           path: 'interviews',
-          component: () => import('@/views/enterprise/InterviewsView.vue'),
+          component: () => import(/* webpackChunkName: "enterprise" */ '@/views/enterprise/InterviewsView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
         {
           path: 'interviews/:id',
-          component: () => import('@/views/enterprise/InterviewRoomView.vue'),
+          component: () => import(/* webpackChunkName: "enterprise" */ '@/views/enterprise/InterviewRoomView.vue'),
           meta: { layout: 'enterprise', requiresAuth: true, role: 'enterprise' },
         },
       ],
@@ -202,57 +202,57 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-          component: () => import('@/views/admin/DashboardView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/DashboardView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'users',
-          component: () => import('@/views/admin/UsersView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/UsersView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'resumes',
-          component: () => import('@/views/admin/ResumesView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/ResumesView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'interviews',
-          component: () => import('@/views/admin/InterviewsView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/InterviewsView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'seminars',
-          component: () => import('@/views/admin/SeminarsView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/SeminarsView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'news',
-          component: () => import('@/views/admin/AnnouncementsView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/AnnouncementsView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'pages',
-          component: () => import('@/views/admin/CmsPagesView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/CmsPagesView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'posts',
-          component: () => import('@/views/admin/CmsPostsView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/CmsPostsView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'contacts',
-          component: () => import('@/views/admin/ContactsView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/ContactsView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'settings',
-          component: () => import('@/views/admin/SettingsView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/SettingsView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
         {
           path: 'languages',
-          component: () => import('@/views/admin/LanguagesView.vue'),
+          component: () => import(/* webpackChunkName: "admin" */ '@/views/admin/LanguagesView.vue'),
           meta: { layout: 'admin', requiresAuth: true, role: 'admin' },
         },
       ],
