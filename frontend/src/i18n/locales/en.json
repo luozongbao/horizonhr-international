@@ -724,5 +724,24 @@
     "suspendSuccess": "User suspended.",
     "activateSuccess": "User activated.",
     "deleteSuccess": "User deleted."
+  },
+  "adminResumes": {
+    "pageTitle": "Resume Management",
+    "submittedDate": "Submitted",
+    "approve": "Approve",
+    "reject": "Reject",
+    "rejectReason": "Rejection Reason",
+    "rejectReasonPlaceholder": "Please provide a clear reason...",
+    "approveConfirm": "Approve this resume?",
+    "openResume": "Open Resume",
+    "studentInfo": "Student Information",
+    "noResumes": "No resumes found.",
+    "approveSuccess": "Resume approved.",
+    "rejectSuccess": "Resume rejected.",
+    "filterStatus": "Status",
+    "filterDateRange": "Submission Date Range",
+    "fileName": "File Name",
+    "fileSize": "File Size",
+    "uploadDate": "Upload Date"
   }
 }

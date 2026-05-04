@@ -22,6 +22,15 @@ export interface CreateAdminData {
   password_confirmation: string
 }
 
+export interface ResumeParams {
+  search?: string
+  status?: string
+  date_from?: string
+  date_to?: string
+  per_page?: number
+  page?: number
+}
+
 // ─── API module ───────────────────────────────────────────────────────────────
 
 export const adminApi = {
@@ -52,6 +61,24 @@ export const adminApi = {
   /** Create a new admin user */
   createAdmin: (data: CreateAdminData) =>
     api.post('/admin/users', { ...data, role: 'admin' }),
+
+  // ─── Resumes ───────────────────────────────────────────────────────────────
+
+  /** List all resumes (paginated, filterable) */
+  getResumes: (params?: ResumeParams) =>
+    api.get('/admin/resumes', { params }),
+
+  /** Get resume detail including presigned download URL */
+  getResume: (id: number) =>
+    api.get(`/admin/resumes/${id}`),
+
+  /** Approve a resume */
+  approveResume: (id: number) =>
+    api.put(`/admin/resumes/${id}/approve`),
+
+  /** Reject a resume with reason */
+  rejectResume: (id: number, reason: string) =>
+    api.put(`/admin/resumes/${id}/reject`, { reason }),
 }
 
 export default adminApi

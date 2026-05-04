@@ -723,5 +723,24 @@
     "suspendSuccess": "ระงับการใช้งานแล้ว",
     "activateSuccess": "เปิดใช้งานแล้ว",
     "deleteSuccess": "ลบผู้ใช้แล้ว"
+  },
+  "adminResumes": {
+    "pageTitle": "จัดการเรซูเม่",
+    "submittedDate": "วันที่ส่ง",
+    "approve": "อนุมัติ",
+    "reject": "ปฏิเสธ",
+    "rejectReason": "เหตุผลการปฏิเสธ",
+    "rejectReasonPlaceholder": "กรุณาระบุเหตุผลที่ชัดเจน...",
+    "approveConfirm": "อนุมัติเรซูเม่นี้?",
+    "openResume": "เปิดเรซูเม่",
+    "studentInfo": "ข้อมูลนักศึกษา",
+    "noResumes": "ไม่พบเรซูเม่",
+    "approveSuccess": "อนุมัติเรซูเม่แล้ว",
+    "rejectSuccess": "ปฏิเสธเรซูเม่แล้ว",
+    "filterStatus": "สถานะ",
+    "filterDateRange": "ช่วงวันที่ส่ง",
+    "fileName": "ชื่อไฟล์",
+    "fileSize": "ขนาดไฟล์",
+    "uploadDate": "วันที่อัปโหลด"
   }
 }

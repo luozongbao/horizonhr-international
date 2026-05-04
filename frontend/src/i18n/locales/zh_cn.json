@@ -723,5 +723,24 @@
     "suspendSuccess": "用户已封禁。",
     "activateSuccess": "用户已激活。",
     "deleteSuccess": "用户已删除。"
+  },
+  "adminResumes": {
+    "pageTitle": "简历管理",
+    "submittedDate": "提交时间",
+    "approve": "审核通过",
+    "reject": "拒绝",
+    "rejectReason": "拒绝原因",
+    "rejectReasonPlaceholder": "请填写清晰的拒绝原因...",
+    "approveConfirm": "确认审核通过该简历？",
+    "openResume": "打开简历",
+    "studentInfo": "学生信息",
+    "noResumes": "未找到简历。",
+    "approveSuccess": "简历已审核通过。",
+    "rejectSuccess": "简历已拒绝。",
+    "filterStatus": "状态",
+    "filterDateRange": "提交日期范围",
+    "fileName": "文件名",
+    "fileSize": "文件大小",
+    "uploadDate": "上传时间"
   }
 }
