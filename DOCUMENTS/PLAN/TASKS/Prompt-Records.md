@@ -241,6 +241,29 @@ Implement DOCUMENTS/PLAN/TASKS/043-DEPLOYMENT.md และหลังจาก 
 
 ---
 
+Deploy ผ่านแต่ผมเข้า FE ที่ http://10.11.12.30 หน้าแรกขาวไม่มี content และใน console error: main.ts:3 Uncaught SyntaxError: The requested module '/node_modules/.vite/deps/@unhead_vue.js?v=7c3c1af2' does not provide an export named 'createHead' (at main.ts:3:10)
+
+---
+
+ขอบคุณครับ แต่ก็ยังไม่ได้ หน้า http://10.11.12.30 ก็ยังขาวไม่มี Content เหมือนเดิม แต่มี console error เปลี่ยนเป็น
+
+es-Q8eZ8xIH.js:1  GET http://10.11.12.30/node_modules/.vite/deps/chunk-CYJPkc-J.js?v=f831f794 net::ERR_ABORTED 504 (Outdated Optimize Dep)
+
+StudentLayout.vue:1  GET http://10.11.12.30/node_modules/.vite/deps/element-plus_es_components_dropdown_style_css.js?v=f831f794 net::ERR_ABORTED 504 (Outdated Optimize Dep)
+StudentLayout.vue:2  GET http://10.11.12.30/node_modules/.vite/deps/element-plus_es_components_dropdown-menu_style_css.js?v=f831f794 net::ERR_ABORTED 504 (Outdated Optimize Dep)
+StudentLayout.vue:3  GET http://10.11.12.30/node_modules/.vite/deps/element-plus_es_components_dropdown-item_style_css.js?v=f831f794 net::ERR_ABORTED 504 (Outdated Optimize Dep)
+StudentLayout.vue:4  GET http://10.11.12.30/node_modules/.vite/deps/element-plus_es_components_icon_style_css.js?v=f831f794 net::ERR_ABORTED 504 (Outdated Optimize Dep)
+StudentLayout.vue:5  GET http://10.11.12.30/node_modules/.vite/deps/element-plus_es_components_avatar_style_css.js?v=f831f794 net::ERR_ABORTED 504 (Outdated Optimize Dep)
 
 
 ---
+
+หยุดก่อนละกันเดี๋ยวค่อยมาดู Front End กันใหม่ 
+
+ตอนนี้ทำใบงานต่อก่อนดีกว่า
+
+Implement DOCUMENTS/PLAN/TASKS/045-TEST-BACKEND-AUTH-API.md
+
+---
+
+Implement DOCUMENTS/PLAN/TASKS/046-TEST-BACKEND-CORE-API.md

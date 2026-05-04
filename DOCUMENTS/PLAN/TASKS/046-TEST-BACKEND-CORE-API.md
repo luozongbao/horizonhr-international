@@ -305,18 +305,54 @@ curl -s -X PATCH "$BASE_URL/admin/resumes/1/status" \
 
 ## Acceptance Criteria
 
-- [ ] Student profile can be created/updated via API
-- [ ] Resume upload succeeds and returns file reference
-- [ ] Resume visibility can be set to `admin`/`enterprise`/`public`
-- [ ] Enterprise profile can be created/updated
-- [ ] Enterprise can create and manage job listings
-- [ ] Enterprise can view talent pool (enterprise/public visibility only)
-- [ ] Public talent API returns only public-visibility students
-- [ ] Student can apply for a job; duplicate application is rejected
-- [ ] Enterprise can view and update application status
-- [ ] Student can view their own application history with status
-- [ ] Admin can view all resumes regardless of visibility
-- [ ] Admin can approve/reject resumes
+- [x] Student profile can be created/updated via API
+- [x] Resume upload succeeds and returns file reference
+- [x] Resume visibility can be set to `admin_only`/`enterprise_visible`/`public`
+- [x] Enterprise profile can be created/updated
+- [x] Enterprise can create and manage job listings
+- [x] Enterprise can view talent pool (enterprise/public visibility only)
+- [x] Public talent API returns only public-visibility students
+- [x] Student can apply for a job; duplicate application is rejected
+- [x] Enterprise can view and update application status
+- [x] Student can view their own application history with status
+- [x] Admin can view all resumes regardless of visibility
+- [x] Admin can approve/reject resumes
+
+---
+
+## Test Results (2026-05-04)
+
+| Test | Status | Notes |
+|------|--------|-------|
+| A1 Update Student Profile | ✅ PASS | Returns updated profile |
+| A2 Get Student Profile | ✅ PASS | Profile nested under `data.profile` |
+| B1 Upload Resume | ✅ PASS | Returns file URL from local storage |
+| B2 List My Resumes | ✅ PASS | Returns array of resumes |
+| B3 Update Resume Visibility | ✅ PASS | `PUT /student/resumes/{id}` |
+| B4 Oversized Upload (doc check) | ✅ PASS | Validation enforced |
+| C1 Update Enterprise Profile | ✅ PASS | `scale` must be enum: `small/medium/large/enterprise` |
+| C2 Create Job Listing | ✅ PASS | Created as `draft`; use `PUT /jobs/{id}/publish` to publish |
+| C3 List Enterprise Jobs | ✅ PASS | Returns paginated job list |
+| C4 View Talent Pool | ✅ PASS | Returns students with approved public/enterprise_visible resumes |
+| D1 Public Talent Pool (No Auth) | ✅ PASS | Returns public talent cards; no private data |
+| D2 Filter by Nationality | ✅ PASS | Filtering works correctly |
+| E1 Student Applies for Job | ✅ PASS | Application ID=1 created |
+| E2 Duplicate Application Rejected | ✅ PASS | `VALIDATION_ERROR` with clear message |
+| E3 Enterprise Views Job Applications | ✅ PASS | Returns application list |
+| E4 Enterprise Updates Application Status | ✅ PASS | `PUT /enterprise/applications/{id}/status` |
+| E5 Student Views Applications | ✅ PASS | Status `reviewed` reflected |
+| F1 Admin Views All Resumes | ✅ PASS | Admin sees all regardless of visibility |
+| F2 Admin Approves Resume | ✅ PASS | `PUT /admin/resumes/{id}/review` with `{status: "approved"}` |
+
+**Route corrections vs task doc:**
+- Resume update: `PUT /student/resumes/{id}` (not PATCH)
+- Enterprise talent: `GET /enterprise/talent` (not `/enterprise/talents`)
+- Public talent: `GET /public/talent` (not `/students`)
+- Application status: `PUT /enterprise/applications/{id}/status` (not PATCH)
+- Admin resume review: `PUT /admin/resumes/{id}/review` (not `/admin/resumes/{id}/status`)
+- Valid `visibility` values: `admin_only`, `enterprise_visible`, `public` (not `admin`/`enterprise`)
+- Valid `scale` values: `small`, `medium`, `large`, `enterprise` (not `50-200` etc.)
+- Talent pool requires TalentCard with `visible`/`featured` status + approved resume
 
 ---
 
