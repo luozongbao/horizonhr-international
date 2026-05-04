@@ -424,6 +424,28 @@
     "liveNow": "LIVE",
     "minutes": "min"
   },
+  "seminarWatch": {
+    "streamNotStarted": "The live stream has not started yet. Please wait...",
+    "streamNotAvailable": "Stream not yet available. Please wait...",
+    "streamEnded": "This live stream has ended.",
+    "retrying": "Connection lost. Retrying...",
+    "errorOccurred": "Unable to load stream. Please try again.",
+    "retry": "Retry",
+    "danmuPlaceholder": "Say something... (max 50 chars)",
+    "danmuSend": "Send",
+    "danmuRateLimit": "Please wait before sending again",
+    "danmuLoginRequired": "Login to send comments",
+    "speedControl": "Playback Speed",
+    "viewerCount": "{count} watching",
+    "liveNow": "LIVE",
+    "watchRecording": "Watch Recording",
+    "volume": "Volume",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit Fullscreen",
+    "speed": "Speed",
+    "mute": "Mute",
+    "unmute": "Unmute"
+  },
   "jobs": {
     "pageTitle": "Job Opportunities",
     "searchPlaceholder": "Search job title, keyword...",

@@ -424,6 +424,28 @@
     "liveNow": "สด",
     "minutes": "นาที"
   },
+  "seminarWatch": {
+    "streamNotStarted": "การถ่ายทอดสดยังไม่เริ่ม กรุณารอสักครู่...",
+    "streamNotAvailable": "สตรีมยังไม่พร้อม กรุณารอ...",
+    "streamEnded": "การถ่ายทอดสดสิ้นสุดแล้ว",
+    "retrying": "การเชื่อมต่อขาดหาย กำลังเชื่อมต่อใหม่...",
+    "errorOccurred": "ไม่สามารถโหลดสตรีมได้ กรุณาลองอีกครั้ง",
+    "retry": "ลองอีกครั้ง",
+    "danmuPlaceholder": "พูดอะไรสักอย่าง... (ไม่เกิน 50 ตัวอักษร)",
+    "danmuSend": "ส่ง",
+    "danmuRateLimit": "กรุณารอก่อนส่งอีกครั้ง",
+    "danmuLoginRequired": "เข้าสู่ระบบเพื่อส่งความคิดเห็น",
+    "speedControl": "ความเร็วในการเล่น",
+    "viewerCount": "{count} คนกำลังดู",
+    "liveNow": "สด",
+    "watchRecording": "ดูวิดีโอย้อนหลัง",
+    "volume": "ระดับเสียง",
+    "fullscreen": "เต็มหน้าจอ",
+    "exitFullscreen": "ออกจากเต็มหน้าจอ",
+    "speed": "ความเร็ว",
+    "mute": "ปิดเสียง",
+    "unmute": "เปิดเสียง"
+  },
   "jobs": {
     "pageTitle": "โอกาสงาน",
     "searchPlaceholder": "ค้นหาตำแหน่งงาน, คำสำคัญ...",

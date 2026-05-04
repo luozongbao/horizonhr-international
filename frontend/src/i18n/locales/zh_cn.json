@@ -424,6 +424,28 @@
     "liveNow": "直播",
     "minutes": "分钟"
   },
+  "seminarWatch": {
+    "streamNotStarted": "直播尚未开始，请稍等...",
+    "streamNotAvailable": "直播尚不可用，请稍后...",
+    "streamEnded": "本次直播已结束。",
+    "retrying": "连接中断，正在重连...",
+    "errorOccurred": "无法加载视频流，请重试。",
+    "retry": "重试",
+    "danmuPlaceholder": "说些什么...（最多50字）",
+    "danmuSend": "发送",
+    "danmuRateLimit": "请稍后再发送",
+    "danmuLoginRequired": "登录后发送弹幕",
+    "speedControl": "播放速度",
+    "viewerCount": "{count}人在看",
+    "liveNow": "直播中",
+    "watchRecording": "观看录像",
+    "volume": "音量",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "speed": "速度",
+    "mute": "静音",
+    "unmute": "取消静音"
+  },
   "jobs": {
     "pageTitle": "就业机会",
     "searchPlaceholder": "搜索职位、关键词...",
