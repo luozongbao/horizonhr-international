@@ -62,6 +62,23 @@
     "registerAsStudent": "นักศึกษา",
     "registerAsEnterprise": "องค์กร"
   },
+  "oauth": {
+    "continueWithGoogle": "เข้าสู่ระบบด้วย Google",
+    "continueWithFacebook": "เข้าสู่ระบบด้วย Facebook",
+    "continueWithLinkedIn": "เข้าสู่ระบบด้วย LinkedIn",
+    "continueWithWeChat": "เข้าสู่ระบบด้วย WeChat",
+    "orContinueWith": "หรือเข้าสู่ระบบด้วย",
+    "linking": "กำลังเชื่อมต่อบัญชี...",
+    "linked": "เชื่อมต่อแล้ว",
+    "unlink": "ยกเลิกการเชื่อมต่อ",
+    "linkAccount": "เชื่อมต่อบัญชี",
+    "errors": {
+      "accessDenied": "การอนุญาตถูกยกเลิก",
+      "accountTaken": "บัญชีสังคมนี้เชื่อมต่อกับผู้ใช้รายอื่นแล้ว",
+      "providerError": "เข้าสู่ระบบผ่านสังคมล้มเหลว กรุณาลองอีกครั้ง",
+      "cannotUnlink": "ไม่สามารถยกเลิกได้ นี่คือวิธีเข้าสู่ระบบเดียวของคุณ"
+    }
+  },
   "validation": {
     "emailRequired": "กรุณากรอกอีเมล",
     "emailInvalid": "กรุณากรอกอีเมลที่ถูกต้อง",

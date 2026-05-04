@@ -66,6 +66,12 @@ export const authApi = {
 
   confirmEmail: (token: string) =>
     api.get(`/auth/email/confirm/${token}`),
+
+  getSocialAccounts: () =>
+    api.get('/auth/social-accounts'),
+
+  unlinkSocialAccount: (provider: string) =>
+    api.delete(`/auth/social/${provider}`),
 }
 
 export default authApi

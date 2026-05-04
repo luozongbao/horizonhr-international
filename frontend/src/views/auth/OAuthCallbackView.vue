@@ -8,21 +8,47 @@ const { t } = useI18n()
 const router = useRouter()
 const auth   = useAuthStore()
 
-const failed = ref(false)
+const failed   = ref(false)
+const errorMsg = ref('')
+
+function resolveErrorMessage(errorCode: string | null): string {
+  if (!errorCode) return t('oauth.errors.providerError')
+  switch (errorCode.toLowerCase()) {
+    case 'access_denied':    return t('oauth.errors.accessDenied')
+    case 'account_taken':    return t('oauth.errors.accountTaken')
+    case 'provider_error':   return t('oauth.errors.providerError')
+    default:                 return decodeURIComponent(errorCode)
+  }
+}
 
 onMounted(async () => {
   // Backend redirects to /oauth/callback#token=xxx  or  /oauth/callback?token=xxx
-  const hash  = window.location.hash.slice(1)   // remove leading '#'
-  const search = window.location.search.slice(1) // remove leading '?'
+  // Also handles ?linked=google after account-linking flow
+  const hash   = window.location.hash.slice(1)
+  const search = window.location.search.slice(1)
 
   const hashParams  = new URLSearchParams(hash)
   const queryParams = new URLSearchParams(search)
 
-  const token = hashParams.get('token') ?? queryParams.get('token')
-  const error = hashParams.get('error') ?? queryParams.get('error')
+  const token  = hashParams.get('token')  ?? queryParams.get('token')
+  const error  = hashParams.get('error')  ?? queryParams.get('error')
+  const linked = queryParams.get('linked')  // e.g. ?linked=google → return to profile
 
-  if (error || !token) {
-    failed.value = true
+  // Post-linking redirect
+  if (linked) {
+    router.replace('/student/profile?linked=' + encodeURIComponent(linked))
+    return
+  }
+
+  if (error) {
+    failed.value    = true
+    errorMsg.value  = resolveErrorMessage(error)
+    return
+  }
+
+  if (!token) {
+    failed.value    = true
+    errorMsg.value  = resolveErrorMessage('provider_error')
     return
   }
 
@@ -31,7 +57,8 @@ onMounted(async () => {
     await auth.fetchProfile()
     router.replace(auth.redirectForRole())
   } catch {
-    failed.value = true
+    failed.value    = true
+    errorMsg.value  = resolveErrorMessage('provider_error')
   }
 })
 </script>
@@ -48,7 +75,7 @@ onMounted(async () => {
 
       <template v-else>
         <div class="status-icon">❌</div>
-        <p class="card-text">{{ t('auth.oauthError') }}</p>
+        <p class="card-text">{{ errorMsg || t('auth.oauthError') }}</p>
         <router-link to="/login">
           <el-button type="primary" size="large" class="card-btn">{{ t('auth.backToLogin') }}</el-button>
         </router-link>

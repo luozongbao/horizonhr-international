@@ -62,6 +62,23 @@
     "registerAsStudent": "学生",
     "registerAsEnterprise": "企业"
   },
+  "oauth": {
+    "continueWithGoogle": "使用 Google 登录",
+    "continueWithFacebook": "使用 Facebook 登录",
+    "continueWithLinkedIn": "使用 LinkedIn 登录",
+    "continueWithWeChat": "使用微信登录",
+    "orContinueWith": "或通过以下方式登录",
+    "linking": "正在关联账号...",
+    "linked": "已关联",
+    "unlink": "解除关联",
+    "linkAccount": "关联账号",
+    "errors": {
+      "accessDenied": "授权已被取消。",
+      "accountTaken": "该社交账号已关联到另一个用户。",
+      "providerError": "社交登录失败，请重试。",
+      "cannotUnlink": "无法解除关联，这是您唯一的登录方式。"
+    }
+  },
   "validation": {
     "emailRequired": "请输入电子邮箱",
     "emailInvalid": "请输入有效的电子邮箱地址",

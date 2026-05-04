@@ -3,6 +3,7 @@ import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { type FormInstance, type FormRules } from 'element-plus'
+import SocialLoginButtons from '@/components/auth/SocialLoginButtons.vue'
 import { authApi } from '@/api/auth'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
 
@@ -162,6 +163,8 @@ const nationalities = [
               {{ t('auth.registerStudent') }}
             </el-button>
           </el-form>
+
+          <SocialLoginButtons />
 
           <p class="switch-link">
             Looking to hire?

@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { type FormInstance, type FormRules } from 'element-plus'
 import { authApi } from '@/api/auth'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import SocialLoginButtons from '@/components/auth/SocialLoginButtons.vue'
 
 const { t } = useI18n()
 
@@ -189,6 +190,8 @@ const companySizes = [
               {{ t('auth.registerEnterprise') }}
             </el-button>
           </el-form>
+
+          <SocialLoginButtons />
 
           <p class="switch-link">
             Are you a student?

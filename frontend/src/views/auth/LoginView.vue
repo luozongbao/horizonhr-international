@@ -6,6 +6,7 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { useAuthStore } from '@/stores/auth'
 import { authApi } from '@/api/auth'
 import LanguageSwitcher from '@/components/common/LanguageSwitcher.vue'
+import SocialLoginButtons from '@/components/auth/SocialLoginButtons.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -52,13 +53,6 @@ async function handleLogin() {
     loading.value = false
   }
 }
-
-const oauthProviders = [
-  { id: 'google',   label: 'Google',   icon: '🔴' },
-  { id: 'facebook', label: 'Facebook', icon: '🔵' },
-  { id: 'linkedin', label: 'LinkedIn', icon: '🟦' },
-  { id: 'wechat',   label: 'WeChat',   icon: '🟢' },
-]
 </script>
 
 <template>
@@ -167,24 +161,7 @@ const oauthProviders = [
           </el-button>
         </el-form>
 
-        <!-- Social login -->
-        <div class="divider">
-          <span class="divider-line" />
-          <span class="divider-text">{{ t('auth.socialLogin') }}</span>
-          <span class="divider-line" />
-        </div>
-
-        <div class="social-buttons">
-          <a
-            v-for="p in oauthProviders"
-            :key="p.id"
-            :href="`/api/auth/${p.id}/redirect`"
-            class="social-btn"
-          >
-            <span>{{ p.icon }}</span>
-            <span>{{ p.label }}</span>
-          </a>
-        </div>
+        <SocialLoginButtons />
       </div>
     </section>
   </div>
@@ -334,52 +311,10 @@ const oauthProviders = [
   margin-top: 4px;
 }
 
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 24px 0;
-}
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background: #DEE2E6;
-}
-.divider-text {
-  font-size: 13px;
-  color: #6C757D;
-  white-space: nowrap;
-}
-
-.social-buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.social-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 8px;
-  border: 1px solid #DEE2E6;
-  border-radius: 8px;
-  font-size: 12px;
-  color: #1A1A2E;
-  text-decoration: none;
-  background: #fff;
-  transition: all 0.2s;
-}
-.social-btn:hover {
-  border-color: #003366;
-  background: #E6F0FF;
-}
-
 .mb-4 { margin-bottom: 16px; }
 
 @media (max-width: 768px) {
   .auth-left { display: none; }
   .auth-right { padding: 32px 24px; min-height: 100vh; }
-  .social-buttons { grid-template-columns: repeat(2, 1fr); }
 }
 </style>

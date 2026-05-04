@@ -62,6 +62,23 @@
     "registerAsStudent": "Student",
     "registerAsEnterprise": "Enterprise"
   },
+  "oauth": {
+    "continueWithGoogle": "Continue with Google",
+    "continueWithFacebook": "Continue with Facebook",
+    "continueWithLinkedIn": "Continue with LinkedIn",
+    "continueWithWeChat": "Continue with WeChat",
+    "orContinueWith": "Or continue with",
+    "linking": "Linking account...",
+    "linked": "Linked",
+    "unlink": "Unlink",
+    "linkAccount": "Link Account",
+    "errors": {
+      "accessDenied": "Authorization was cancelled.",
+      "accountTaken": "This social account is already linked to another user.",
+      "providerError": "Social login failed. Please try again.",
+      "cannotUnlink": "Cannot unlink — this is your only login method."
+    }
+  },
   "validation": {
     "emailRequired": "Email address is required",
     "emailInvalid": "Please enter a valid email address",

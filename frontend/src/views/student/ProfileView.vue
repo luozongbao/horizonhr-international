@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import type { UploadProps } from 'element-plus'
 import { useAuthStore } from '@/stores/auth'
 import studentApi from '@/api/student'
+import { authApi } from '@/api/auth'
 
 const { t } = useI18n()
 const auth = useAuthStore()
+const route = useRoute()
 
 // ─── Profile form ───────────────────────────────────────────────────────────
 const profileForm = reactive({
@@ -38,10 +41,11 @@ const showPwForm = ref(false)
 const avatarUploading = ref(false)
 const avatarUrl = ref<string | undefined>(undefined)
 
-// ─── Social accounts (read-only display) ────────────────────────────────────
+// ─── Social accounts ─────────────────────────────────────────────────────────
 interface SocialAccount {
   provider: string
   label: string
+  email?: string
   linked: boolean
 }
 const socialAccounts = ref<SocialAccount[]>([
@@ -50,6 +54,42 @@ const socialAccounts = ref<SocialAccount[]>([
   { provider: 'linkedin', label: 'LinkedIn', linked: false },
   { provider: 'wechat',   label: 'WeChat',   linked: false },
 ])
+const socialLoading = ref(false)
+const unlinkingProvider = ref<string | null>(null)
+
+async function fetchSocialAccounts() {
+  try {
+    const { data } = await authApi.getSocialAccounts()
+    const linked: { provider: string; email?: string }[] = data.data ?? data ?? []
+    socialAccounts.value.forEach((sa) => {
+      const found = linked.find((l) => l.provider === sa.provider)
+      sa.linked = !!found
+      sa.email  = found?.email
+    })
+  } catch {
+    // silently ignore — fall back to profile data
+  }
+}
+
+async function unlinkSocial(provider: string) {
+  const linked = socialAccounts.value.filter((sa) => sa.linked)
+  if (linked.length <= 1) {
+    ElMessage.error(t('oauth.errors.cannotUnlink'))
+    return
+  }
+  unlinkingProvider.value = provider
+  try {
+    await authApi.unlinkSocialAccount(provider)
+    const sa = socialAccounts.value.find((a) => a.provider === provider)
+    if (sa) { sa.linked = false; sa.email = undefined }
+    ElMessage.success(t('common.savedSuccess'))
+  } catch (err: unknown) {
+    const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message
+    ElMessage.error(msg ?? t('common.error'))
+  } finally {
+    unlinkingProvider.value = null
+  }
+}
 
 // ─── Init ────────────────────────────────────────────────────────────────────
 async function loadProfile() {
@@ -68,9 +108,9 @@ async function loadProfile() {
 
     // Hydrate social accounts if backend provides them
     if (Array.isArray(u.social_accounts)) {
-      u.social_accounts.forEach((sa: { provider: string }) => {
+      u.social_accounts.forEach((sa: { provider: string; email?: string }) => {
         const idx = socialAccounts.value.findIndex((a) => a.provider === sa.provider)
-        if (idx !== -1) socialAccounts.value[idx].linked = true
+        if (idx !== -1) { socialAccounts.value[idx].linked = true; socialAccounts.value[idx].email = sa.email }
       })
     }
   } catch {
@@ -85,7 +125,15 @@ async function loadProfile() {
   }
 }
 
-onMounted(loadProfile)
+onMounted(() => {
+  loadProfile()
+  fetchSocialAccounts()
+  // Show success message if redirected back from OAuth linking
+  const linked = route.query.linked as string | undefined
+  if (linked) {
+    ElMessage.success(t('oauth.linked') + ': ' + linked)
+  }
+})
 
 // ─── Save profile ─────────────────────────────────────────────────────────
 async function saveProfile() {
@@ -286,10 +334,30 @@ const languageOptions = [
       <h2 class="section-title">{{ t('student.profilePage.socialAccounts') }}</h2>
       <ul class="social-list">
         <li v-for="sa in socialAccounts" :key="sa.provider" class="social-row">
-          <span class="social-provider">{{ sa.label }}</span>
-          <el-tag :type="sa.linked ? 'success' : 'info'" size="small">
-            {{ sa.linked ? t('student.profilePage.linked') : t('student.profilePage.notLinked') }}
-          </el-tag>
+          <div class="social-left">
+            <span class="social-provider">{{ sa.label }}</span>
+            <span v-if="sa.linked && sa.email" class="social-email">{{ sa.email }}</span>
+          </div>
+          <div class="social-actions">
+            <template v-if="sa.linked">
+              <el-tag type="success" size="small">{{ t('oauth.linked') }}</el-tag>
+              <el-button
+                size="small"
+                type="danger"
+                plain
+                :loading="unlinkingProvider === sa.provider"
+                @click="unlinkSocial(sa.provider)"
+              >
+                {{ t('oauth.unlink') }}
+              </el-button>
+            </template>
+            <template v-else>
+              <el-tag type="info" size="small">{{ t('student.profilePage.notLinked') }}</el-tag>
+              <a :href="`/api/auth/${sa.provider}/redirect?link=true`" class="link-account-btn">
+                {{ t('oauth.linkAccount') }} →
+              </a>
+            </template>
+          </div>
         </li>
       </ul>
     </div>
@@ -417,14 +485,44 @@ const languageOptions = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
+  gap: 12px;
+  padding: 12px 14px;
   background: #f8f9fa;
   border-radius: 8px;
+  flex-wrap: wrap;
+}
+.social-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .social-provider {
   font-size: 14px;
   font-weight: 500;
   color: #1a1a2e;
+}
+.social-email {
+  font-size: 12px;
+  color: #6c757d;
+}
+.social-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.link-account-btn {
+  font-size: 13px;
+  color: #003366;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 4px 10px;
+  border: 1px solid #003366;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.link-account-btn:hover {
+  background: #e6f0ff;
 }
 
 /* Password accordion */
