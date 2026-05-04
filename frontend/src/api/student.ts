@@ -76,6 +76,14 @@ export const studentApi = {
   /** My seminar registrations */
   getSeminarRegistrations: (params?: { per_page?: number }) =>
     api.get('/seminar-registrations/my', { params }),
+
+  /** Get interview chat messages */
+  getInterviewMessages: (interviewId: number) =>
+    api.get(`/interviews/${interviewId}/messages`),
+
+  /** Send a chat message in the interview */
+  sendInterviewMessage: (interviewId: number, content: string) =>
+    api.post(`/interviews/${interviewId}/messages`, { content }),
 }
 
 export default studentApi

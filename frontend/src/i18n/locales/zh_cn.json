@@ -502,7 +502,22 @@
       "notAuthorized": "您没有权限加入此面试。",
       "notFound": "未找到该面试。",
       "permissionDenied": "摄像头/麦克风权限被拒绝，请允许访问。",
-      "enterRoom": "进入面试间"
+      "enterRoom": "进入面试间",
+      "mute": "静音",
+      "unmute": "取消静音",
+      "cameraOn": "开启摄像头",
+      "cameraOff": "关闭摄像头",
+      "shareScreen": "共享屏幕",
+      "stopSharing": "停止共享",
+      "chat": "聊天",
+      "waitingForParticipant": "等待对方加入...",
+      "participantLeft": "对方已离开面试。",
+      "noDeviceFound": "未找到摄像头或麦克风。",
+      "connectionError": "连接错误，请检查网络后重试。",
+      "browserNotSupported": "您的浏览器不支持视频通话，请使用 Chrome、Firefox 或 Edge。",
+      "sendMessage": "发送",
+      "messagePlaceholder": "输入消息...",
+      "noMessages": "暂无消息。"
     }
   },
   "studentSeminars": {

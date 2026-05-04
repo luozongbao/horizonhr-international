@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import enterpriseApi from '@/api/enterprise'
+import TrtcRoom from '@/components/interview/TrtcRoom.vue'
+import TextChat from '@/components/interview/TextChat.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -268,26 +270,28 @@ watch(phase, async (p) => {
     <div v-else-if="phase === 'room'" class="interview-room">
       <div class="room-header">
         <h2>{{ interview?.title ?? t('interviews.room.title') }}</h2>
-        <el-button type="danger" size="small" @click="leaveRoom">
-          {{ t('interviews.room.leaveRoom') }}
-        </el-button>
       </div>
 
-      <!-- TRTC placeholder — replaced in TASK-039 -->
-      <div class="trtc-placeholder">
-        <div class="trtc-inner">
-          <div class="trtc-icon">📹</div>
-          <p>Video call room</p>
-          <p class="trtc-hint">
-            Room ID: {{ credentials?.room_id }} |
-            SDK App: {{ credentials?.sdk_app_id }}
-          </p>
-          <p class="trtc-hint">TrtcRoom component will be integrated in TASK-039</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
+      <div class="trtc-wrap">
+        <TrtcRoom
+          v-if="credentials"
+          :sdk-app-id="credentials.sdk_app_id"
+          :room-id="Number(credentials.room_id)"
+          :user-id="credentials.user_id"
+          :user-sig="credentials.user_sig"
+          :display-name="interview?.interviewer_name ?? t('interviews.room.title')"
+          role="enterprise"
+          @leave="router.push('/enterprise/interviews')"
+        >
+          <template #chat>
+            <TextChat
+              :interview-id="interviewId"
+              :fetch-messages="enterpriseApi.getInterviewMessages"
+              :send-message="enterpriseApi.sendInterviewMessage"
+              :current-user-id="credentials.user_id"
+            />
+          </template>
+        </TrtcRoom>
 </template>
 
 <style scoped>
@@ -388,16 +392,13 @@ watch(phase, async (p) => {
 }
 .room-header h2 { font-size: 20px; font-weight: 600; color: #003366; }
 
-.trtc-placeholder {
-  background: #1a1a2e;
-  border-radius: 12px;
-  min-height: 480px;
+.trtc-wrap {
+  flex: 1;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  min-height: 520px;
 }
-.trtc-inner { text-align: center; color: #fff; }
-.trtc-icon { font-size: 48px; margin-bottom: 12px; }
 .trtc-hint { font-size: 12px; color: #a0aec0; margin-top: 4px; }
 </style>
 

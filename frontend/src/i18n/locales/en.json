@@ -502,7 +502,22 @@
       "notAuthorized": "You are not authorized to join this interview.",
       "notFound": "Interview not found.",
       "permissionDenied": "Camera/microphone permission denied. Please allow access.",
-      "enterRoom": "Enter Room"
+      "enterRoom": "Enter Room",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "cameraOn": "Camera On",
+      "cameraOff": "Camera Off",
+      "shareScreen": "Share Screen",
+      "stopSharing": "Stop Sharing",
+      "chat": "Chat",
+      "waitingForParticipant": "Waiting for the other participant...",
+      "participantLeft": "The other participant has left the interview.",
+      "noDeviceFound": "No camera or microphone found.",
+      "connectionError": "Connection error. Please check your internet and try again.",
+      "browserNotSupported": "Your browser does not support video calls. Please use Chrome, Firefox, or Edge.",
+      "sendMessage": "Send",
+      "messagePlaceholder": "Type a message...",
+      "noMessages": "No messages yet."
     }
   },
   "studentSeminars": {

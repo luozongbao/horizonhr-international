@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import studentApi from '@/api/student'
+import TrtcRoom from '@/components/interview/TrtcRoom.vue'
+import TextChat from '@/components/interview/TextChat.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -147,7 +149,7 @@ function stopLocalMedia() {
 }
 
 function enterRoom() {
-  // Stop preview (real TRTC will reacquire media in TASK-039)
+  // Stop preview — TRTC component will acquire media directly
   stopLocalMedia()
   clearInterval(audioLevelTimer)
   if (audioCtx) { audioCtx.close(); audioCtx = null }
@@ -320,7 +322,7 @@ watch(phase, async (p) => {
       </div>
     </div>
 
-    <!-- ── Interview room (placeholder for TASK-039) ──────────── -->
+    <!-- ── Interview room (TRTC) ────────────────────────────── -->
     <div v-else-if="phase === 'room'" class="room-active">
       <div class="room-topbar">
         <div class="room-info">
@@ -328,25 +330,28 @@ watch(phase, async (p) => {
           <span class="room-label">{{ t('interviews.room.title') }}</span>
           <span class="room-job">{{ interview?.job_title }} · {{ interview?.company_name }}</span>
         </div>
-        <el-button type="danger" size="small" @click="leaveRoom">
-          <el-icon class="el-icon--left"><SwitchButton /></el-icon>
-          {{ t('interviews.room.leaveRoom') }}
-        </el-button>
       </div>
 
-      <!-- TRTC placeholder -->
-      <div class="trtc-placeholder">
-        <el-icon class="placeholder-icon"><VideoCamera /></el-icon>
-        <p class="placeholder-title">TRTC Video Room</p>
-        <p class="placeholder-sub">
-          Full video call implementation coming in TASK-039.<br />
-          Room ID: <strong>{{ credentials?.room_id }}</strong>
-        </p>
-        <div v-if="credentials" class="creds-grid">
-          <div class="cred-item"><span class="cred-label">SDK App ID</span><code>{{ credentials.sdk_app_id }}</code></div>
-          <div class="cred-item"><span class="cred-label">Room ID</span><code>{{ credentials.room_id }}</code></div>
-          <div class="cred-item"><span class="cred-label">User ID</span><code>{{ credentials.user_id }}</code></div>
-        </div>
+      <div class="trtc-wrap">
+        <TrtcRoom
+          v-if="credentials"
+          :sdk-app-id="credentials.sdk_app_id"
+          :room-id="Number(credentials.room_id)"
+          :user-id="credentials.user_id"
+          :user-sig="credentials.user_sig"
+          :display-name="t('interviews.room.title')"
+          role="student"
+          @leave="router.push('/student/interviews')"
+        >
+          <template #chat>
+            <TextChat
+              :interview-id="interviewId"
+              :fetch-messages="studentApi.getInterviewMessages"
+              :send-message="studentApi.sendInterviewMessage"
+              :current-user-id="credentials.user_id"
+            />
+          </template>
+        </TrtcRoom>
       </div>
     </div>
 
@@ -540,31 +545,12 @@ watch(phase, async (p) => {
 .room-label { font-weight: 600; color: #fff; }
 .room-job { color: rgba(255,255,255,0.6); }
 
-.trtc-placeholder {
+.trtc-wrap {
   flex: 1;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 48px;
-  text-align: center;
-  color: #fff;
 }
-.placeholder-icon { font-size: 64px; color: rgba(255,255,255,0.2); }
-.placeholder-title { font-size: 22px; font-weight: 600; margin: 0; }
-.placeholder-sub { font-size: 14px; color: rgba(255,255,255,0.5); margin: 0; line-height: 1.7; }
-
-.creds-grid {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 8px;
-}
-.cred-item { display: flex; flex-direction: column; gap: 4px; text-align: center; }
-.cred-label { font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
-.cred-item code { background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 4px; font-size: 13px; color: #7dd3fc; }
 
 @media (max-width: 640px) {
   .check-grid { grid-template-columns: 1fr; }

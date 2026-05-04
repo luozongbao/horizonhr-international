@@ -502,7 +502,22 @@
       "notAuthorized": "คุณไม่มีสิทธิ์เข้าร่วมการสัมภาษณ์นี้",
       "notFound": "ไม่พบการสัมภาษณ์",
       "permissionDenied": "ถูกปฏิเสธสิทธิ์กล้อง/ไมโครโฟน กรุณาอนุญาตการเข้าถึง",
-      "enterRoom": "เข้าห้องสัมภาษณ์"
+      "enterRoom": "เข้าห้องสัมภาษณ์",
+      "mute": "ปิดเสียง",
+      "unmute": "เปิดเสียง",
+      "cameraOn": "เปิดกล้อง",
+      "cameraOff": "ปิดกล้อง",
+      "shareScreen": "แชร์หน้าจอ",
+      "stopSharing": "หยุดแชร์",
+      "chat": "แชท",
+      "waitingForParticipant": "รอผู้เข้าร่วมอีกฝ่าย...",
+      "participantLeft": "ผู้เข้าร่วมอีกฝ่ายได้ออกจากการสัมภาษณ์แล้ว",
+      "noDeviceFound": "ไม่พบกล้องหรือไมโครโฟน",
+      "connectionError": "เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่",
+      "browserNotSupported": "เบราว์เซอร์ของคุณไม่รองรับการโทรวิดีโอ กรุณาใช้ Chrome, Firefox หรือ Edge",
+      "sendMessage": "ส่ง",
+      "messagePlaceholder": "พิมพ์ข้อความ...",
+      "noMessages": "ยังไม่มีข้อความ"
     }
   },
   "studentSeminars": {
