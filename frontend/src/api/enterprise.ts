@@ -57,6 +57,37 @@ export interface ApplicationParams {
   page?: number
 }
 
+export interface ResumeParams {
+  search?: string
+  nationality?: string
+  education_level?: string
+  availability?: string
+  language?: string
+  per_page?: number
+  page?: number
+}
+
+export interface InterviewData {
+  title?: string
+  student_id?: number
+  job_id?: number
+  scheduled_at: string
+  duration_minutes: number
+  interviewer_name?: string
+  notes?: string
+}
+
+export interface CompleteInterviewData {
+  result: 'pass' | 'fail' | 'pending'
+  result_notes?: string
+}
+
+export interface InterviewParams {
+  status?: string
+  per_page?: number
+  page?: number
+}
+
 // ─── API module ───────────────────────────────────────────────────────────────
 
 export const enterpriseApi = {
@@ -113,8 +144,38 @@ export const enterpriseApi = {
     api.put(`/applications/${appId}/status`, { status }),
 
   /** My interviews (enterprise view) */
-  getInterviews: (params?: { status?: string; per_page?: number }) =>
+  getInterviews: (params?: InterviewParams) =>
     api.get('/interviews', { params }),
-}
 
-export default enterpriseApi
+  /** Single interview detail */
+  getInterview: (id: number) =>
+    api.get(`/interviews/${id}`),
+
+  /** Schedule a new interview */
+  scheduleInterview: (data: InterviewData) =>
+    api.post('/interviews', data),
+
+  /** Update interview (reschedule / update notes) */
+  updateInterview: (id: number, data: Partial<InterviewData>) =>
+    api.put(`/interviews/${id}`, data),
+
+  /** Cancel an interview */
+  cancelInterview: (id: number) =>
+    api.put(`/interviews/${id}/cancel`),
+
+  /** Join interview — get TRTC credentials */
+  joinInterview: (id: number) =>
+    api.post(`/interviews/${id}/join`),
+
+  /** Mark interview as complete + set result */
+  completeInterview: (id: number, data: CompleteInterviewData) =>
+    api.put(`/interviews/${id}/complete`, data),
+
+  /** Talent pool — approved resumes */
+  getApprovedResumes: (params?: ResumeParams) =>
+    api.get('/resumes', { params: { status: 'approved', ...params } }),
+
+  /** Resume detail (includes download_url) */
+  getResume: (id: number) =>
+    api.get(`/resumes/${id}`),
+}

@@ -600,7 +600,63 @@
         "reviewed": "ตรวจสอบแล้ว",
         "accepted": "รับแล้ว",
         "rejected": "ปฏิเสธแล้ว"
-      }
-    }
+      }    },
+    "talent": {
+      "pageTitle": "ค้นหาบุคลากร",
+      "searchPlaceholder": "ค้นหาชื่อ ทักษะ มหาวิทยาลัย หรือสาขา...",
+      "filterNationality": "สัญชาติ",
+      "filterEducation": "ระดับการศึกษา",
+      "filterLanguage": "ภาษา",
+      "filterAvailability": "ประเภทงาน",
+      "allNationalities": "ทั้งหมด",
+      "allEducation": "ทุกระดับ",
+      "allLanguages": "ทุกภาษา",
+      "allAvailability": "ทั้งหมด",
+      "resultsFound": "พบ {count} คน",
+      "viewResume": "ดูเรซูเม่",
+      "inviteInterview": "เชิญสัมภาษณ์",
+      "scheduleInterview": "นัดสัมภาษณ์",
+      "downloadResume": "ดาวน์โหลด PDF",
+      "noResults": "ไม่พบผู้สมัครที่ตรงกัน"
+    },
+    "interviews": {
+      "pageTitle": "จัดการสัมภาษณ์",
+      "scheduleNew": "นัดสัมภาษณ์ใหม่",
+      "title": "หัวข้อการสัมภาษณ์",
+      "studentName": "นักศึกษา",
+      "scheduledAt": "วันเวลาสัมภาษณ์",
+      "duration": "ระยะเวลา",
+      "durationOptions": {
+        "30": "30 นาที",
+        "45": "45 นาที",
+        "60": "1 ชั่วโมง",
+        "90": "1.5 ชั่วโมง"
+      },
+      "interviewer": "ชื่อผู้สัมภาษณ์",
+      "notes": "หมายเหตุสำหรับผู้สมัคร",
+      "result": "ผลการสัมภาษณ์",
+      "resultOptions": {
+        "pass": "ผ่าน",
+        "fail": "ไม่ผ่าน",
+        "pending": "รอพิจารณา"
+      },
+      "resultNotes": "หมายเหตุผล",
+      "markComplete": "ทำเครื่องหมายว่าเสร็จสิ้น",
+      "cancel": "ยกเลิกการสัมภาษณ์",
+      "cancelConfirm": "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการสัมภาษณ์นี้?",
+      "joinInterview": "เข้าร่วมสัมภาษณ์",
+      "edit": "แก้ไขการสัมภาษณ์",
+      "allStatuses": "ทั้งหมด",
+      "noInterviews": "ไม่พบการสัมภาษณ์",
+      "status": {
+        "scheduled": "นัดหมายแล้ว",
+        "ongoing": "กำลังดำเนินการ",
+        "completed": "เสร็จสิ้น",
+        "cancelled": "ยกเลิกแล้ว"
+      },
+      "scheduleSuccess": "นัดสัมภาษณ์สำเร็จ",
+      "updateSuccess": "อัปเดตการสัมภาษณ์สำเร็จ",
+      "cancelSuccess": "ยกเลิกการสัมภาษณ์แล้ว",
+      "completeSuccess": "ทำเครื่องหมายสัมภาษณ์เสร็จสิ้นแล้ว"    }
   }
 }

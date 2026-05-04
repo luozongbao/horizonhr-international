@@ -600,7 +600,63 @@
         "reviewed": "已查看",
         "accepted": "已录用",
         "rejected": "已拒绝"
-      }
-    }
+      }    },
+    "talent": {
+      "pageTitle": "人才搜索",
+      "searchPlaceholder": "搜索姓名、技能、学校或专业...",
+      "filterNationality": "国籍",
+      "filterEducation": "学历",
+      "filterLanguage": "语言",
+      "filterAvailability": "求职类型",
+      "allNationalities": "全部",
+      "allEducation": "全部学历",
+      "allLanguages": "全部语言",
+      "allAvailability": "全部",
+      "resultsFound": "找到 {count} 位人才",
+      "viewResume": "查看简历",
+      "inviteInterview": "邀请面试",
+      "scheduleInterview": "安排面试",
+      "downloadResume": "下载PDF",
+      "noResults": "未找到符合条件的候选人"
+    },
+    "interviews": {
+      "pageTitle": "面试管理",
+      "scheduleNew": "安排新面试",
+      "title": "面试标题",
+      "studentName": "学生",
+      "scheduledAt": "面试时间",
+      "duration": "时长",
+      "durationOptions": {
+        "30": "30分钟",
+        "45": "45分钟",
+        "60": "1小时",
+        "90": "1.5小时"
+      },
+      "interviewer": "面试官姓名",
+      "notes": "候选人备注",
+      "result": "面试结果",
+      "resultOptions": {
+        "pass": "通过",
+        "fail": "未通过",
+        "pending": "待定"
+      },
+      "resultNotes": "结果备注",
+      "markComplete": "标记完成",
+      "cancel": "取消面试",
+      "cancelConfirm": "确定要取消此面试吗？",
+      "joinInterview": "进入面试",
+      "edit": "编辑面试",
+      "allStatuses": "全部",
+      "noInterviews": "暂无面试记录。",
+      "status": {
+        "scheduled": "已安排",
+        "ongoing": "进行中",
+        "completed": "已完成",
+        "cancelled": "已取消"
+      },
+      "scheduleSuccess": "面试安排成功。",
+      "updateSuccess": "面试更新成功。",
+      "cancelSuccess": "面试已取消。",
+      "completeSuccess": "面试已标记为完成。"    }
   }
 }

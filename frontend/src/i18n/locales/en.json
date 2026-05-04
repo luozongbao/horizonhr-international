@@ -601,6 +601,64 @@
         "accepted": "Accepted",
         "rejected": "Rejected"
       }
+    },
+    "talent": {
+      "pageTitle": "Talent Search",
+      "searchPlaceholder": "Search by name, skills, university or major...",
+      "filterNationality": "Nationality",
+      "filterEducation": "Education",
+      "filterLanguage": "Language",
+      "filterAvailability": "Availability",
+      "allNationalities": "All",
+      "allEducation": "All Levels",
+      "allLanguages": "All Languages",
+      "allAvailability": "All",
+      "resultsFound": "{count} talent found",
+      "viewResume": "View Resume",
+      "inviteInterview": "Invite for Interview",
+      "scheduleInterview": "Schedule Interview",
+      "downloadResume": "Download PDF",
+      "noResults": "No matching candidates found"
+    },
+    "interviews": {
+      "pageTitle": "Interviews",
+      "scheduleNew": "Schedule New Interview",
+      "title": "Interview Title",
+      "studentName": "Student",
+      "scheduledAt": "Scheduled Date & Time",
+      "duration": "Duration",
+      "durationOptions": {
+        "30": "30 minutes",
+        "45": "45 minutes",
+        "60": "1 hour",
+        "90": "1.5 hours"
+      },
+      "interviewer": "Interviewer Name",
+      "notes": "Notes for Candidate",
+      "result": "Interview Result",
+      "resultOptions": {
+        "pass": "Pass",
+        "fail": "Fail",
+        "pending": "Pending"
+      },
+      "resultNotes": "Result Notes",
+      "markComplete": "Mark as Completed",
+      "cancel": "Cancel Interview",
+      "cancelConfirm": "Are you sure you want to cancel this interview?",
+      "joinInterview": "Join Interview",
+      "edit": "Edit Interview",
+      "allStatuses": "All",
+      "noInterviews": "No interviews found.",
+      "status": {
+        "scheduled": "Scheduled",
+        "ongoing": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "scheduleSuccess": "Interview scheduled successfully.",
+      "updateSuccess": "Interview updated successfully.",
+      "cancelSuccess": "Interview cancelled.",
+      "completeSuccess": "Interview marked as completed."
     }
   }
 }
