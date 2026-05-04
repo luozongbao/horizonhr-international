@@ -800,5 +800,38 @@
       "live": "Live",
       "ended": "Ended"
     }
+  },
+  "adminCms": {
+    "pages": {
+      "pageTitle": "CMS Pages",
+      "editPage": "Edit Page",
+      "lastUpdated": "Last Updated",
+      "saveSuccess": "Page saved."
+    },
+    "news": {
+      "pageTitle": "News & Posts",
+      "createPost": "Create Post",
+      "editPost": "Edit Post",
+      "slug": "URL Slug",
+      "category": "Category",
+      "thumbnail": "Thumbnail",
+      "content": "Content",
+      "saveAsDraft": "Save as Draft",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "deleteConfirm": "Delete this post? This cannot be undone.",
+      "createSuccess": "Post created.",
+      "updateSuccess": "Post updated.",
+      "publishSuccess": "Post published.",
+      "unpublishSuccess": "Post moved to draft.",
+      "deleteSuccess": "Post deleted.",
+      "noPosts": "No posts found.",
+      "author": "Author",
+      "publishedAt": "Published Date",
+      "status": {
+        "published": "Published",
+        "draft": "Draft"
+      }
+    }
   }
 }

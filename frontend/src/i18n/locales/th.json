@@ -799,5 +799,38 @@
       "live": "สด",
       "ended": "สิ้นสุด"
     }
+  },
+  "adminCms": {
+    "pages": {
+      "pageTitle": "จัดการหน้า CMS",
+      "editPage": "แก้ไขหน้า",
+      "lastUpdated": "อัปเดตล่าสุด",
+      "saveSuccess": "บันทึกหน้าแล้ว"
+    },
+    "news": {
+      "pageTitle": "ข่าวสารและบทความ",
+      "createPost": "สร้างบทความ",
+      "editPost": "แก้ไขบทความ",
+      "slug": "URL Slug",
+      "category": "หมวดหมู่",
+      "thumbnail": "ภาพหน้าปก",
+      "content": "เนื้อหา",
+      "saveAsDraft": "บันทึกเป็นแบบร่าง",
+      "publish": "เผยแพร่",
+      "unpublish": "ยกเลิกเผยแพร่",
+      "deleteConfirm": "ลบบทความนี้? ไม่สามารถย้อนกลับได้",
+      "createSuccess": "สร้างบทความสำเร็จ",
+      "updateSuccess": "อัปเดตบทความสำเร็จ",
+      "publishSuccess": "เผยแพร่บทความแล้ว",
+      "unpublishSuccess": "ย้ายบทความไปเป็นแบบร่าง",
+      "deleteSuccess": "ลบบทความแล้ว",
+      "noPosts": "ไม่พบบทความ",
+      "author": "ผู้เขียน",
+      "publishedAt": "วันที่เผยแพร่",
+      "status": {
+        "published": "เผยแพร่แล้ว",
+        "draft": "แบบร่าง"
+      }
+    }
   }
 }

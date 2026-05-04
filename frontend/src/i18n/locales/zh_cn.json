@@ -799,5 +799,38 @@
       "live": "直播中",
       "ended": "已结束"
     }
+  },
+  "adminCms": {
+    "pages": {
+      "pageTitle": "CMS 页面管理",
+      "editPage": "编辑页面",
+      "lastUpdated": "最后更新",
+      "saveSuccess": "页面已保存。"
+    },
+    "news": {
+      "pageTitle": "新闻与文章",
+      "createPost": "新建文章",
+      "editPost": "编辑文章",
+      "slug": "URL Slug",
+      "category": "分类",
+      "thumbnail": "封面图",
+      "content": "正文",
+      "saveAsDraft": "保存为草稿",
+      "publish": "发布",
+      "unpublish": "取消发布",
+      "deleteConfirm": "确定删除该文章？此操作无法撤销。",
+      "createSuccess": "文章已创建。",
+      "updateSuccess": "文章已更新。",
+      "publishSuccess": "文章已发布。",
+      "unpublishSuccess": "文章已转为草稿。",
+      "deleteSuccess": "文章已删除。",
+      "noPosts": "未找到文章。",
+      "author": "作者",
+      "publishedAt": "发布日期",
+      "status": {
+        "published": "已发布",
+        "draft": "草稿"
+      }
+    }
   }
 }

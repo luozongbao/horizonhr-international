@@ -13,6 +13,7 @@
     "@element-plus/icons-vue": "^2.3.2",
     "@types/dompurify": "^3.0.5",
     "@types/hls.js": "^0.13.3",
+    "@vueup/vue-quill": "^1.2.0",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.15.2",
     "chart.js": "^4.5.1",

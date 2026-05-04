@@ -47,6 +47,26 @@ export interface AdminSeminarParams {
   page?: number
 }
 
+export interface PostParams {
+  search?: string
+  status?: string
+  per_page?: number
+  page?: number
+}
+
+export interface PostFormData {
+  title_en: string
+  title_zh_cn?: string
+  title_th?: string
+  slug?: string
+  category?: string
+  content_en?: string
+  content_zh_cn?: string
+  content_th?: string
+  published_at?: string
+  status?: 'draft' | 'published'
+}
+
 export interface SeminarFormData {
   title_en: string
   title_zh_cn: string
@@ -148,6 +168,57 @@ export const adminApi = {
   /** Get live push/pull URLs for a seminar */
   getSeminarLiveUrls: (id: number) =>
     api.get(`/admin/seminars/${id}/live-urls`),
+
+  // ─── CMS Pages ─────────────────────────────────────────────────────────────
+
+  /** List all CMS pages */
+  getPages: () =>
+    api.get('/admin/pages'),
+
+  /** Get a single CMS page with content */
+  getPage: (id: number) =>
+    api.get(`/admin/pages/${id}`),
+
+  /** Update CMS page content */
+  updatePage: (id: number, data: Record<string, unknown>) =>
+    api.put(`/admin/pages/${id}`, data),
+
+  // ─── Posts ─────────────────────────────────────────────────────────────────
+
+  /** List all news posts */
+  getPosts: (params?: PostParams) =>
+    api.get('/admin/posts', { params }),
+
+  /** Create a post (with optional thumbnail FormData) */
+  createPost: (data: PostFormData | FormData) =>
+    api.post('/admin/posts', data, {
+      headers: data instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {},
+    }),
+
+  /** Update a post */
+  updatePost: (id: number, data: PostFormData | FormData) =>
+    api.post(`/admin/posts/${id}`, data, {
+      headers: data instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : {},
+      params: data instanceof FormData ? { _method: 'PUT' } : undefined,
+    }),
+
+  /** Delete a post */
+  deletePost: (id: number) =>
+    api.delete(`/admin/posts/${id}`),
+
+  /** Publish a post */
+  publishPost: (id: number) =>
+    api.put(`/admin/posts/${id}/publish`),
+
+  /** Unpublish a post (revert to draft) */
+  unpublishPost: (id: number) =>
+    api.put(`/admin/posts/${id}/unpublish`),
+
+  /** Upload media for rich text editor */
+  uploadMedia: (formData: FormData) =>
+    api.post('/admin/media/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
 }
 
 export default adminApi
