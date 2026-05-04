@@ -34,7 +34,7 @@ class SettingsController extends Controller
      */
     public function update(UpdateSettingsRequest $request): JsonResponse
     {
-        $this->settingsService->bulkUpdate($request->validated()['settings']);
+        $this->settingsService->bulkUpdate($request->input('settings', []));
 
         return response()->json([
             'success' => true,

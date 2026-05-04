@@ -273,17 +273,52 @@ curl -s -X PUT "$BASE_URL/admin/languages/$LANG_ID" \
 
 ## Acceptance Criteria
 
-- [ ] Settings API returns all grouped settings
-- [ ] Site name setting can be updated and persists (EN/ZH/TH)
-- [ ] SMTP settings can be updated
-- [ ] CMS page can be created with trilingual content (EN/ZH_CN/TH)
-- [ ] Public page endpoint returns content in requested language (`?lang=en/zh_cn/th`)
-- [ ] Page can be updated and deleted
-- [ ] News post can be created with multilingual content and category
-- [ ] Posts can be listed and filtered by category
-- [ ] Translation keys can be created with EN/ZH_CN/TH values
-- [ ] Translation endpoint returns key-value pairs for each language
-- [ ] Only admin can write/update settings, pages, posts, languages
+- [x] Settings API returns all grouped settings
+- [x] Site name setting can be updated and persists (EN/ZH_CN/TH)
+- [x] SMTP settings can be updated
+- [x] CMS page can be created with trilingual content (EN/ZH_CN/TH)
+- [x] Public page endpoint returns content in requested language (`?lang=en/zh_cn/th`)
+- [x] Page can be updated and deleted
+- [x] News post can be created with multilingual content and category
+- [x] Posts can be listed and filtered by category
+- [x] Translation keys can be created with EN/ZH_CN/TH values
+- [x] Translation endpoint returns key-value pairs for each language
+- [x] Only admin can write/update settings, pages, posts, languages
+
+---
+
+## Test Results (2026-05-04)
+
+| Test | Status | Notes |
+|------|--------|-------|
+| A1 Get All Settings | ✅ PASS | Returns grouped settings: website, seo, social, smtp, system |
+| A2 Update Site Name | ✅ PASS | After fix to `SettingsController` (see bugs) |
+| A3 Verify Public Settings | ✅ PASS | `GET /public/settings` returns updated values |
+| A4 Update SMTP Settings | ✅ PASS | Keys: `smtp_host`, `smtp_port`, `smtp_username`, `smtp_from_address` |
+| B1 List Pages | ✅ PASS | Returns empty array when no pages seeded |
+| B2 Create Page | ✅ PASS | Valid `type` values: `page`, `announcement` (not `about`) |
+| B3 Get Page by Slug (EN+ZH) | ✅ PASS | Route: `GET /public/pages/{slug}` (not `/api/pages/`) |
+| B4 Update Page | ✅ PASS | Returns updated `title_en` |
+| C1 Create News Post | ✅ PASS | Valid categories: `company_news`, `industry_news`, `study_abroad`, `recruitment` |
+| C2 List Posts Public | ✅ PASS | Route: `GET /public/posts` (not `/api/posts`) |
+| C3 Filter by Category | ✅ PASS | Returns empty array for non-existent category |
+| C4 Delete Post | ✅ PASS | Returns `success: true` |
+| D1 List Translations | ✅ PASS | Returns array with `id`, `key`, `en`, `zh_cn`, `th` |
+| D2 Create Translation | ✅ PASS | Route: `POST /admin/translations` (not `/admin/languages`) |
+| D3 Get Public Translations | ✅ PASS | `GET /public/translations?lang=en|th` returns flat key-value dict |
+| D4 Update Translation | ✅ PASS | `PUT /admin/translations/{key}` |
+
+**Bugs fixed:**
+1. `SettingsController::update()` used `$request->validated()['settings']` — but Laravel's `validated()` unwraps the `settings` object when the rule is `'settings' => ['required', 'array']`. Fixed to use `$request->input('settings', [])`.
+
+**Route corrections vs task doc:**
+- Public pages: `GET /public/pages/{slug}` (not `/api/pages/{slug}`)
+- Public posts: `GET /public/posts` (not `/api/posts`)
+- Translations admin: `POST /admin/translations` (not `/admin/languages`)
+- Translation update: `PUT /admin/translations/{key}` (not `{id}`)
+- Public translations: `GET /public/translations?lang=en` (not `/translations/en`)
+- Valid page `type`: `page` or `announcement` (not `about`)
+- Valid post `status`: `draft`, `published`, `archived`
 
 ---
 
