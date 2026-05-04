@@ -43,59 +43,59 @@ export interface ContactPayload {
 
 export const publicApi = {
   getHomePage: () =>
-    api.get('/pages/home'),
+    api.get('/public/pages/home'),
 
   getAboutPage: () =>
-    api.get('/pages/about'),
+    api.get('/public/pages/about'),
 
   getStudyPage: () =>
-    api.get('/pages/study-in-china'),
+    api.get('/public/pages/study-in-china'),
 
   getCorporatePage: () =>
-    api.get('/pages/corporate'),
+    api.get('/public/pages/corporate'),
 
   getUniversities: (params?: UniversityParams) =>
-    api.get('/universities', { params }),
+    api.get('/public/universities', { params }),
 
   getUniversity: (id: number) =>
-    api.get(`/universities/${id}`),
+    api.get(`/public/universities/${id}`),
 
   getSeminars: (params?: SeminarParams) =>
-    api.get('/seminars', { params }),
+    api.get('/public/seminars', { params }),
 
   getSeminar: (id: number) =>
-    api.get(`/seminars/${id}`),
+    api.get(`/public/seminars/${id}`),
 
   getSeminarWatch: (id: number) =>
-    api.get(`/seminars/${id}/watch`),
+    api.get(`/public/seminars/${id}/watch`),
 
   registerSeminar: (id: number) =>
-    api.post(`/seminars/${id}/register`),
+    api.post(`/public/seminars/${id}/register`),
 
   unregisterSeminar: (id: number) =>
-    api.delete(`/seminars/${id}/unregister`),
+    api.delete(`/public/seminars/${id}/unregister`),
 
   getSeminarDanmu: (id: number, afterId?: number) =>
-    api.get(`/seminars/${id}/danmu`, { params: afterId ? { after: afterId } : {} }),
+    api.get(`/public/seminars/${id}/danmu`, { params: afterId ? { after: afterId } : {} }),
 
   sendSeminarDanmu: (id: number, message: string) =>
-    api.post(`/seminars/${id}/danmu`, { message }),
+    api.post(`/public/seminars/${id}/danmu`, { message }),
 
   getPosts: (params?: PostParams) =>
-    api.get('/posts', { params }),
+    api.get('/public/posts', { params }),
 
   getPost: (slug: string) =>
-    api.get(`/posts/${slug}`),
+    api.get(`/public/posts/${slug}`),
 
   getContactPage: () =>
-    api.get('/pages/contact'),
+    api.get('/public/pages/contact'),
 
   getResumes: (params?: ResumeParams) =>
-    api.get('/resumes', { params }),
+    api.get('/public/talent', { params }),
 
   getResume: (id: number) =>
-    api.get(`/resumes/${id}`),
+    api.get(`/public/talent/${id}`),
 
   submitContact: (data: ContactPayload) =>
-    api.post('/contact', data),
+    api.post('/public/contact', data),
 }

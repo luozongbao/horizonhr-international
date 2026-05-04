@@ -15,11 +15,12 @@ class SendEnterpriseActivatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public string $queue   = 'emails';
+
     public int    $tries   = 3;
     public array  $backoff = [30, 60, 120];
 
-    public function __construct(protected User $user) {}
+    public function __construct(protected User $user) {
+        $this->onQueue('emails'); }
 
     public function handle(EmailService $emailService): void
     {

@@ -105,43 +105,43 @@ export const enterpriseApi = {
 
   /** Upload company logo */
   uploadLogo: (formData: FormData) =>
-    api.post('/enterprise/logo', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+    api.post('/enterprise/profile/logo', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
 
   /** My job postings */
   getJobs: (params?: JobParams) =>
-    api.get('/jobs', { params: { my: true, ...params } }),
+    api.get('/enterprise/jobs', { params }),
 
   /** Create job posting */
   createJob: (data: Partial<JobData>) =>
-    api.post('/jobs', data),
+    api.post('/enterprise/jobs', data),
 
   /** Update job posting */
   updateJob: (id: number, data: Partial<JobData>) =>
-    api.put(`/jobs/${id}`, data),
+    api.put(`/enterprise/jobs/${id}`, data),
 
   /** Delete job posting */
   deleteJob: (id: number) =>
-    api.delete(`/jobs/${id}`),
+    api.delete(`/enterprise/jobs/${id}`),
 
   /** Publish a job */
   publishJob: (id: number) =>
-    api.put(`/jobs/${id}/publish`),
+    api.put(`/enterprise/jobs/${id}/publish`),
 
-  /** Unpublish a job */
+  /** Close (unpublish) a job */
   unpublishJob: (id: number) =>
-    api.put(`/jobs/${id}/unpublish`),
+    api.put(`/enterprise/jobs/${id}/close`),
 
   /** Applications across enterprise's jobs */
   getApplications: (params?: ApplicationParams) =>
-    api.get('/applications', { params }),
+    api.get('/enterprise/applications', { params }),
 
   /** Applications for a specific job */
   getApplicationsForJob: (jobId: number, params?: { status?: string; per_page?: number; page?: number }) =>
-    api.get('/applications', { params: { job_id: jobId, ...params } }),
+    api.get(`/enterprise/jobs/${jobId}/applications`, { params }),
 
   /** Update application status */
   updateApplicationStatus: (appId: number, status: string) =>
-    api.put(`/applications/${appId}/status`, { status }),
+    api.put(`/enterprise/applications/${appId}/status`, { status }),
 
   /** My interviews (enterprise view) */
   getInterviews: (params?: InterviewParams) =>
@@ -173,11 +173,11 @@ export const enterpriseApi = {
 
   /** Talent pool — approved resumes */
   getApprovedResumes: (params?: ResumeParams) =>
-    api.get('/resumes', { params: { status: 'approved', ...params } }),
+    api.get('/enterprise/talent', { params }),
 
   /** Resume detail (includes download_url) */
   getResume: (id: number) =>
-    api.get(`/resumes/${id}`),
+    api.get(`/enterprise/talent/${id}`),
 
   /** Get interview chat messages */
   getInterviewMessages: (interviewId: number) =>

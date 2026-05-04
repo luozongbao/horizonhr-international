@@ -10,6 +10,8 @@ usePageMeta({
   title: t('news.pageTitle'),
   description: t('news.pageDesc'),
 })
+
+interface Post {
   id: number
   slug: string
   title: string

@@ -241,18 +241,44 @@ curl -s "$BASE_URL/admin/users" \
 
 ## Acceptance Criteria
 
-- [ ] Student registration creates account, sends confirmation email
-- [ ] Enterprise registration creates account pending activation
-- [ ] Duplicate email registration is rejected with proper error
-- [ ] Weak password registration is rejected with validation error
-- [ ] Admin login returns valid JWT token
-- [ ] Wrong password login returns 401/422 error
-- [ ] `GET /api/auth/user` returns user data with valid token
-- [ ] `GET /api/auth/user` returns 401 without token
-- [ ] Password reset email is sent and received in Mailpit
-- [ ] Logout invalidates token (subsequent requests return 401)
-- [ ] Admin can access `GET /api/admin/users`
-- [ ] Student token returns 403 on admin routes
+- [x] Student registration creates account, sends confirmation email
+- [x] Enterprise registration creates account pending activation
+- [x] Duplicate email registration is rejected with proper error
+- [x] Weak password registration is rejected with validation error
+- [x] Admin login returns valid JWT token
+- [x] Wrong password login returns 401/422 error
+- [x] `GET /api/auth/me` returns user data with valid token
+- [x] `GET /api/auth/me` returns 401 without token
+- [x] Password reset email is sent and received in Mailpit
+- [x] Logout invalidates token (subsequent requests return 401)
+- [x] Admin can access `GET /api/admin/users`
+- [x] Student token returns 403 on admin routes
+
+---
+
+## Test Results (2026-05-04)
+
+| Test | Status | Notes |
+|------|--------|-------|
+| A1 Register Student | ✅ PASS | ID=5, pending, email unverified |
+| A2 Register Enterprise | ✅ PASS | ID=6, requires both `name` + `company_name` |
+| A3 Reject Duplicate Email | ✅ PASS | `EMAIL_ALREADY_REGISTERED` error code |
+| A4 Reject Weak Password | ✅ PASS | Validation error returned |
+| B1 Admin Login | ✅ PASS | Returns token successfully |
+| B2 Wrong Password | ✅ PASS | HTTP 401 `INVALID_CREDENTIALS` |
+| B3 Get Auth Profile | ✅ PASS | Returns admin user data |
+| B4 Unprotected Access Denied | ✅ PASS | HTTP 401 `Unauthenticated.` |
+| C1 Request Password Reset | ✅ PASS | HTTP 200, job queued |
+| C2 Reset Email in Mailpit | ✅ PASS | Email received in Mailpit |
+| D1 Logout | ✅ PASS | HTTP 200 success |
+| D2 Token Invalidated | ✅ PASS | HTTP 401 after logout |
+| E1 Admin Access Admin Routes | ✅ PASS | HTTP 200, user list returned |
+| E2 Student Access Admin Routes | ✅ PASS | HTTP 403 `FORBIDDEN` |
+
+**Bugs found & fixed:**
+1. PHP 8.2 trait property conflict in all 10 Job classes (`public string $queue` conflicted with `Queueable` trait) — removed property, use `$this->onQueue('emails')` in constructor
+2. `Authenticate.php` middleware called `route('login')` which doesn't exist → fixed to return `null` so API returns JSON 401
+3. SMTP DB settings had `smtp_port=587` but Mailpit runs on port `1025` — updated DB settings
 
 ---
 

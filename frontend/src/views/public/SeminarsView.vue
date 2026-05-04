@@ -10,6 +10,8 @@ usePageMeta({
   title: t('seminar.pageTitle'),
   description: t('seminar.pageDesc'),
 })
+
+interface Speaker {
   name?: string
   title?: string
   photo_url?: string

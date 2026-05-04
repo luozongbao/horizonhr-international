@@ -295,4 +295,28 @@ class SeminarController extends Controller
             'error'   => ['code' => 'SEMINAR_NOT_STARTED', 'message' => 'The seminar has not started yet.'],
         ], 404);
     }
+
+    /**
+     * GET /api/student/seminar-registrations
+     * List the authenticated student's seminar registrations.
+     */
+    public function myRegistrations(Request $request): JsonResponse
+    {
+        $perPage = min((int) ($request->query('per_page', 20)), 100);
+
+        $registrations = SeminarRegistration::with('seminar')
+            ->where('user_id', $request->user()->id)
+            ->latest()
+            ->paginate($perPage);
+
+        return response()->json([
+            'success' => true,
+            'data'    => $registrations->items(),
+            'meta'    => [
+                'current_page' => $registrations->currentPage(),
+                'last_page'    => $registrations->lastPage(),
+                'total'        => $registrations->total(),
+            ],
+        ]);
+    }
 }
