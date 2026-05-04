@@ -657,6 +657,71 @@
       "scheduleSuccess": "面试安排成功。",
       "updateSuccess": "面试更新成功。",
       "cancelSuccess": "面试已取消。",
-      "completeSuccess": "面试已标记为完成。"    }
+      "completeSuccess": "面试已标记为完成。"
+    }
+  },
+  "adminDashboard": {
+    "title": "管理控制台",
+    "period": {
+      "7d": "过去7天",
+      "30d": "过去30天",
+      "90d": "过去90天",
+      "1y": "过去一年",
+      "all": "全部时间"
+    },
+    "stats": {
+      "totalUsers": "总用户",
+      "newUsers": "新用户",
+      "pendingResumes": "待审简历",
+      "totalApplications": "申请数",
+      "interviews": "面试",
+      "activeJobs": "活跃职位",
+      "seminars": "研讨会",
+      "contacts": "咨询",
+      "totalResumes": "总简历"
+    },
+    "charts": {
+      "userGrowth": "用户增长趋势",
+      "activity": "简历与面试活动",
+      "resumeStatus": "简历状态",
+      "applicationStatus": "申请状态",
+      "interviewStatus": "面试状态"
+    }
+  },
+  "adminUsers": {
+    "pageTitle": "用户管理",
+    "createAdmin": "新建管理员",
+    "approve": "审核",
+    "suspend": "封禁",
+    "activate": "激活",
+    "deleteUser": "删除用户",
+    "deleteConfirm": "确定要删除此用户吗？此操作无法撤销。",
+    "approveConfirm": "确认审核该企业账户？",
+    "suspendConfirm": "确定要封禁该用户吗？",
+    "viewProfile": "查看资料",
+    "allRoles": "全部角色",
+    "allStatuses": "全部状态",
+    "searchPlaceholder": "按姓名或邮箱搜索...",
+    "role": {
+      "student": "学生",
+      "enterprise": "企业",
+      "admin": "管理员"
+    },
+    "status": {
+      "active": "激活",
+      "pending": "待审",
+      "suspended": "已封禁"
+    },
+    "noUsers": "未找到用户。",
+    "registeredAt": "注册时间",
+    "adminName": "姓名",
+    "adminEmail": "邮箱",
+    "adminPassword": "密码",
+    "adminPasswordConfirm": "确认密码",
+    "createSuccess": "管理员用户已创建。",
+    "approveSuccess": "企业已审核。",
+    "suspendSuccess": "用户已封禁。",
+    "activateSuccess": "用户已激活。",
+    "deleteSuccess": "用户已删除。"
   }
 }

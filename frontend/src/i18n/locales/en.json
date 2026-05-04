@@ -660,5 +660,69 @@
       "cancelSuccess": "Interview cancelled.",
       "completeSuccess": "Interview marked as completed."
     }
+  },
+  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "period": {
+      "7d": "Last 7 days",
+      "30d": "Last 30 days",
+      "90d": "Last 90 days",
+      "1y": "Last year",
+      "all": "All time"
+    },
+    "stats": {
+      "totalUsers": "Total Users",
+      "newUsers": "New Users",
+      "pendingResumes": "Pending Resumes",
+      "totalApplications": "Applications",
+      "interviews": "Interviews",
+      "activeJobs": "Active Jobs",
+      "seminars": "Seminars",
+      "contacts": "Inquiries",
+      "totalResumes": "Total Resumes"
+    },
+    "charts": {
+      "userGrowth": "User Growth",
+      "activity": "Resume & Interview Activity",
+      "resumeStatus": "Resume Status",
+      "applicationStatus": "Application Status",
+      "interviewStatus": "Interview Status"
+    }
+  },
+  "adminUsers": {
+    "pageTitle": "User Management",
+    "createAdmin": "Create Admin",
+    "approve": "Approve",
+    "suspend": "Suspend",
+    "activate": "Activate",
+    "deleteUser": "Delete User",
+    "deleteConfirm": "Are you sure you want to delete this user? This cannot be undone.",
+    "approveConfirm": "Approve this enterprise account?",
+    "suspendConfirm": "Suspend this user account?",
+    "viewProfile": "View Profile",
+    "allRoles": "All Roles",
+    "allStatuses": "All Statuses",
+    "searchPlaceholder": "Search by name or email...",
+    "role": {
+      "student": "Student",
+      "enterprise": "Enterprise",
+      "admin": "Admin"
+    },
+    "status": {
+      "active": "Active",
+      "pending": "Pending",
+      "suspended": "Suspended"
+    },
+    "noUsers": "No users found.",
+    "registeredAt": "Registered",
+    "adminName": "Full Name",
+    "adminEmail": "Email",
+    "adminPassword": "Password",
+    "adminPasswordConfirm": "Confirm Password",
+    "createSuccess": "Admin user created.",
+    "approveSuccess": "Enterprise approved.",
+    "suspendSuccess": "User suspended.",
+    "activateSuccess": "User activated.",
+    "deleteSuccess": "User deleted."
   }
 }

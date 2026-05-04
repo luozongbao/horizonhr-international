@@ -657,6 +657,71 @@
       "scheduleSuccess": "นัดสัมภาษณ์สำเร็จ",
       "updateSuccess": "อัปเดตการสัมภาษณ์สำเร็จ",
       "cancelSuccess": "ยกเลิกการสัมภาษณ์แล้ว",
-      "completeSuccess": "ทำเครื่องหมายสัมภาษณ์เสร็จสิ้นแล้ว"    }
+      "completeSuccess": "ทำเครื่องหมายสัมภาษณ์เสร็จสิ้นแล้ว"
+    }
+  },
+  "adminDashboard": {
+    "title": "แดชบอร์ดผู้ดูแลระบบ",
+    "period": {
+      "7d": "7 วันที่ผ่านมา",
+      "30d": "30 วันที่ผ่านมา",
+      "90d": "90 วันที่ผ่านมา",
+      "1y": "ปีที่ผ่านมา",
+      "all": "ทั้งหมด"
+    },
+    "stats": {
+      "totalUsers": "ผู้ใช้ทั้งหมด",
+      "newUsers": "ผู้ใช้ใหม่",
+      "pendingResumes": "เรซูเม่รอตรวจสอบ",
+      "totalApplications": "การสมัคร",
+      "interviews": "การสัมภาษณ์",
+      "activeJobs": "งานที่เปิดรับ",
+      "seminars": "สัมมนา",
+      "contacts": "ข้อสอบถาม",
+      "totalResumes": "เรซูเม่ทั้งหมด"
+    },
+    "charts": {
+      "userGrowth": "การเติบโตของผู้ใช้",
+      "activity": "กิจกรรมเรซูเม่และสัมภาษณ์",
+      "resumeStatus": "สถานะเรซูเม่",
+      "applicationStatus": "สถานะการสมัคร",
+      "interviewStatus": "สถานะการสัมภาษณ์"
+    }
+  },
+  "adminUsers": {
+    "pageTitle": "จัดการผู้ใช้",
+    "createAdmin": "สร้างผู้ดูแลระบบ",
+    "approve": "อนุมัติ",
+    "suspend": "ระงับการใช้งาน",
+    "activate": "เปิดใช้งาน",
+    "deleteUser": "ลบผู้ใช้",
+    "deleteConfirm": "คุณแน่ใจหรือไม่ว่าต้องการลบผู้ใช้นี้?",
+    "approveConfirm": "อนุมัติบัญชีองค์กรนี้?",
+    "suspendConfirm": "ระงับการใช้งานผู้ใช้นี้?",
+    "viewProfile": "ดูโปรไฟล์",
+    "allRoles": "ทุกบทบาท",
+    "allStatuses": "ทุกสถานะ",
+    "searchPlaceholder": "ค้นหาตามชื่อหรืออีเมล...",
+    "role": {
+      "student": "นักศึกษา",
+      "enterprise": "องค์กร",
+      "admin": "ผู้ดูแลระบบ"
+    },
+    "status": {
+      "active": "ใช้งาน",
+      "pending": "รออนุมัติ",
+      "suspended": "ถูกระงับ"
+    },
+    "noUsers": "ไม่พบผู้ใช้",
+    "registeredAt": "ลงทะเบียนเมื่อ",
+    "adminName": "ชื่อเต็ม",
+    "adminEmail": "อีเมล",
+    "adminPassword": "รหัสผ่าน",
+    "adminPasswordConfirm": "ยืนยันรหัสผ่าน",
+    "createSuccess": "สร้างผู้ดูแลระบบสำเร็จ",
+    "approveSuccess": "อนุมัติองค์กรแล้ว",
+    "suspendSuccess": "ระงับการใช้งานแล้ว",
+    "activateSuccess": "เปิดใช้งานแล้ว",
+    "deleteSuccess": "ลบผู้ใช้แล้ว"
   }
 }
