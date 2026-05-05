@@ -84,11 +84,14 @@ export const publicApi = {
   getPosts: (params?: PostParams) =>
     api.get('/public/posts', { params }),
 
-  getPost: (slug: string) =>
-    api.get(`/public/posts/${slug}`),
+  getPost: (id: number | string) =>
+    api.get(`/public/posts/${id}`),
 
   getContactPage: () =>
     api.get('/public/pages/contact'),
+
+  getPublicSettings: () =>
+    api.get('/public/settings'),
 
   getResumes: (params?: ResumeParams) =>
     api.get('/public/talent', { params }),

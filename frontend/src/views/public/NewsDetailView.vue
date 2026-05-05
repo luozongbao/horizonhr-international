@@ -13,7 +13,6 @@ const { sanitize } = useSanitize()
 /* ─── Types ──────────────────────────────────── */
 interface Post {
   id: number
-  slug: string
   title: string
   excerpt?: string
   content?: string
@@ -37,14 +36,14 @@ usePageMeta({
 })
 
 /* ─── Fetch ──────────────────────────────────── */
-async function fetchPost(slug: string) {
+async function fetchPost(id: string) {
   loading.value = true
   error.value = false
   post.value = null
   related.value = []
 
   try {
-    const res = await publicApi.getPost(slug)
+    const res = await publicApi.getPost(id)
     post.value = res.data?.data ?? null
 
     // Fetch related posts from same category
@@ -54,7 +53,7 @@ async function fetchPost(slug: string) {
           category: post.value.category,
           per_page: 3,
         })
-        related.value = (rel.data?.data ?? []).filter((p: Post) => p.slug !== slug).slice(0, 3)
+        related.value = (rel.data?.data ?? []).filter((p: Post) => p.id !== post.value?.id).slice(0, 3)
       } catch {
         // related posts are optional
       }
@@ -81,14 +80,14 @@ function truncate(text: string | undefined, max = 150): string {
   return text.slice(0, max).trimEnd() + '…'
 }
 
-// Re-fetch when slug changes (navigating between articles)
-watch(() => route.params.slug, (slug) => {
-  if (slug) fetchPost(slug as string)
+// Re-fetch when id changes (navigating between articles)
+watch(() => route.params.id, (id) => {
+  if (id) fetchPost(id as string)
 })
 
 onMounted(() => {
-  const slug = route.params.slug as string
-  if (slug) fetchPost(slug)
+  const id = route.params.id as string
+  if (id) fetchPost(id)
 })
 </script>
 
@@ -165,7 +164,7 @@ onMounted(() => {
           <h2 class="section-heading">{{ t('news.relatedPosts') }}</h2>
           <div class="related-grid">
             <article v-for="r in related" :key="r.id" class="related-card">
-              <router-link :to="'/news/' + r.slug" class="related-thumb-link">
+              <router-link :to="'/news/' + r.id" class="related-thumb-link">
                 <div class="related-thumb-wrap">
                   <img
                     v-if="r.thumbnail_url"
@@ -179,10 +178,10 @@ onMounted(() => {
               <div class="related-body">
                 <p v-if="r.published_at" class="related-date">{{ formatDate(r.published_at) }}</p>
                 <h3 class="related-title">
-                  <router-link :to="'/news/' + r.slug">{{ r.title }}</router-link>
+                  <router-link :to="'/news/' + r.id">{{ r.title }}</router-link>
                 </h3>
                 <p class="related-excerpt">{{ truncate(r.excerpt || r.content) }}</p>
-                <router-link :to="'/news/' + r.slug" class="read-more-link">
+                <router-link :to="'/news/' + r.id" class="read-more-link">
                   {{ t('news.readMore') }} →
                 </router-link>
               </div>

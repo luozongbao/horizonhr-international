@@ -13,7 +13,6 @@ usePageMeta({
 
 interface Post {
   id: number
-  slug: string
   title: string
   excerpt?: string
   content?: string
@@ -161,7 +160,7 @@ onMounted(fetchPosts)
         <template v-else>
           <div class="news-grid">
             <article v-for="post in posts" :key="post.id" class="news-card">
-              <router-link :to="'/news/' + post.slug" class="card-thumb-link">
+              <router-link :to="'/news/' + post.id" class="card-thumb-link">
                 <div class="card-thumb-wrap">
                   <img
                     v-if="post.thumbnail_url"
@@ -180,14 +179,14 @@ onMounted(fetchPosts)
                   {{ t('news.publishedOn') }} {{ formatDate(post.published_at) }}
                 </p>
                 <h3 class="card-title">
-                  <router-link :to="'/news/' + post.slug">{{ post.title }}</router-link>
+                  <router-link :to="'/news/' + post.id">{{ post.title }}</router-link>
                 </h3>
                 <p v-if="post.excerpt || post.content" class="card-excerpt">
                   {{ truncate(post.excerpt || post.content) }}
                 </p>
               </div>
               <div class="card-footer">
-                <router-link :to="'/news/' + post.slug" class="read-more-link">
+                <router-link :to="'/news/' + post.id" class="read-more-link">
                   {{ t('news.readMore') }} →
                 </router-link>
               </div>

@@ -577,6 +577,37 @@ class DummyDataSeeder extends Seeder
                 ['student_id' => $studentId],
                 array_merge($s['talent'], ['student_id' => $studentId, 'created_at' => $now, 'updated_at' => $now])
             );
+
+            // Seed an approved resume so the student appears in the talent pool
+            DB::table('resumes')->updateOrInsert(
+                ['student_id' => $studentId, 'file_name' => 'demo_resume.pdf'],
+                [
+                    'student_id'  => $studentId,
+                    'file_path'   => 'resumes/demo/' . $studentId . '_demo_resume.pdf',
+                    'file_name'   => 'demo_resume.pdf',
+                    'file_type'   => 'pdf',
+                    'file_size'   => 102400,
+                    'visibility'  => 'public',
+                    'status'      => 'approved',
+                    'reviewed_at' => $now,
+                    'created_at'  => $now,
+                    'updated_at'  => $now,
+                ]
+            );
+        }
+
+        // ─────────────────────────────────────────────────────────────────
+        // 6. SOCIAL MEDIA SETTINGS (demo values for contact page testing)
+        // ─────────────────────────────────────────────────────────────────
+        $socialSettings = [
+            'social_wechat'   => 'https://weixin.qq.com/r/horizonhr',
+            'social_whatsapp' => 'https://wa.me/8618612345678',
+            'social_line'     => 'https://line.me/ti/p/horizonhr',
+            'social_facebook' => 'https://www.facebook.com/horizonhr.intl',
+            'social_linkedin' => 'https://www.linkedin.com/company/horizonhr-international',
+        ];
+        foreach ($socialSettings as $key => $value) {
+            DB::table('settings')->where('key', $key)->update(['value' => $value, 'updated_at' => $now]);
         }
 
         $this->command->info('✓ DummyDataSeeder complete:');
@@ -584,7 +615,8 @@ class DummyDataSeeder extends Seeder
         $this->command->info('  - 4 Seminars (3 scheduled, 1 ended)');
         $this->command->info('  - 1 Enterprise + 6 Jobs');
         $this->command->info('  - 5 News Posts');
-        $this->command->info('  - 4 Students + Talent Cards');
+        $this->command->info('  - 4 Students + Talent Cards + Approved Resumes');
+        $this->command->info('  - Social media settings updated');
         $this->command->info('');
         $this->command->info('Demo accounts (password: Demo@1234):');
         $this->command->info('  Enterprise: demo.enterprise@horizonhr.test');

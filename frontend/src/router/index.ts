@@ -38,7 +38,7 @@ const router = createRouter({
       meta: { layout: 'public' },
     },
     {
-      path: '/news/:slug',
+      path: '/news/:id',
       component: () => import('@/views/public/NewsDetailView.vue'),
       meta: { layout: 'public' },
     },

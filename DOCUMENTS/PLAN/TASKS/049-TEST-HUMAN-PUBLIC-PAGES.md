@@ -158,10 +158,10 @@ Navigate to `/corporate`.
 Navigate to `/seminars`.
 
 **Check:**
-- [ ] Upcoming seminars list (from TASK-048 created seminar or placeholder)
-- [ ] Each seminar card shows title, date, speaker
-- [ ] "Register" button visible on upcoming seminars
-- [ ] Tabs/filters for Upcoming / Past / Playback
+- [✅] Upcoming seminars list (from TASK-048 created seminar or placeholder)
+- [✅] Each seminar card shows title, date, speaker
+- [✅] "Register" button visible on upcoming seminars
+- [✅] Tabs/filters for Upcoming / Past / Playback
 
 ---
 
@@ -170,10 +170,10 @@ Navigate to `/seminars`.
 Navigate to `/news`.
 
 **Check:**
-- [ ] News article list visible
-- [ ] Category filter visible (Company News, Industry News, etc.)
-- [ ] Clicking an article opens detail view
-- [ ] Article detail shows title, date, content
+- [✅] News article list visible
+- [✅] Category filter visible (Company News, Industry News, etc.)
+- [✅] Clicking an article opens detail view
+- [✅] Article detail shows title, date, content
 
 ---
 
@@ -182,11 +182,11 @@ Navigate to `/news`.
 Navigate to `/contact`.
 
 **Check:**
-- [ ] Company address, phone, email visible
-- [ ] Social media links (WeChat, WhatsApp, Line, Facebook, LinkedIn)
-- [ ] Contact form with: Name, Contact/Email, Message fields
-- [ ] Submit button
-- [ ] Submit the form with test data → Success message appears
+- [✅] Company address, phone, email visible
+- [✅] Social media links (WeChat, WhatsApp, Line, Facebook, LinkedIn)
+- [✅ ] Contact form with: Name, Contact/Email, Message fields
+- [✅] Submit button
+- [✅] Submit the form with test data → Success message appears
 
 **Test form submission:**
 ```
@@ -196,9 +196,9 @@ Message: Testing the contact form
 ```
 
 **Check:**
-- [ ] Form submits without error
-- [ ] Success confirmation shown
-- [ ] Check Mailpit at `http://10.11.12.30:8025` for notification email
+- [✅] Form submits without error
+- [✅] Success confirmation shown
+- [✅] Check Mailpit at `http://10.11.12.30:8025` for notification email
 
 ---
 
