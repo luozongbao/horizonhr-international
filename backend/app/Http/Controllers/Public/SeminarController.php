@@ -45,7 +45,7 @@ class SeminarController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $paginated->items(),
+            'data'    => array_map([$this, 'formatSeminar'], $paginated->items()),
             'meta'    => [
                 'current_page' => $paginated->currentPage(),
                 'per_page'     => $paginated->perPage(),
@@ -77,8 +77,46 @@ class SeminarController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => array_merge($seminar->toArray(), ['is_registered' => $isRegistered]),
+            'data'    => array_merge($this->formatSeminar($seminar), ['is_registered' => $isRegistered]),
         ]);
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // formatSeminar
+    // ──────────────────────────────────────────────────────────────────
+
+    /**
+     * Normalize a Seminar model to the shape expected by the frontend.
+     * Adds frontend-friendly aliases alongside the original DB field names.
+     */
+    private function formatSeminar(Seminar $seminar): array
+    {
+        $data = $seminar->toArray();
+
+        // Locale-aware title
+        $locale     = app()->getLocale();
+        $titleField = match ($locale) {
+            'zh_cn' => 'title_zh_cn',
+            'th'    => 'title_th',
+            default => 'title_en',
+        };
+        $data['title']             = $data[$titleField] ?? $data['title_en'] ?? '';
+
+        // Field aliases for frontend compatibility
+        $data['start_time']        = $data['starts_at']            ?? null;
+        $data['thumbnail_url']     = $data['thumbnail']            ?? null;
+        $data['duration_minutes']  = $data['duration_min']         ?? null;
+        $data['viewer_count']      = $data['current_viewers']      ?? 0;
+        $data['registered_count']  = $data['registrations_count']  ?? 0;
+
+        // Nest speaker fields into an object
+        $data['speaker'] = [
+            'name'      => $data['speaker_name']   ?? null,
+            'title'     => $data['speaker_title']  ?? null,
+            'photo_url' => $data['speaker_avatar'] ?? null,
+        ];
+
+        return $data;
     }
 
     // ──────────────────────────────────────────────────────────────────

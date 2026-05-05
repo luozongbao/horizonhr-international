@@ -38,7 +38,7 @@ const router = createRouter({
       meta: { layout: 'public' },
     },
     {
-      path: '/news/:slug',
+      path: '/news/:id',
       component: () => import('@/views/public/NewsDetailView.vue'),
       meta: { layout: 'public' },
     },
@@ -105,7 +105,7 @@ const router = createRouter({
       meta: { layout: 'auth' },
     },
     {
-      path: '/password/reset/:token',
+      path: '/password/reset',
       component: () => import('@/views/auth/ResetPasswordView.vue'),
       meta: { layout: 'auth' },
     },

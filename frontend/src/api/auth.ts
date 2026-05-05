@@ -31,15 +31,20 @@ export interface RegisterEnterprisePayload {
 }
 
 export interface AuthResponse {
-  token: string
-  user: {
-    id: number
-    name: string
-    email: string
-    role: 'student' | 'enterprise' | 'admin'
-    status: string
-    language: string
+  success: boolean
+  data: {
+    token: string
+    token_type: string
+    user: {
+      id: number
+      name: string
+      email: string
+      role: 'student' | 'enterprise' | 'admin'
+      status: string
+      language: string
+    }
   }
+  message: string
 }
 
 export const authApi = {
@@ -53,10 +58,10 @@ export const authApi = {
     api.get('/user'),
 
   registerStudent: (payload: RegisterStudentPayload) =>
-    api.post<AuthResponse>('/auth/register/student', payload),
+    api.post<AuthResponse>('/auth/register', { ...payload, role: 'student' }),
 
   registerEnterprise: (payload: RegisterEnterprisePayload) =>
-    api.post<AuthResponse>('/auth/register/enterprise', payload),
+    api.post<AuthResponse>('/auth/register', { ...payload, role: 'enterprise', name: payload.contact_name }),
 
   forgotPassword: (email: string) =>
     api.post('/auth/forgot-password', { email }),
@@ -64,8 +69,8 @@ export const authApi = {
   resetPassword: (payload: { token: string; email: string; password: string; password_confirmation: string }) =>
     api.post('/auth/reset-password', payload),
 
-  confirmEmail: (token: string) =>
-    api.get(`/auth/email/confirm/${token}`),
+  confirmEmail: (token: string, email: string) =>
+    api.post('/auth/confirm-email', { token, email }),
 
   getSocialAccounts: () =>
     api.get('/auth/social-accounts'),

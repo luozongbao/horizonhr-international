@@ -95,6 +95,26 @@ services:
     networks:
       - hrint
 
+  queue:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    container_name: hrint-queue
+    working_dir: /var/www/backend
+    command: php artisan queue:work --queue=emails,emails:notify,default --sleep=3 --tries=3 --timeout=60
+    volumes:
+      - ./backend:/var/www/backend
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    environment:
+      - APP_ENV=local
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - hrint
+
 volumes:
   mariadb_data:
   redis_data:

@@ -43,7 +43,7 @@ class PostController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $paginated->items(),
+            'data'    => array_map([$this, 'formatPost'], $paginated->items()),
             'meta'    => [
                 'current_page' => $paginated->currentPage(),
                 'per_page'     => $paginated->perPage(),
@@ -76,7 +76,35 @@ class PostController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $post,
+            'data'    => $this->formatPost($post),
         ]);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // formatPost
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Normalize a Post model to the shape expected by the frontend.
+     */
+    private function formatPost(Post $post): array
+    {
+        $data = $post->toArray();
+
+        $locale       = app()->getLocale();
+        $titleField   = match ($locale) { 'zh_cn' => 'title_zh_cn', 'th' => 'title_th', default => 'title_en' };
+        $contentField = match ($locale) { 'zh_cn' => 'content_zh_cn', 'th' => 'content_th', default => 'content_en' };
+
+        $data['title']         = $data[$titleField]   ?? $data['title_en']   ?? '';
+        $data['content']       = $data[$contentField] ?? $data['content_en'] ?? '';
+        $data['thumbnail_url'] = $data['thumbnail']   ?? null;
+
+        // Generate a plain-text excerpt from content (first 200 chars)
+        if (empty($data['excerpt'])) {
+            $plain = strip_tags($data['content'] ?? '');
+            $data['excerpt'] = mb_strlen($plain) > 200 ? mb_substr($plain, 0, 200) . '…' : $plain;
+        }
+
+        return $data;
     }
 }

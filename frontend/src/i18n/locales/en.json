@@ -54,11 +54,12 @@
     "resetSubtitle": "Enter your new password below.",
     "resetBtn": "Reset Password",
     "passwordReset": "Password has been reset. Please log in.",
-    "pendingApproval": "Your registration is pending admin approval. You will be notified by email.",
+    "pendingApproval": "Registration submitted! Please check your email inbox and confirm your email address first. Once confirmed, our admin team will review your account and notify you by email.",
     "emailConfirmNotice": "A verification email will be sent to your inbox. Please confirm your email address before logging in.",
     "checkEmailNotice": "Please check your email to verify your account.",
     "oauthProcessing": "Completing sign-in...",
     "oauthError": "Sign-in failed. Please try again.",
+    "emailAlreadyRegistered": "This email address is already registered. Please log in or use a different email.",
     "registerAsStudent": "Student",
     "registerAsEnterprise": "Enterprise"
   },

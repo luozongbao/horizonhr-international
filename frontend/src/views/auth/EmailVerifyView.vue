@@ -12,12 +12,13 @@ const status = ref<'loading' | 'success' | 'error'>('loading')
 
 onMounted(async () => {
   const token = (route.params.token as string) || (route.query.token as string)
-  if (!token) {
+  const email = route.query.email as string
+  if (!token || !email) {
     status.value = 'error'
     return
   }
   try {
-    await authApi.confirmEmail(token)
+    await authApi.confirmEmail(token, email)
     status.value = 'success'
     setTimeout(() => router.push('/login'), 3000)
   } catch {

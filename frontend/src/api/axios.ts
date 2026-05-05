@@ -38,10 +38,16 @@ api.interceptors.response.use(
     const status = error.response?.status
 
     if (status === 401) {
-      // Token expired or invalid — clear local auth and redirect to login
+      // Token expired or invalid — clear local auth state
+      // Use soft navigation; hard reload (window.location.href) would clear in-memory
+      // Pinia state and break the current navigation flow
       localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_user')
       if (window.location.pathname !== '/login') {
-        window.location.href = '/login'
+        // Lazy import to avoid circular dependency
+        import('@/router').then(({ default: router }) => {
+          router.push('/login')
+        })
       }
       return Promise.reject(error)
     }

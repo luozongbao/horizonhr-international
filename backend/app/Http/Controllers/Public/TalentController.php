@@ -85,19 +85,49 @@ class TalentController extends Controller
 
     private function formatCard(TalentCard $tc): array
     {
+        // languages is cast to array of {language, level} objects — format as readable strings
+        $rawLangs = $tc->languages ?? [];
+        $languages = array_values(array_map(function ($l) {
+            if (is_array($l)) {
+                $lang  = $l['language'] ?? '';
+                $level = $l['level']    ?? '';
+                return $level ? "{$lang} ({$level})" : $lang;
+            }
+            return (string) $l;
+        }, $rawLangs));
+
+        // education is a plain string — normalize to translation key and wrap in EducationItem array
+        $eduString = $tc->education ?? '';
+        $eduLower  = strtolower($eduString);
+        $eduKey    = match (true) {
+            str_contains($eduLower, 'bachelor') => 'bachelor',
+            str_contains($eduLower, 'master')   => 'master',
+            str_contains($eduLower, 'phd') || str_contains($eduLower, 'doctor') => 'phd',
+            default                              => $eduString,
+        };
+        $education = $eduString ? [[
+            'degree'      => $eduString,
+            'institution' => $tc->university ?? '',
+            'year'        => null,
+        ]] : [];
+
         return [
-            'id'             => $tc->id,
-            'display_name'   => $tc->display_name,
-            'major'          => $tc->major,
-            'education'      => $tc->education,
-            'university'     => $tc->university,
-            'languages'      => $tc->languages,
-            'skills'         => $tc->skills,
-            'job_intention'  => $tc->job_intention,
-            'status'         => $tc->status,
-            'nationality'    => $tc->student?->nationality,
-            'avatar'         => $tc->student?->avatar,
-            'updated_at'     => $tc->updated_at,
+            'id'              => $tc->id,
+            'name'            => $tc->display_name,   // frontend expects 'name'
+            'display_name'    => $tc->display_name,
+            'photo_url'       => $tc->student?->avatar ?? null,  // frontend expects 'photo_url'
+            'avatar'          => $tc->student?->avatar ?? null,
+            'nationality'     => $tc->student?->nationality,
+            'bio'             => $tc->student?->bio ?? null,
+            'major'           => $tc->major,
+            'education_level' => $eduKey,              // normalized key for t() lookup
+            'education'       => $education,           // EducationItem[] for the modal timeline
+            'university'      => $tc->university,
+            'languages'       => $languages,           // string[] for chips
+            'skills'          => $tc->skills ?? [],    // string[]
+            'job_intention'   => $tc->job_intention,
+            'status'          => $tc->status,
+            'updated_at'      => $tc->updated_at,
         ];
     }
 }

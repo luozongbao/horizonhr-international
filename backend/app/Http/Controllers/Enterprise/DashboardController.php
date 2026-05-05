@@ -44,7 +44,7 @@ class DashboardController extends Controller
             ->get();
 
         $recentApplications = Application::whereIn('job_id', $jobIds)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('applied_at', 'desc')
             ->limit(5)
             ->with('student:id,name,avatar', 'job:id,title')
             ->get();

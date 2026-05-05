@@ -3,7 +3,6 @@ import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useSettingsStore } from '@/stores/settings'
-import { useAuthStore } from '@/stores/auth'
 import { useLanguageStore } from '@/stores/language'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
@@ -19,7 +18,6 @@ import epTh from 'element-plus/es/locale/lang/th'
 const route = useRoute()
 const { locale } = useI18n()
 const settingsStore = useSettingsStore()
-const authStore = useAuthStore()
 const languageStore = useLanguageStore()
 
 // Pick layout component based on route meta
@@ -49,11 +47,8 @@ onMounted(async () => {
   // Sync i18n from persisted locale
   locale.value = languageStore.locale
 
-  // Parallel init: settings + auth
-  await Promise.allSettled([
-    settingsStore.fetchPublicConfig(),
-    authStore.isLoggedIn ? authStore.fetchProfile() : Promise.resolve(),
-  ])
+  // Only fetch public config; auth state is managed by router guard (init())
+  await settingsStore.fetchPublicConfig().catch(() => {})
 })
 </script>
 

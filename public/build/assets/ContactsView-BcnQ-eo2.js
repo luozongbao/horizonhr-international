@@ -1,0 +1,1 @@
+import{L as e,p as t}from"./runtime-core.esm-bundler-BdnLXEgy.js";import{n}from"./index-17Xwbm89.js";var r={};function i(n,r){return e(),t(`div`)}var a=n(r,[[`render`,i]]);export{a as default};

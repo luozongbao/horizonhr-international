@@ -42,12 +42,12 @@ async function handleLogin() {
   loading.value = true
   try {
     const { data } = await authApi.login({ email: form.email, password: form.password })
-    auth.setAuth(data.token, data.user)
-    router.push(auth.redirectForRole())
+    auth.setAuth(data.data.token, data.data.user)
+    await router.push(auth.redirectForRole())
   } catch (e: any) {
     errorMsg.value =
+      e.response?.data?.error?.message ??
       e.response?.data?.message ??
-      e.response?.data?.error ??
       t('common.error')
   } finally {
     loading.value = false
