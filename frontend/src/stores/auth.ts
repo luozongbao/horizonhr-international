@@ -13,7 +13,10 @@ interface User {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(JSON.parse(localStorage.getItem('auth_user') ?? 'null'))
+  const _rawUser = localStorage.getItem('auth_user')
+  const user = ref<User | null>(
+    _rawUser && _rawUser !== 'undefined' && _rawUser !== 'null' ? JSON.parse(_rawUser) : null,
+  )
   const token = ref<string | null>(localStorage.getItem('auth_token'))
   const initialised = ref(false)
 
@@ -27,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = newToken
     user.value  = newUser
     localStorage.setItem('auth_token', newToken)
-    localStorage.setItem('auth_user', JSON.stringify(newUser))
+    localStorage.setItem('auth_user', JSON.stringify(newUser ?? null))
   }
 
   /** Wipe token + user from memory and localStorage */
@@ -42,8 +45,8 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchProfile() {
     try {
       const { data } = await api.get('/auth/me')
-      user.value = data.data ?? data
-      localStorage.setItem('auth_user', JSON.stringify(user.value))
+      user.value = data.data?.user ?? data.data ?? data
+      localStorage.setItem('auth_user', JSON.stringify(user.value ?? null))
     } catch {
       clearAuth()
     }
@@ -59,7 +62,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function login(email: string, password: string) {
     const { data } = await api.post('/auth/login', { email, password })
-    setAuth(data.token, data.user)
+    setAuth(data.data.token, data.data.user)
   }
 
   async function logout() {

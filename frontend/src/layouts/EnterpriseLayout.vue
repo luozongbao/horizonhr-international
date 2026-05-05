@@ -15,11 +15,11 @@ const auth   = useAuthStore()
 const collapsed = ref(false)
 
 const navItems = computed<NavItem[]>(() => [
-  { icon: 'House',       label: t('enterprise.dashboard'), route: '/enterprise/dashboard' },
-  { icon: 'OfficeBuilding', label: t('enterprise.profile'), route: '/enterprise/profile' },
-  { icon: 'Briefcase',   label: t('enterprise.jobs'),      route: '/enterprise/jobs' },
-  { icon: 'UserFilled',  label: t('enterprise.talent'),    route: '/enterprise/talent' },
-  { icon: 'VideoCamera', label: t('enterprise.interviews'), route: '/enterprise/interviews' },
+  { icon: 'House',          label: t('enterprise.dashboard.pageTitle'),  route: '/enterprise/dashboard' },
+  { icon: 'OfficeBuilding', label: t('enterprise.profile.title'),        route: '/enterprise/profile' },
+  { icon: 'Briefcase',      label: t('enterprise.jobs.pageTitle'),       route: '/enterprise/jobs' },
+  { icon: 'UserFilled',     label: t('enterprise.talent.pageTitle'),     route: '/enterprise/talent' },
+  { icon: 'VideoCamera',    label: t('enterprise.interviews.pageTitle'), route: '/enterprise/interviews' },
 ])
 
 const pageTitle = computed(() => {

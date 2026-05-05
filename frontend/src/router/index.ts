@@ -105,7 +105,7 @@ const router = createRouter({
       meta: { layout: 'auth' },
     },
     {
-      path: '/password/reset/:token',
+      path: '/password/reset',
       component: () => import('@/views/auth/ResetPasswordView.vue'),
       meta: { layout: 'auth' },
     },

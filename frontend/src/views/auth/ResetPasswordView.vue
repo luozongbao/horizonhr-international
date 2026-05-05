@@ -46,7 +46,7 @@ async function handleSubmit() {
   const valid = await formRef.value.validate().catch(() => false)
   if (!valid) return
 
-  const token = route.params.token as string
+  const token = route.query.token as string
   if (!token) {
     ElMessage.error('Invalid reset link')
     return

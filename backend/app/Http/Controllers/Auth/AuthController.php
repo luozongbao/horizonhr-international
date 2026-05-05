@@ -277,6 +277,9 @@ class AuthController extends Controller
         // Students become active immediately; enterprises stay pending (await admin)
         if ($user->role === 'student') {
             $user->update(['status' => 'active']);
+        } elseif ($user->role === 'enterprise') {
+            // Notify admins now that email is verified — ready for review
+            dispatch(new \App\Jobs\SendEnterprisePendingNotifyAdminJob($user));
         }
 
         return response()->json([

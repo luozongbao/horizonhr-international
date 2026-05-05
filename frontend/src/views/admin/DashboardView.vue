@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -72,11 +73,42 @@ async function fetchStats() {
   }
 }
 
-onMounted(fetchStats)
+onMounted(() => { fetchStats(); fetchPendingEnterprises() })
 watch(period, fetchStats)
 
-// ─── Stat cards ───────────────────────────────────────────────────────────────
-const statCards = computed(() => [
+// ─── Pending enterprises ─────────────────────────────────────────────────────
+interface PendingEnterprise {
+  id: number
+  display_name?: string
+  email: string
+  email_verified: boolean
+  created_at: string
+}
+const pendingEnterprises = ref<PendingEnterprise[]>([])
+const pendingLoading = ref(false)
+
+async function fetchPendingEnterprises() {
+  pendingLoading.value = true
+  try {
+    const { data } = await adminApi.getUsers({ role: 'enterprise', status: 'pending', per_page: 50 })
+    const res = data.data ?? data
+    pendingEnterprises.value = res.data ?? res
+  } finally {
+    pendingLoading.value = false
+  }
+}
+
+async function approveEnterprise(ent: PendingEnterprise) {
+  await ElMessageBox.confirm(
+    `Activate enterprise account for "${ent.display_name ?? ent.email}"?`,
+    'Confirm Activation',
+    { type: 'warning', confirmButtonText: 'Activate', cancelButtonText: 'Cancel' },
+  )
+  await adminApi.approveEnterprise(ent.id)
+  ElMessage.success('Enterprise account activated!')
+  fetchPendingEnterprises()
+  fetchStats()
+}const statCards = computed(() => [
   { label: t('adminDashboard.stats.totalUsers'), value: stats.value.total_users ?? 0, color: 'blue', icon: '👥' },
   { label: t('adminDashboard.stats.newUsers'), value: stats.value.new_users ?? 0, color: 'green', icon: '🆕' },
   { label: t('adminDashboard.stats.pendingResumes'), value: stats.value.pending_resumes ?? 0, color: 'orange', icon: '📄' },
@@ -257,6 +289,37 @@ const doughnutOptions = {
         <span>🔑 {{ t('adminUsers.role.admin') }}: <strong>{{ (stats.admins ?? 0).toLocaleString() }}</strong></span>
       </div>
 
+      <!-- ── Pending Enterprise Accounts (shown above charts for visibility) ── -->
+      <div v-if="pendingLoading || pendingEnterprises.length > 0" class="pending-enterprises">
+        <div class="section-header">
+          <h2 class="section-title">
+            🏢 Pending Enterprise Accounts
+            <el-badge v-if="pendingEnterprises.length" :value="pendingEnterprises.length" type="danger" class="ml-2" />
+          </h2>
+          <el-button size="small" text @click="router.push('/admin/users?role=enterprise&status=pending')">
+            View All →
+          </el-button>
+        </div>
+
+        <div v-if="pendingLoading" class="pending-loading">
+          <el-skeleton animated :rows="2" />
+        </div>
+        <div v-else class="pending-list">
+          <div v-for="ent in pendingEnterprises" :key="ent.id" class="pending-item">
+            <div class="pending-info">
+              <div class="pending-company">{{ ent.display_name ?? ent.email }}</div>
+              <div class="pending-meta">
+                {{ ent.email }}
+                <el-tag v-if="!ent.email_verified" type="warning" size="small" class="ml-1">Email unverified</el-tag>
+                <el-tag v-else type="success" size="small" class="ml-1">Email verified</el-tag>
+                <span class="pending-date">· Registered {{ new Date(ent.created_at).toLocaleDateString() }}</span>
+              </div>
+            </div>
+            <el-button type="success" size="small" @click="approveEnterprise(ent)">Activate</el-button>
+          </div>
+        </div>
+      </div>
+
       <!-- Charts row 1 -->
       <div class="charts-row">
         <!-- User growth line chart -->
@@ -421,6 +484,46 @@ const doughnutOptions = {
   color: #6c757d;
   font-size: 14px;
 }
+
+/* Pending Enterprise Accounts */
+.pending-enterprises {
+  background: #fff;
+  border-radius: 12px;
+  border: 2px solid #ffc107;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #003366;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ml-1 { margin-left: 4px; }
+.ml-2 { margin-left: 8px; }
+.pending-loading { padding: 8px 0; }
+.pending-empty { padding: 8px 0; }
+.pending-list { display: flex; flex-direction: column; gap: 10px; }
+.pending-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #fffbf0;
+  border: 1px solid #ffe58f;
+  border-radius: 8px;
+}
+.pending-company { font-weight: 600; font-size: 14px; color: #1a1a1a; }
+.pending-meta { font-size: 12px; color: #6c757d; margin-top: 2px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.pending-date { color: #aaa; }
 
 /* Quick actions */
 .quick-actions {

@@ -54,11 +54,12 @@
     "resetSubtitle": "在下方输入您的新密码。",
     "resetBtn": "重置密码",
     "passwordReset": "密码已重置，请重新登录。",
-    "pendingApproval": "您的注册申请正在等待管理员审核，审核结果将通过邮件通知您。",
+    "pendingApproval": "注册信息已提交！请先查收邮件并点击确认链接完成邮箱验证。验证完成后，管理员将审核您的账户并通过邮件通知您。",
     "emailConfirmNotice": "验证邮件将发送至您的邮箱，请在登录前确认您的电子邮件地址。",
     "checkEmailNotice": "请查收邮件以验证您的账户。",
     "oauthProcessing": "正在完成登录...",
     "oauthError": "登录失败，请重试。",
+    "emailAlreadyRegistered": "该邮箱已注册，请登录或使用其他邮箱。",
     "registerAsStudent": "学生",
     "registerAsEnterprise": "企业"
   },

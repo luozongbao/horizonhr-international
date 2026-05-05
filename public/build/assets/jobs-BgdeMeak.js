@@ -1,0 +1,1 @@
+import{a as e}from"./index-17Xwbm89.js";var t={getJobs:t=>e.get(`/public/jobs`,{params:t}),getJob:t=>e.get(`/public/jobs/${t}`),applyForJob:t=>e.post(`/student/applications`,{job_id:t}),getMyApplications:t=>e.get(`/student/applications`,{params:t}),withdrawApplication:t=>e.delete(`/student/applications/${t}`)};export{t};

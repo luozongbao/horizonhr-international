@@ -13,6 +13,7 @@ const router = useRouter()
 const formRef = ref<FormInstance>()
 const loading = ref(false)
 const submitted = ref(false)
+const errorMsg = ref('')
 
 const form = reactive({
   name: '',
@@ -61,6 +62,7 @@ async function handleSubmit() {
   if (!valid) return
 
   loading.value = true
+  errorMsg.value = ''
   try {
     await authApi.registerStudent({
       name: form.name,
@@ -71,6 +73,16 @@ async function handleSubmit() {
       pdpa_consent: form.pdpa_consent,
     })
     submitted.value = true
+  } catch (e: any) {
+    const details = e.response?.data?.error?.details
+    if (details?.email?.[0] === 'EMAIL_ALREADY_REGISTERED') {
+      errorMsg.value = t('auth.emailAlreadyRegistered')
+    } else if (details) {
+      const first = Object.values(details as Record<string, string[]>)[0]
+      errorMsg.value = Array.isArray(first) ? first[0] : String(first)
+    } else {
+      errorMsg.value = e.response?.data?.error?.message ?? t('common.error')
+    }
   } finally {
     loading.value = false
   }
@@ -132,6 +144,8 @@ const nationalities = [
             {{ t('auth.alreadyHaveAccount') }}
             <router-link to="/login">{{ t('auth.login') }}</router-link>
           </p>
+
+          <el-alert v-if="errorMsg" :title="errorMsg" type="error" show-icon :closable="false" class="mb-4" />
 
           <el-form ref="formRef" :model="form" :rules="rules" label-position="top">
             <div class="form-grid">
