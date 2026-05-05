@@ -41,37 +41,37 @@ Manually verify all public-facing frontend pages render correctly, navigation wo
 Open `http://10.11.12.30` in Chrome.
 
 **Check:**
-- [ ] Page loads within 3 seconds
-- [ ] No console errors (F12 → Console)
-- [ ] Header with company name and navigation visible
-- [ ] Banner/slider with slogan visible
-- [ ] Login/Register buttons in header
-- [ ] Footer with contact info visible
+- [✅] Page loads within 3 seconds
+- [✅] No console errors (F12 → Console)
+- [✅] Header with company name and navigation visible
+- [✅] Banner/slider with slogan visible
+- [✅] Login/Register buttons in header
+- [✅] Footer with contact info visible
 
 #### A2. Home Page Sections
 
 Scroll down the home page.
 
 **Check:**
-- [ ] Core section entries visible (Study in China, Talent Pool, Corporate, Seminar)
-- [ ] Partner logos section visible (or placeholder)
+- [✅] Core section entries visible (Study in China, Talent Pool, Corporate, Seminar)
+- [✅] Partner logos section visible (or placeholder)
 - [ ] Outstanding students section visible
-- [ ] Upcoming seminars section visible
+- [✅] Upcoming seminars section visible
 - [ ] Core advantages section (3-4 items)
-- [ ] Footer: address, phone, email, copyright
+- [✅] Footer: address, phone, email, copyright
 
 #### A3. Navigation Menu
 
 Click each navigation item.
 
 **Check:**
-- [ ] About Us → `/about` loads correctly
-- [ ] Study in China → `/study` loads correctly
-- [ ] Talent Pool → `/talent` loads correctly
-- [ ] Corporate Cooperation → `/corporate` loads correctly
-- [ ] Seminar Center → `/seminars` loads correctly
-- [ ] News → `/news` loads correctly
-- [ ] Contact Us → `/contact` loads correctly
+- [✅] About Us → `/about` loads correctly
+- [✅] Study in China → `/study` loads correctly
+- [✅] Talent Pool → `/talent` loads correctly
+- [✅] Corporate Cooperation → `/corporate` loads correctly
+- [✅] Seminar Center → `/seminars` loads correctly
+- [✅] News → `/news` loads correctly
+- [✅] Contact Us → `/contact` loads correctly
 
 ---
 
@@ -82,24 +82,24 @@ Click each navigation item.
 Find the language switcher (top-right header area).
 
 **Check:**
-- [ ] Language switcher is visible and accessible
-- [ ] Clicking "中文" / "ZH" switches page text to Chinese
-- [ ] Navigation items change to Chinese
-- [ ] Home page sections show Chinese text
-- [ ] Language preference persists on page navigation
+- [✅] Language switcher is visible and accessible
+- [✅] Clicking "中文" / "ZH" switches page text to Chinese
+- [✅] Navigation items change to Chinese
+- [✅] Home page sections show Chinese text
+- [✅] Language preference persists on page navigation
 
 #### B2. Switch to Thai
 
 **Check:**
-- [ ] Clicking "ภาษาไทย" / "TH" switches page text to Thai
-- [ ] Navigation items change to Thai
-- [ ] Thai text renders correctly (correct font, no broken characters)
+- [✅] Clicking "ภาษาไทย" / "TH" switches page text to Thai
+- [✅] Navigation items change to Thai
+- [✅] Thai text renders correctly (correct font, no broken characters)
 
 #### B3. Switch Back to English
 
 **Check:**
-- [ ] "EN" / "English" restores English text
-- [ ] All sections back to English
+- [✅] "EN" / "English" restores English text
+- [✅] All sections back to English
 
 ---
 
@@ -108,11 +108,11 @@ Find the language switcher (top-right header area).
 Navigate to `/about`.
 
 **Check:**
-- [ ] Page title "About Us" visible
-- [ ] Company introduction section
-- [ ] Service system section
-- [ ] Qualification display section (or placeholder)
-- [ ] No broken images or layout issues
+- [✅] Page title "About Us" visible
+- [✅] Company introduction section
+- [✅] Service system section
+- [✅] Qualification display section (or placeholder)
+- [✅] No broken images or layout issues
 
 ---
 
@@ -121,11 +121,11 @@ Navigate to `/about`.
 Navigate to `/study`.
 
 **Check:**
-- [ ] Recruitment projects section (Vocational, Bachelor's, Master's, etc.)
-- [ ] Application guide section or tabs
-- [ ] Partner universities section (list or grid)
-- [ ] FAQ section
-- [ ] "Apply Now" or CTA button visible
+- [✅] Recruitment projects section (Vocational, Bachelor's, Master's, etc.)
+- [✅] Application guide section or tabs
+- [✅] Partner universities section (list or grid)
+- [✅] FAQ section
+- [✅] "Apply Now" or CTA button visible
 
 ---
 
@@ -134,10 +134,10 @@ Navigate to `/study`.
 Navigate to `/talent`.
 
 **Check:**
-- [ ] Talent cards visible (from seeded data or with placeholder state)
-- [ ] Filter options visible (nationality, major, language)
-- [ ] Each card shows: photo placeholder, name, nationality, university, job intention
-- [ ] Clicking a card or "View Profile" shows detail view
+- [✅] Talent cards visible (from seeded data or with placeholder state)
+- [✅] Filter options visible (nationality, major, language)
+- [✅] Each card shows: photo placeholder, name, nationality, university, job intention
+- [✅] Clicking a card or "View Profile" shows detail view
 
 ---
 
@@ -146,10 +146,10 @@ Navigate to `/talent`.
 Navigate to `/corporate`.
 
 **Check:**
-- [ ] Enterprise services section
-- [ ] Partner company logos or placeholder
-- [ ] "Post a Job" / "Register as Enterprise" CTA visible
-- [ ] Cooperation cases section (or placeholder)
+- [✅] Enterprise services section
+- [✅] Partner company logos or placeholder
+- [✅] "Post a Job" / "Register as Enterprise" CTA visible
+- [✅] Cooperation cases section (or placeholder)
 
 ---
 

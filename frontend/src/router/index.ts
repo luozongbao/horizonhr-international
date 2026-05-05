@@ -91,7 +91,11 @@ const router = createRouter({
     },
     {
       path: '/email/verify/:token',
-      alias: '/email/confirmed',
+      component: () => import('@/views/auth/EmailVerifyView.vue'),
+      meta: { layout: 'auth' },
+    },
+    {
+      path: '/email/confirmed',
       component: () => import('@/views/auth/EmailVerifyView.vue'),
       meta: { layout: 'auth' },
     },

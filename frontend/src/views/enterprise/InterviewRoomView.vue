@@ -292,6 +292,10 @@ watch(phase, async (p) => {
             />
           </template>
         </TrtcRoom>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <style scoped>

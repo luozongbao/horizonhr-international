@@ -13,7 +13,7 @@ function select(lang: SupportedLocale) {
 <template>
   <el-dropdown trigger="click" @command="select">
     <button class="lang-trigger" :class="{ 'lang-dark': props.dark }">
-      <el-icon><Globe /></el-icon>
+      <el-icon><Compass /></el-icon>
       <span class="lang-label">{{ languageStore.currentLocaleLabel }}</span>
       <el-icon size="12"><ArrowDown /></el-icon>
     </button>

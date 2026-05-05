@@ -187,3 +187,5 @@ export const enterpriseApi = {
   sendInterviewMessage: (interviewId: number, content: string) =>
     api.post(`/interviews/${interviewId}/messages`, { content }),
 }
+
+export default enterpriseApi

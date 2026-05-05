@@ -261,22 +261,3 @@ onBeforeUnmount(() => {
   text-decoration: underline;
 }
 </style>
-
-  background: #003366;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.danmu-send-btn:hover:not(:disabled) { background: #0055aa; }
-.danmu-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.danmu-login-hint {
-  color: rgba(255,255,255,0.7);
-  font-size: 13px;
-  pointer-events: all;
-  text-decoration: underline;
-}
-</style>
