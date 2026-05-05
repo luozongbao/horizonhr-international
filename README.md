@@ -168,6 +168,104 @@ cd frontend && npm run build
 
 ---
 
+## Database Seeding
+
+### Seeders overview
+
+| Seeder | Purpose | Safe to run again? |
+|--------|---------|-------------------|
+| `DatabaseSeeder` | Runs all seeders in order | ✅ Yes (uses `updateOrInsert`) |
+| `LanguageSettingSeeder` | Language display settings | ✅ Yes |
+| `LanguageSeeder` | Supported language records | ✅ Yes |
+| `SettingSeeder` | Site-wide settings (name, SMTP, SEO…) | ✅ Yes |
+| `AdminSeeder` | Default admin account | ✅ Yes |
+| `PageSeeder` | CMS pages (home, about, corporate, study-in-china, contact) | ✅ Yes |
+| `DummyDataSeeder` | QA test data (universities, seminars, jobs, news, students) | ✅ Yes |
+
+### Seed the base database (production-ready, no dummy data)
+
+Run all seeders **except** `DummyDataSeeder`:
+
+```bash
+docker compose exec backend php artisan db:seed --class=LanguageSettingSeeder
+docker compose exec backend php artisan db:seed --class=LanguageSeeder
+docker compose exec backend php artisan db:seed --class=SettingSeeder
+docker compose exec backend php artisan db:seed --class=AdminSeeder
+docker compose exec backend php artisan db:seed --class=PageSeeder
+```
+
+Or use the `DatabaseSeeder` after temporarily commenting out `DummyDataSeeder::class` in `DatabaseSeeder.php`.
+
+### Seed everything (base + dummy data for QA/testing)
+
+```bash
+# Run all seeders including DummyDataSeeder
+docker compose exec backend php artisan db:seed
+
+# Or run only the dummy data seeder
+docker compose exec backend php artisan db:seed --class=DummyDataSeeder
+```
+
+### Demo accounts created by DummyDataSeeder (password: `Demo@1234`)
+
+| Role | Email |
+|------|-------|
+| Enterprise | `demo.enterprise@horizonhr.test` |
+| Student (Thai) | `student.somying@horizonhr.test` |
+| Student (Thai) | `student.anuwat@horizonhr.test` |
+| Student (Vietnamese) | `student.nguyen@horizonhr.test` |
+| Student (Indonesian) | `student.putri@horizonhr.test` |
+
+### Remove dummy data
+
+The dummy data seeder does **not** have a built-in rollback. To remove dummy data, use one of these approaches:
+
+**Option A — Delete by known email (safe, targeted):**
+```bash
+docker compose exec backend php artisan tinker --execute="
+\$emails = [
+    'demo.enterprise@horizonhr.test',
+    'student.somying@horizonhr.test',
+    'student.anuwat@horizonhr.test',
+    'student.nguyen@horizonhr.test',
+    'student.putri@horizonhr.test',
+];
+App\Models\User::whereIn('email', \$emails)->delete();
+echo 'Done';
+"
+```
+
+Deleting users cascades to: `students`, `enterprises`, `talent_cards`, `resumes`, `applications`, and `interviews` (via `onDelete('cascade')` in migrations).
+
+To also remove universities, seminars, jobs, and posts:
+```bash
+docker compose exec backend php artisan tinker --execute="
+DB::table('universities')->whereIn('name_en', [
+    'Wuhan University','Huazhong University of Science and Technology',
+    'Zhongnan University of Economics and Law','Wuhan University of Technology',
+    'Wuhan Vocational College of Software and Engineering','Hubei University',
+])->delete();
+DB::table('seminars')->where('speaker_name', 'Dr. Somchai Prasertsri')->orWhere('speaker_name', 'Wang Jianming')->orWhere('speaker_name', 'Prof. Li Xiaoming')->orWhere('speaker_name', 'Chen Wei')->delete();
+DB::table('posts')->whereIn('category', ['company_news','study_abroad','industry_news','recruitment'])->where('title_en', 'like', '%HorizonHR%')->orWhere('title_en', 'like', '%Hubei%')->delete();
+echo 'Done';
+"
+```
+
+**Option B — Full database reset (wipes everything, then re-seeds base data):**
+```bash
+# ⚠️ Destructive — drops and recreates all tables
+docker compose exec backend php artisan migrate:fresh
+
+# Then re-seed only base data (no dummy data)
+docker compose exec backend php artisan db:seed --class=LanguageSettingSeeder
+docker compose exec backend php artisan db:seed --class=LanguageSeeder
+docker compose exec backend php artisan db:seed --class=SettingSeeder
+docker compose exec backend php artisan db:seed --class=AdminSeeder
+docker compose exec backend php artisan db:seed --class=PageSeeder
+```
+
+---
+
 ## Environment Variables
 
 | File | Purpose |

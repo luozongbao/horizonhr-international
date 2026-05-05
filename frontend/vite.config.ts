@@ -3,22 +3,19 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    // Auto-import Element Plus components (tree-shaking)
+    // Auto-import custom components
     Components({
-      resolvers: [ElementPlusResolver()],
       dts: 'src/components.d.ts',
     }),
     // Auto-import Vue, Vue Router, Pinia composables
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia'],
-      resolvers: [ElementPlusResolver()],
       dts: 'src/auto-imports.d.ts',
     }),
     // Bundle size visualizer — generates bundle-stats.html after `npm run build`
@@ -38,6 +35,17 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  optimizeDeps: {
+    include: [
+      'vue',
+      'vue-router',
+      'pinia',
+      'axios',
+      'vue-i18n',
+      '@unhead/vue/client',
+      '@element-plus/icons-vue',
+    ],
   },
   build: {
     outDir: '../public/build',

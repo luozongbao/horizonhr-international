@@ -104,7 +104,7 @@ export const adminApi = {
 
   /** Approve an enterprise account */
   approveEnterprise: (id: number) =>
-    api.put(`/admin/users/${id}/approve-enterprise`),
+    api.put(`/admin/users/${id}/activate-enterprise`),
 
   /** Delete a user */
   deleteUser: (id: number) =>
@@ -120,17 +120,13 @@ export const adminApi = {
   getResumes: (params?: ResumeParams) =>
     api.get('/admin/resumes', { params }),
 
-  /** Get resume detail including presigned download URL */
-  getResume: (id: number) =>
-    api.get(`/admin/resumes/${id}`),
-
   /** Approve a resume */
   approveResume: (id: number) =>
-    api.put(`/admin/resumes/${id}/approve`),
+    api.put(`/admin/resumes/${id}/review`, { status: 'approved' }),
 
-  /** Reject a resume with reason */
+  /** Reject a resume with notes */
   rejectResume: (id: number, reason: string) =>
-    api.put(`/admin/resumes/${id}/reject`, { reason }),
+    api.put(`/admin/resumes/${id}/review`, { status: 'rejected', notes: reason }),
 
   // ─── Interviews ────────────────────────────────────────────────────────────
 
@@ -138,9 +134,9 @@ export const adminApi = {
   getInterviews: (params?: InterviewParams) =>
     api.get('/admin/interviews', { params }),
 
-  /** Cancel an interview (admin) */
+  /** Cancel an interview (uses shared interview route) */
   cancelInterview: (id: number) =>
-    api.put(`/admin/interviews/${id}/cancel`),
+    api.put(`/interviews/${id}/cancel`),
 
   // ─── Seminars ──────────────────────────────────────────────────────────────
 
@@ -216,11 +212,9 @@ export const adminApi = {
 
   /** Upload media for rich text editor */
   uploadMedia: (formData: FormData) =>
-    api.post('/admin/media/upload', formData, {
+    api.post('/admin/posts/media-upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }),
-
-  // ─── Settings ──────────────────────────────────────────────────────────────
 
   /** Get all settings */
   getSettings: () =>
@@ -255,8 +249,6 @@ export const adminApi = {
   /** Update a language (enable/disable, set default) */
   updateLanguage: (id: number, data: { is_enabled?: boolean; is_default?: boolean }) =>
     api.put(`/admin/languages/${id}`, data),
-
-  // ─── Translations ──────────────────────────────────────────────────────────
 
   /** Get translation keys for a given language code */
   getTranslations: (lang: string) =>

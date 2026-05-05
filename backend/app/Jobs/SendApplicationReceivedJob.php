@@ -18,7 +18,7 @@ class SendApplicationReceivedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public string $queue   = 'emails';
+
     public int    $tries   = 3;
     public array  $backoff = [30, 60, 120];
 
@@ -26,7 +26,8 @@ class SendApplicationReceivedJob implements ShouldQueue
         protected Application $application,
         protected Job         $job,
         protected Student     $student,
-    ) {}
+    ) {
+        $this->onQueue('emails'); }
 
     public function handle(EmailService $emailService): void
     {

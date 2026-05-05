@@ -100,6 +100,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/profile',                 [\App\Http\Controllers\Student\ProfileController::class,       'show']);
         Route::put   ('/profile',                 [\App\Http\Controllers\Student\ProfileController::class,       'update']);
         Route::post  ('/profile/avatar',          [\App\Http\Controllers\Student\ProfileController::class,       'uploadAvatar']);
+        Route::put   ('/profile/password',         [\App\Http\Controllers\Student\ProfileController::class,       'changePassword']);
         // Resumes
         Route::get   ('/resumes',                 [\App\Http\Controllers\Student\ResumeController::class,        'index']);
         Route::post  ('/resumes',                 [\App\Http\Controllers\Student\ResumeController::class,        'store']);
@@ -111,6 +112,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'index']);
         Route::post  ('/applications',            [\App\Http\Controllers\Student\ApplicationController::class,   'store']);
         Route::delete('/applications/{id}',       [\App\Http\Controllers\Student\ApplicationController::class,   'destroy']);
+        Route::get   ('/seminar-registrations',   [\App\Http\Controllers\Public\SeminarController::class,        'myRegistrations']);
     });
 
     /*
@@ -174,6 +176,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::get   ('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'show']);
         Route::put   ('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'update']);
         Route::delete('/seminars/{id}',           [\App\Http\Controllers\Admin\SeminarController::class,        'destroy']);
+        Route::get   ('/seminars/{id}/registrations', [\App\Http\Controllers\Admin\SeminarController::class,   'registrations']);
         Route::post  ('/seminars/{id}/go-live',   [\App\Http\Controllers\Admin\SeminarController::class,        'goLive']);
         Route::post  ('/seminars/{id}/end-live',  [\App\Http\Controllers\Admin\SeminarController::class,        'endLive']);
         Route::get   ('/seminars/{id}/live-urls', [\App\Http\Controllers\Admin\SeminarLiveController::class,    'getLiveUrls']);
@@ -191,6 +194,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         // CMS Posts / News
         Route::get   ('/posts',              [\App\Http\Controllers\Admin\PostController::class, 'index']);
         Route::post  ('/posts',              [\App\Http\Controllers\Admin\PostController::class, 'store']);
+        Route::post  ('/posts/media-upload', [\App\Http\Controllers\Admin\PostController::class, 'mediaUpload']);
         Route::get   ('/posts/{id}',         [\App\Http\Controllers\Admin\PostController::class, 'show']);
         Route::put   ('/posts/{id}',         [\App\Http\Controllers\Admin\PostController::class, 'update']);
         Route::delete('/posts/{id}',         [\App\Http\Controllers\Admin\PostController::class, 'destroy']);
@@ -230,6 +234,7 @@ Route::middleware(['auth:sanctum', 'check.status'])->group(function () {
         Route::post  ('/translations/import',        [\App\Http\Controllers\Admin\TranslationController::class,   'import']);
         Route::get   ('/translations',               [\App\Http\Controllers\Admin\TranslationController::class,   'index']);
         Route::post  ('/translations',               [\App\Http\Controllers\Admin\TranslationController::class,   'store']);
+        Route::put   ('/translations',               [\App\Http\Controllers\Admin\TranslationController::class,   'bulkUpdate']);
         Route::get   ('/translations/{key}',         [\App\Http\Controllers\Admin\TranslationController::class,   'show']);
         Route::put   ('/translations/{key}',         [\App\Http\Controllers\Admin\TranslationController::class,   'update']);
         Route::delete('/translations/{key}',         [\App\Http\Controllers\Admin\TranslationController::class,   'destroy']);

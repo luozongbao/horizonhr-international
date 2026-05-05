@@ -86,7 +86,7 @@ class AuthService
             return $user;
         });
     }
-     */
+
     public function generateEmailConfirmationToken(User $user): string
     {
         // Invalidate any existing tokens for this user

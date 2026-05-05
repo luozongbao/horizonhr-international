@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePostRequest;
 use App\Http\Requests\Admin\UpdatePostRequest;
 use App\Models\Post;
+use App\Services\OssService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -218,6 +219,29 @@ class PostController extends Controller
             'success' => true,
             'data'    => ['id' => $post->id, 'status' => 'draft'],
             'message' => 'Post unpublished.',
+        ]);
+    }
+
+    /**
+     * POST /api/admin/posts/media-upload
+     * Upload an image for the rich text editor. Returns the public URL.
+     */
+    public function mediaUpload(Request $request): JsonResponse
+    {
+        $request->validate([
+            'file' => ['required', 'image', 'max:5120'],
+        ]);
+
+        $oss = app(OssService::class);
+        $key = $oss->uploadAvatar(
+            $request->file('file'),
+            'posts/media/' . now()->format('Y/m')
+        );
+        $url = $oss->publicUrl($key);
+
+        return response()->json([
+            'success' => true,
+            'data'    => ['url' => $url],
         ]);
     }
 }

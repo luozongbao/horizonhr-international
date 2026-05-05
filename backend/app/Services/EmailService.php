@@ -32,9 +32,7 @@ class EmailService
     {
         $this->applySmtpConfig();
 
-        $to = empty($toName) ? $toEmail : [$toEmail => $toName];
-
-        Mail::to($to)->send($mailable);
+        Mail::to($toEmail, $toName ?: null)->send($mailable);
     }
 
     /**

@@ -7,6 +7,8 @@ use App\Http\Requests\Student\UpdateStudentProfileRequest;
 use App\Services\OssService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class ProfileController extends Controller
 {
@@ -86,5 +88,29 @@ class ProfileController extends Controller
             'success' => true,
             'data'    => ['avatar' => $url],
         ]);
+    }
+
+    /**
+     * PUT /api/student/profile/password
+     */
+    public function changePassword(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'current_password'      => ['required', 'string'],
+            'password'              => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'string'],
+        ]);
+
+        $user = $request->user();
+
+        if (! Hash::check($data['current_password'], $user->password)) {
+            throw ValidationException::withMessages([
+                'current_password' => ['The current password is incorrect.'],
+            ]);
+        }
+
+        $user->update(['password' => Hash::make($data['password'])]);
+
+        return response()->json(['success' => true, 'message' => 'Password updated successfully.']);
     }
 }

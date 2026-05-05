@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             SettingSeeder::class,
             AdminSeeder::class,
+            PageSeeder::class,
+            DummyDataSeeder::class,
         ]);
     }
 }

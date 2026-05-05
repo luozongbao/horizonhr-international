@@ -1,1 +1,0 @@
-import{R as e,m as t,t as n}from"./_plugin-vue_export-helper-BtB5cseq.js";var r={};function i(n,r){return e(),t(`div`)}var a=n(r,[[`render`,i]]);export{a as default};

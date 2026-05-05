@@ -26,25 +26,25 @@ export const studentApi = {
 
   /** Update personal info */
   updateProfile: (data: UpdateProfilePayload) =>
-    api.put('/users/profile', data),
+    api.put('/student/profile', data),
 
   /** Upload avatar — send as FormData */
   uploadAvatar: (formData: FormData) =>
-    api.post('/users/avatar', formData, {
+    api.post('/student/profile/avatar', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }),
 
   /** Change password */
   changePassword: (data: ChangePasswordPayload) =>
-    api.put('/auth/password/change', data),
+    api.put('/student/profile/password', data),
 
   /** My resumes list */
   getResumes: () =>
-    api.get('/resumes/my'),
+    api.get('/student/resumes'),
 
   /** Upload resume — send as FormData */
   uploadResume: (formData: FormData, onProgress?: (pct: number) => void) =>
-    api.post('/resumes', formData, {
+    api.post('/student/resumes', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       onUploadProgress: (evt) => {
         if (onProgress && evt.total) {
@@ -55,11 +55,11 @@ export const studentApi = {
 
   /** Delete a resume version */
   deleteResume: (id: number) =>
-    api.delete(`/resumes/${id}`),
+    api.delete(`/student/resumes/${id}`),
 
   /** My job applications (recent) */
   getApplications: (params?: { my?: boolean; per_page?: number }) =>
-    api.get('/applications', { params: { my: true, ...params } }),
+    api.get('/student/applications', { params }),
 
   /** My interviews list */
   getInterviews: (params?: { status?: string; per_page?: number }) =>
@@ -75,7 +75,7 @@ export const studentApi = {
 
   /** My seminar registrations */
   getSeminarRegistrations: (params?: { per_page?: number }) =>
-    api.get('/seminar-registrations/my', { params }),
+    api.get('/student/seminar-registrations', { params }),
 
   /** Get interview chat messages */
   getInterviewMessages: (interviewId: number) =>

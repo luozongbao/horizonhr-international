@@ -154,4 +154,33 @@ class TranslationController extends Controller
             'data'    => ['count' => $count],
         ]);
     }
+
+    /**
+     * PUT /api/admin/translations
+     * Bulk update translations for a given language.
+     * Body: { lang: 'en'|'zh_cn'|'th', translations: { key: value, ... } }
+     */
+    public function bulkUpdate(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'lang'            => ['required', 'in:en,zh_cn,th'],
+            'translations'    => ['required', 'array'],
+            'translations.*'  => ['nullable', 'string'],
+        ]);
+
+        $lang = $data['lang'];
+        $count = 0;
+        foreach ($data['translations'] as $key => $value) {
+            Language::updateOrCreate(
+                ['key' => $key],
+                [$lang => $value]
+            );
+            $count++;
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "{$count} translation(s) updated.",
+        ]);
+    }
 }

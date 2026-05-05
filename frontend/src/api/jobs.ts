@@ -21,23 +21,23 @@ export interface ApplicationsParams {
 export const jobsApi = {
   /** List published jobs */
   getJobs: (params?: JobsParams) =>
-    api.get('/jobs', { params }),
+    api.get('/public/jobs', { params }),
 
   /** Single job detail */
   getJob: (id: number) =>
-    api.get(`/jobs/${id}`),
+    api.get(`/public/jobs/${id}`),
 
   /** Submit application for a job */
   applyForJob: (jobId: number) =>
-    api.post('/applications', { job_id: jobId }),
+    api.post('/student/applications', { job_id: jobId }),
 
   /** My applications (authenticated student) */
   getMyApplications: (params?: ApplicationsParams) =>
-    api.get('/applications', { params: { my: true, ...params } }),
+    api.get('/student/applications', { params }),
 
   /** Withdraw an application */
   withdrawApplication: (id: number) =>
-    api.delete(`/applications/${id}`),
+    api.delete(`/student/applications/${id}`),
 }
 
 export default jobsApi
